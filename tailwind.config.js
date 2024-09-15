@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'brush': ['"Brush Script MT"', 'cursive'],
+        'brush': ["Brush Script MT", 'cursive']
       },
     },
   },

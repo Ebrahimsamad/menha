@@ -1,11 +1,13 @@
 import React from 'react';
+import RepeatParagraph from "../../ui/RepeatParagrah";
 
 export default function Scholarshipnumbers() {
   return (
     <div className="text-center py-8 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-snug font-brush text-[#8A690F] mb-6 sm:mb-10">
-        Menha's impact on society
-      </h2>
+    <RepeatParagraph>
+            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl ">Men7a's impact on society</h2>
+          </RepeatParagraph>
+      
 
       <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10">
         <div className="flex flex-col items-center text-center">

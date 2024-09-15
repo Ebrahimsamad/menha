@@ -17,3 +17,9 @@
   transition: width 0.3s ease-in-out;
 }
 /* ! This part For navlink which i use for navbar , Don't remove it  */
+@font-face {
+  font-family: 'Brush Script MT';
+  src: url('/public/font/BRUSHSCI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

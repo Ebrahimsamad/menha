@@ -51,7 +51,7 @@ const Navbar = () => {
           </li>
           <li className="group">
             <NavLink
-              to="/search"
+              to="#search"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
               Search
