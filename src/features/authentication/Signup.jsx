@@ -100,7 +100,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[url('3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
+    <div className="min-h-screen bg-[url('/3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
       <div className="relative z-10 p-6 bg-white rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
           Sign Up
