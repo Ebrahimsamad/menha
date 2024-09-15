@@ -80,7 +80,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/Browse" element={<BrowseScholarship />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
 
