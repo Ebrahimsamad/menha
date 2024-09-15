@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ! This part For navlink which i use for navbar , Don't remove it  */
+.active {
+  position: relative;
+}
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #b92a3b;
+  transition: width 0.3s ease-in-out;
+}
+/* ! This part For navlink which i use for navbar , Don't remove it  */

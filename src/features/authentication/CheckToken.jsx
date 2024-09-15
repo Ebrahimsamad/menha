@@ -10,7 +10,6 @@ const CheckToken = () => {
   const { checkResetPasswordToken } = useAuth();
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
-  const backgroundImageUrl = "3.jpg";
 
   const {
     register,
@@ -39,15 +38,7 @@ const CheckToken = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#003a65] to-[#b92a3b] flex items-center justify-center">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${backgroundImageUrl})`,
-          backgroundBlendMode: "overlay",
-        }}
-      ></div>
-
+    <div className="min-h-screen bg-[url('3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
       <div className="relative z-10 p-6 bg-white rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
           Check Reset Token
