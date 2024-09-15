@@ -1,5 +1,7 @@
+import Search from "../features/Dashboard/Search";
+
 function Dashboard() {
-  return <div>Hello From Dashboard</div>;
+  return (<Search/>)
 }
 
 export default Dashboard;
