@@ -11,6 +11,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import BrowseScholarship from "./features/dashboard/BrowseScholarship";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/Browse" element={<BrowseScholarship />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
