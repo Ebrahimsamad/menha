@@ -12,8 +12,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Layout from "./layout/Layout";
-import BrowseScholarship from "./features/dashboard/BrowseScholarship";
-import CardBrowseScholarship from "./features/browesscolarship/CardBrowseScholarship";
+
 
 function App() {
   return (
@@ -41,7 +40,6 @@ function App() {
           <Route element={<Layout />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/browse-scholarships" element={<CardBrowseScholarship />} />
             <Route
               path="/login"
               element={

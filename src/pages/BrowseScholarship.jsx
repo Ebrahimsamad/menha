@@ -1,12 +1,17 @@
 import React from 'react'
+
 import CardBrowseScholarship from '../features/browesscolarship/CardBrowseScholarship'
+import HeroBrowseScholarship from "../features/browesscolarship/HeroBrowseScholarship";
 
 function BrowseScholarship() {
-  return (
-    <div>
-        <CardBrowseScholarship></CardBrowseScholarship>
-    </div>
+  return (<>
+     
+    <HeroBrowseScholarship/>
+    <CardBrowseScholarship/>
+           </>
+    
   )
 }
 
 export default BrowseScholarship
+
