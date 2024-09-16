@@ -58,6 +58,7 @@ export default function Search() {
                                     ) : (
                                         courseType.map(type => (
                                             <option key={type._id} value={type._id}>{type.courseType}</option>
+
                                         ))
                                     )}
                                 </select>
