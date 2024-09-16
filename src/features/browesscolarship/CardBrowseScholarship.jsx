@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllSelect } from '../../services/SearchSelect';
 import PrimaryButton from '../../ui/PrimaryButton';
-import '../../ui/Button';
 
 const ScholarshipComponent = () => {
     const navigate = useNavigate();
@@ -40,7 +39,7 @@ const ScholarshipComponent = () => {
     };
 
     const handleNavigate = (_id) => {
-        navigate(`/scholarships/${_id}`);
+        navigate(`/scholarships?fieldOfStudy=${_id}`);
     };
 
     return (
