@@ -14,8 +14,6 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Layout from "./layout/Layout";
 
 import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
-
-
 function App() {
   return (
     <AuthProvider>
