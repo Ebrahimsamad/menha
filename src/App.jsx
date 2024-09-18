@@ -8,11 +8,12 @@ import SignupPage from "./pages/SignupPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import CheckTokenPage from "./pages/CheckTokenPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import BrowseScholarship from "./pages/BrowseScholarship";
 
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Layout from "./layout/Layout";
-
+import About from "./pages/About";
 import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
 import Scholarship from "./pages/Scholarship";
 
@@ -44,6 +45,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/scolarshipdetails/:scholarshipId/*" element={<ScolarshipDetails />} />
             <Route path="/scholarships" element={<Scholarship />} />
+            <Route
+              path="/browse-scholarships"
+              element={<BrowseScholarship />}
+            />
+            <Route path="/about" element={<About />} />
             <Route
               path="/login"
               element={
@@ -86,7 +92,6 @@ function App() {
             />
             <Route path="*" element={<PageNotFound />} />
           </Route>
-
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { FiMenu, FiX, FiSearch } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -23,7 +24,7 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Navigation Links for lg screens*/}
+        {/* Navigation Links for lg screens */}
         <ul className="hidden lg:flex space-x-8 items-center">
           <li className="group">
             <NavLink
@@ -38,12 +39,12 @@ const Navbar = () => {
               to="/scholarships"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
-              Featured Scholarships
+              Scholarships
             </NavLink>
           </li>
           <li className="group">
             <NavLink
-              to="/browse"
+              to="/browse-scholarships"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
               Browse Scholarships
@@ -51,12 +52,25 @@ const Navbar = () => {
           </li>
           <li className="group">
             <NavLink
-              to="#search"
+              to="/about"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
-              Search
+              About
             </NavLink>
           </li>
+
+          {/* Conditionally render Search Icon for /dashboard route */}
+          {location.pathname === "/dashboard" && (
+            <li className="group">
+              <a
+                href="#search"
+                className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
+              >
+                <FiSearch size={20} />
+                <span>Search</span>
+              </a>
+            </li>
+          )}
         </ul>
 
         {/* Authentication Links */}
@@ -99,7 +113,7 @@ const Navbar = () => {
         </div>
 
         {/* Burger Menu Icon for mobile and medium devices */}
-        <div className="lg:hidden flex items-center ">
+        <div className="lg:hidden flex items-center">
           <button
             onClick={toggleMenu}
             className="text-white focus:outline-none"
@@ -122,9 +136,9 @@ const Navbar = () => {
       {/* Mobile and Medium Device Menu */}
       <ul
         className={`${
-          isMenuOpen ? "flex  mt-14" : "hidden "
+          isMenuOpen ? "flex mt-14" : "hidden"
         } lg:hidden flex-col space-y-6 items-center bg-[#003a65] absolute top-0 right-0 w-2/3 md:w-2/3 h-screen p-6 z-20 transition-transform duration-300 transform ${
-          isMenuOpen ? "translate-x-0 " : "translate-x-full"
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <li className="group">
@@ -140,29 +154,38 @@ const Navbar = () => {
             to="/scholarships"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
           >
-            Featured Scholarships
+            Scholarships
           </NavLink>
         </li>
         <li className="group">
           <NavLink
-            to="/browse"
+            to="/browse-scholarships"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
           >
             Browse Scholarships
           </NavLink>
         </li>
-        <li className="group cursor-pointer">
-          <span
-            onClick={() =>
-              document
-                .getElementById("search")
-                .scrollIntoView({ behavior: "smooth" })
-            }
+        <li className="group">
+          <NavLink
+            to="/about"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
           >
-            Search
-          </span>
+            About
+          </NavLink>
         </li>
+
+        {/* Conditional Search Link with Icon for mobile */}
+        {location.pathname === "/dashboard" && (
+          <li className="group">
+            <a
+              href="#search"
+              className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
+            >
+              <FiSearch size={20} />
+              <span>Search</span>
+            </a>
+          </li>
+        )}
 
         {/* Authentication Links for Mobile */}
         {isAuthenticated ? (

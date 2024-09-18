@@ -1,41 +1,38 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import PrimaryButton from "../../ui/PrimaryButton";
 
 const Afternavbar = () => {
   return (
-    <div className="relative w-full">
-      <div className="w-full h-[300px] sm:h-[500px] lg:h-[600px]">
+    <div className="flex flex-col lg:flex-row items-stretch bg-white h-auto lg:h-[50vh] w-full overflow-hidden">
+      {/* Left side - Image */}
+      <div className="w-full lg:w-1/2 h-64 lg:h-auto">
         <img
-          src="heroBG.jpg"
-          alt="Menha Scholarship"
+          src="/heroBG.jpg"
+          alt="Chevening Scholarship Banner"
           className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="w-full bg-[#003a65] text-white flex flex-col justify-center p-4 sm:absolute sm:top-0 sm:right-0 sm:w-[40%] sm:h-full sm:p-6 lg:p-10 lg:pl-8">
-        <div className="absolute top-0 left-[-40px] h-full w-[40px] bg-[#003a65] rounded-l-full"></div>
-
-        <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold mb-2 lg:mb-4 leading-tight">
-          Study with a Menha Scholarship
-        </h1>
-        <div>
-          <h2 className="text-5xl text-start text-white">
-            Applications are open
+      {/* Right side - Text */}
+      <div className="w-full lg:w-1/2 bg-[#003a65] text-white p-6 md:p-10 lg:p-16 flex items-center justify-center">
+        <div className="max-w-lg w-full text-center lg:text-left">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+            Study with Men7a
           </h2>
+          <p className="text-md md:text-lg text-[#B5A269] lg:text-xl italic mb-6">
+            Applications are open!
+          </p>
+          <p className="mb-6">
+            We provide fully funded scholarships so that you can outpace your
+            peers and return home with the skills, knowledge, and network
+            required to influence the change you want to see.
+          </p>
+          <PrimaryButton className="btn btn-primary bg-yellow-400 text-[#003a65] hover:bg-yellow-300">
+            <Link to="/scholarships">Apply today</Link>
+          </PrimaryButton>
         </div>
-        <p className="text-sm sm:text-base lg:text-lg mb-4 lg:mb-6">
-          We provide fully funded scholarships so that you can outpace your
-          peers and return home with the skills, knowledge, and network required
-          to influence the change you want to see.
-        </p>
-        <Link
-          to="/scolarship"
-          className="text-inherit underline decoration-[#8A690F] w-20 underline-offset-8 hover:underline hover:text-[#8A690F]"
-        >
-          Apply Now
-        </Link>
       </div>
-    </div  >
+    </div>
   );
 };
 
