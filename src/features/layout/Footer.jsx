@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start">
             <Link to="/dashboard">
               <img
-                src="logo.png"
+                src="/logo.png"
                 alt="Men7a Logo"
                 className="w-32 h-12 mb-4 object-contain"
               />

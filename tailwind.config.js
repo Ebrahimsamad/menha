@@ -8,15 +8,11 @@ export default {
         'slide-bottom': 'slideBottom 1s ease-in-out reverse',
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
         slideBottom: {
           '0%': { transform: 'translateY(0)' },
           '100%': { transform: 'translateY(30px)' },
         },
-      
+      },
       fontFamily: {
         'brush': ["Brush Script MT", 'cursive']
       },
@@ -24,4 +20,4 @@ export default {
   },
   plugins: [],
 }
-}
+

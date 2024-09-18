@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RepeatParagraph from '../../ui/RepeatPara';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../ui/PrimaryButton';
 import SecondaryButton from '../../ui/SecondaryButton';
 import { getAllScholarships } from '../../services/Scholarship';
@@ -13,13 +13,14 @@ const CardScholarship = ({ isOpen }) => {
   const [savedScholarships, setSavedScholarships] = useState(new Set());
   const [error, setError] = useState('')
   const location = useLocation();
+  const params = new URLSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScholarships = async () => {
       setLoading(true);
 
       const searchParams = new URLSearchParams(location.search);
-      const params = new URLSearchParams();
       if (searchParams.get('courseTypeId')) params.append('courseTypeId', searchParams.get('courseTypeId'));
       if (searchParams.get('languageId')) params.append('languageId', searchParams.get('languageId'));
       if (searchParams.get('fieldOfStudy')) params.append('fieldOfStudyId', searchParams.get('fieldOfStudy'));
@@ -28,8 +29,8 @@ const CardScholarship = ({ isOpen }) => {
       if (searchParams.get('isWinter')) params.append('isWinter', searchParams.get('isWinter') === 'true');
       if (searchParams.get('isFree')) params.append('isFree', searchParams.get('isFree') === 'true');
       if (searchParams.get('isFullTime')) params.append('isFullTime', searchParams.get('isFullTime') === 'true');
-
-      params.append('page', currentPage);
+      if (searchParams.get('page')) params.append('page', searchParams.get('page') === 'true');
+      setCurrentPage(parseInt( searchParams.get('page'))||1)
       params.append('size', 2);
 
       try {
@@ -47,7 +48,7 @@ const CardScholarship = ({ isOpen }) => {
     };
 
     fetchScholarships();
-  }, [currentPage, location]);
+  }, [ location]);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('savedScholarships')) || [];
@@ -66,11 +67,18 @@ const CardScholarship = ({ isOpen }) => {
   };
 
   const handlePageChange = (direction) => {
+    const searchParams = new URLSearchParams(location.search);
     if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      
+      searchParams.set('page', currentPage+1);
     } else if (direction === 'prev' && currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      searchParams.set('page', currentPage-1);
+      
+      
     }
+    navigate(`/scholarships?${searchParams.toString()}`);
 
   };
   if (error) {
@@ -115,7 +123,8 @@ const CardScholarship = ({ isOpen }) => {
         </>
       ) : scholarships.length === 0 ? (
         <div className="text-center py-10">
-          <h2 className="text-xl font-bold">No scholarships found</h2>
+          <h2 className="text-xl font-bold mb-5">No scholarships found</h2>
+          <img src='/Empty.gif'/>
         </div>
       ) : (
         <>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../ui/PrimaryButton";
+import RepeatParagrah from "../../ui/RepeatPara";
 
 const Afternavbar = () => {
   return (
@@ -19,9 +20,9 @@ const Afternavbar = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             Study with Men7a
           </h2>
-          <p className="text-md md:text-lg text-[#B5A269] lg:text-xl italic mb-6">
-            Applications are open!
-          </p>
+          <RepeatParagrah>
+            <h2 className="text-white text-start text-4xl sm:text-3xl md:text-4xl lg:mb-2 ">Applications are open</h2>
+          </RepeatParagrah>
           <p className="mb-6">
             We provide fully funded scholarships so that you can outpace your
             peers and return home with the skills, knowledge, and network

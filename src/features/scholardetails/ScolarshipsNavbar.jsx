@@ -15,13 +15,11 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
     <nav className="bg-white shadow-lg relative">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="flex items-center space-x-4">
-          <Link to="/dashboard" className="flex items-center">
             <img
-              src="output-onlinepngtools.png"
+              src="/output-onlinepngtools.png"
               alt="Men7a Logo"
               className="w-24 h-12 md:w-40 md:h-8 object-contain"
             />
-          </Link>
         </div>
 
         <div className="lg:hidden flex items-center">

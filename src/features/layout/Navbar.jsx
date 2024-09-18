@@ -18,7 +18,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center space-x-4">
           <img
-            src="logo.png"
+            src="/logo.png"
             alt="Men7a Logo"
             className="w-24 h-12 md:w-40 md:h-8 object-contain"
           />
