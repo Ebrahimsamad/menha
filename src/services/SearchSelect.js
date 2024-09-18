@@ -12,11 +12,21 @@ export const getAllSelect=async()=>{
       })
     const courseLanguage = await res2.json();
 
-    const res3= await fetch(`${BASE_URL}/field-of-study`,{
+    const res3= await fetch(`${BASE_URL}/university`,{
         method: "GET",
       })
-    const fieldOfStudy = await res3.json();
+    const university = await res3.json();
 
-    return {courseType, courseLanguage, fieldOfStudy};
+    const res4= await fetch(`${BASE_URL}/field-of-study`,{
+      method: "GET",
+    })
+  const fieldOfStudy = await res4.json();
+
+  const res5= await fetch(`${BASE_URL}/mode-of-study`,{
+    method: "GET",
+  })
+const modeOfStudy = await res5.json();
+
+    return {courseType, courseLanguage, fieldOfStudy,university,modeOfStudy};
 
 }
