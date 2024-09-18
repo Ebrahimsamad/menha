@@ -12,7 +12,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Layout from "./layout/Layout";
-
+import Scholarship from "./pages/Scholarship";
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
           <Route element={<Layout />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/scholarships" element={<Scholarship />} />
             <Route
               path="/login"
               element={
