@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 /* ! This part For navlink which i use for navbar , Don't remove it  */
 .active {
   position: relative;
+}
+/* ! this for smoothly scrolling down in #search section */
+html {
+  scroll-behavior: smooth;
 }
 .active::after {
   content: "";
@@ -18,8 +25,8 @@
 }
 /* ! This part For navlink which i use for navbar , Don't remove it  */
 @font-face {
-  font-family: 'Brush Script MT';
-  src: url('/public/font/BRUSHSCI.TTF') format('truetype');
+  font-family: "Brush Script MT";
+  src: url("/public/font/BRUSHSCI.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

@@ -5,13 +5,15 @@ import Scholarshipnumbers from "../features/dashboard/Scholarshipnumbers";
 import Search from "../features/dashboard/Search";
 
 function Dashboard() {
-  return (<>
-    <Afternavbar/>
-    <LatestScholarships/>
-    <Search/>
-    <BrowseScholarship/>
-    <Scholarshipnumbers/>
-  </>)
+  return (
+    <>
+      <Afternavbar />
+      <LatestScholarships />
+      <Search />
+      <BrowseScholarship />
+      <Scholarshipnumbers />
+    </>
+  );
 }
 
 export default Dashboard;

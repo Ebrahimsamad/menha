@@ -8,11 +8,12 @@ import SignupPage from "./pages/SignupPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import CheckTokenPage from "./pages/CheckTokenPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import BrowseScholarship from "./pages/BrowseScholarship";
 
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Layout from "./layout/Layout";
-import BrowseScholarship from "./features/dashboard/BrowseScholarship";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
           <Route element={<Layout />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/browse-scholarships"
+              element={<BrowseScholarship />}
+            />
+            <Route path="/about" element={<About />} />
             <Route
               path="/login"
               element={
@@ -82,7 +88,6 @@ function App() {
             />
             <Route path="*" element={<PageNotFound />} />
           </Route>
-
         </Routes>
       </BrowserRouter>
     </AuthProvider>
