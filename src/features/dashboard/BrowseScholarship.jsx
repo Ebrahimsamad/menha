@@ -1,10 +1,11 @@
 import RepeatParagrah from "../../ui/RepeatParagrah";
 import { useNavigate } from 'react-router-dom';
+import SecondaryButton from "../../ui/SecondaryButton";
 
 function BrowseScholarship() {
   const navigate = useNavigate(); 
   const handleNavigate = () => {
-    navigate('/scholarship');
+    navigate('/browse-scholarships');
   };
 
   return (
@@ -22,13 +23,8 @@ function BrowseScholarship() {
         </p>
 
         <div className="flex justify-center mb-6 mt-4">
-          <button
-            onClick={handleNavigate}
-            className="inline-block px-6 py-3 bg-white text-[#003a65] font-bold rounded-full shadow-lg transition hover:bg-[#b92a3b] hover:text-white"
-            aria-label="Apply"
-          >
-            BROWSE SCHOLARSHIP
-          </button>
+        <SecondaryButton onClick={handleNavigate}>BROWSE SCHOLARSHIP</SecondaryButton>
+         
         </div>
       </div>
     </section>

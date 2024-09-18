@@ -5,9 +5,11 @@ import HeroBrowseScholarship from "../features/browesscolarship/HeroBrowseSchola
 
 function BrowseScholarship() {
   return (<>
-     
+     <div className='bg-gray-50'>
+
     <HeroBrowseScholarship/>
     <CardBrowseScholarship/>
+     </div>
            </>
     
   )

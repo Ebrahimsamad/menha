@@ -4,11 +4,13 @@ import PrimaryButton from "../../ui/PrimaryButton";
 import { fetchScholarships } from "../../services/LatestScholarships";
 import toast, { Toaster } from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LatestScholarships() {
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getScholarships = async () => {
@@ -25,7 +27,9 @@ export default function LatestScholarships() {
 
     getScholarships();
   }, []);
-
+  const handelViewScholarships=()=>{
+    navigate(`/scholarships`);
+  }
   return (
     <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <>
@@ -38,35 +42,50 @@ export default function LatestScholarships() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {loading ? (
             <>
-              <div className="flex justify-center items-center">
-                <Spinner />
+              <div className="md:col-span-2">
+                <div className="animate-pulse">
+                  <div className="bg-gray-300 w-full h-96 rounded-lg"></div>
+                  <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                  <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                </div>
               </div>
-              <div className="flex justify-center items-center">
-                <Spinner />
+              <div className="space-y-8">
+                <div>
+                  <div className="animate-pulse">
+                    <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
+                    <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                    <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                  </div>
+                </div>
+                <div><div className="animate-pulse">
+                  <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
+                  <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                  <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                </div></div>
               </div>
-              <div className="flex justify-center items-center">
-                <Spinner />
-              </div>
+
             </>
           ) : (
             <>
               <div className="md:col-span-2">
                 {scholarships.length > 0 ? (
                   <>
-                    <img
-                      src={scholarships[0]?.universityId?.image}
-                      alt={scholarships[0]?.title}
-                      className="w-full h-auto rounded-lg"
-                    />
-                    <h3
-                      className="font-bold mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
-                      style={{ color: "#003a65" }}
-                    >
-                      {scholarships[0]?.title}
-                    </h3>
-                    <p className="mt-4" style={{ color: "#003a65" }}>
-                      {scholarships[0]?.description}
-                    </p>
+                    <Link to={`/scolarshipdetails/${scholarships[0]?._id}`}>
+                      <img
+                        src={scholarships[0]?.universityId?.image}
+                        alt={scholarships[0]?.title}
+                        className="w-full h-[80%] rounded-lg hover:scale-105"
+                      />
+                      <h3
+                        className="font-bold mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+                        style={{ color: "#003a65" }}
+                      >
+                        {scholarships[0]?.title}
+                      </h3>
+                      <p className="mt-4" style={{ color: "#003a65" }}>
+                        {scholarships[0]?.description}
+                      </p>
+                    </Link>
                   </>
                 ) : (
                   <p>No scholarships available.</p>
@@ -75,11 +94,13 @@ export default function LatestScholarships() {
 
               <div className="space-y-8">
                 {scholarships.slice(1, 3).map((scholarship) => (
+
                   <div key={scholarship._id}>
+                  <Link to={`/scolarshipdetails/${scholarship?._id}`}>
                     <img
                       src={scholarship?.universityId?.image}
                       alt={scholarship?.title}
-                      className="w-full h-auto rounded-lg"
+                      className="w-full h-60 rounded-lg hover:scale-105"
                     />
                     <h3
                       className="text-xl font-bold mt-4"
@@ -90,6 +111,7 @@ export default function LatestScholarships() {
                     <p className="mt-2" style={{ color: "#003a65" }}>
                       {scholarship?.description}
                     </p>
+                  </Link>
                   </div>
                 ))}
               </div>
@@ -98,7 +120,7 @@ export default function LatestScholarships() {
         </div>
 
         <div className="mt-8 text-center">
-          <PrimaryButton>VIEW SCHOLARSHIPS</PrimaryButton>
+          <PrimaryButton onClick={handelViewScholarships}>VIEW SCHOLARSHIPS</PrimaryButton>
         </div>
 
         <Toaster />
