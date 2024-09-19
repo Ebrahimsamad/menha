@@ -123,7 +123,7 @@ export default function LatestScholarships() {
           <PrimaryButton onClick={handelViewScholarships}>VIEW SCHOLARSHIPS</PrimaryButton>
         </div>
 
-        <Toaster />
+        {/* <Toaster /> */}
       </>
     </section>
   );

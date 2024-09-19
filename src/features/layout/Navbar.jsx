@@ -77,6 +77,9 @@ const Navbar = () => {
         <div className="hidden lg:flex space-x-4 items-center">
           {isAuthenticated ? (
             <>
+            <Link to={"/profile"}>
+            <div className="flex">
+
               <span className="rounded-full overflow-hidden">
                 <img
                   src={user?.image || ""}
@@ -87,6 +90,8 @@ const Navbar = () => {
               <span className="text-white px-3 py-2 rounded-md">
                 {user?.userName || "Guest"}
               </span>
+            </div>
+            </Link>
               <button
                 onClick={logout}
                 className="bg-[#b92a3b] text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-white hover:text-[#b92a3b]"
@@ -190,6 +195,8 @@ const Navbar = () => {
         {/* Authentication Links for Mobile */}
         {isAuthenticated ? (
           <>
+          <Link to={"/profile"}>
+
             <li className="group text-white flex items-center space-x-4">
               {/* User Image */}
               <span className="rounded-full overflow-hidden">
@@ -204,6 +211,7 @@ const Navbar = () => {
                 {user?.userName || "Guest"}
               </span>
             </li>
+          </Link>
             <li className="group">
               <button
                 onClick={logout}

@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
-import PrimaryButton from "../../ui/PrimaryButton";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaImage } from "react-icons/fa";
+import Spinner from "../../ui/Spinner";
+import { updateProfile } from "../../services/UpdateProfile";
+import toast from "react-hot-toast";
 
-const validateForm = (form) => {
+const validateForm = (data) => {
   const errors = {};
 
-  // Validate name
-  if (!form.name.trim()) {
-    errors.name = "Username is required.";
-  } else if (!/^[a-zA-Z\s]+$/.test(form.name)) {
-    errors.name = "Username must only contain alphabetic characters and spaces.";
+  // Validate userName
+  if (!data.userName.trim()) {
+    errors.userName = "Username is required.";
+  } else if (!/^[a-zA-Z\s]+$/.test(data.userName)) {
+    errors.userName = "Username must only contain alphabetic characters and spaces.";
   }
 
   // Validate image
-  if (form.image && form.image instanceof File) {
-    if (!/^image\//.test(form.image.type)) {
+  if (data.image && data.image instanceof File) {
+    if (!/^image\//.test(data.image.type)) {
       errors.image = "Invalid image type. Only image files are allowed.";
     }
-  } else if (!form.image) {
+  } else if (!data.image) {
     errors.image = "Image file data must be provided.";
   }
 
@@ -24,97 +28,178 @@ const validateForm = (form) => {
 };
 
 const ProfileForm = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    image: null
+  const [currentUser, setCurrentUser] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+    setError,
+    clearErrors
+  } = useForm({
+    defaultValues: {
+      userName: "",
+      email: "",
+      image: null
+    }
   });
 
-  const [errors, setErrors] = useState({});
-
+  // Load saved user data from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
       const user = JSON.parse(savedUser);
-      setForm({
-        name: user.name || "",
-        email: user.email || "",
-        image: user.image || null
-      });
+      setCurrentUser(user); // Save current user data
+      setValue("userName", user.userName || "");
+      setValue("email", user.email || "");
+      setValue("image", user.image || null);
+
+      // Set initial image preview
+      if (user.image) {
+        setImagePreview(user.image);
+      }
     }
-  }, []);
+  }, [setValue]);
 
-  const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // Watch for changes in the image and userName fields
+  const selectedImage = watch("image");
+  const watchedUserName = watch("userName");
 
-  const handleImageChange = (e) => {
-    setForm({ ...form, image: e.target.files[0] });
-  };
+  useEffect(() => {
+    if (selectedImage && selectedImage instanceof File) {
+      const objectUrl = URL.createObjectURL(selectedImage);
+      setImagePreview(objectUrl);
 
-  const saveChanges = (e) => {
-    e.preventDefault();
-    const validationErrors = validateForm(form);
+      // Cleanup object URL after component unmount or image change
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setImagePreview("");
+    }
+  }, [selectedImage]);
+
+  // Check if any fields have changed
+  useEffect(() => {
+    if (currentUser) {
+      const hasChanges =
+        watchedUserName !== currentUser.userName || selectedImage !== currentUser.image;
+      setIsChanged(hasChanges);
+    }
+  }, [watchedUserName, selectedImage, currentUser]);
+
+  const onSubmit = async (data) => {
+    clearErrors();
+    const validationErrors = validateForm(data);
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+      Object.keys(validationErrors).forEach((key) => {
+        setError(key, { type: "manual", message: validationErrors[key] });
+      });
       return;
     }
 
-    const userData = {
-      name: form.name,
-      email: form.email,
-      image: form.image ? URL.createObjectURL(form.image) : null
-    };
+    const updatedUser = {};
+    if (data.userName && data.userName !== currentUser.userName) {
+      updatedUser.userName = data.userName;
+    }
 
-    localStorage.setItem("user", JSON.stringify(userData));
-    console.log("Changes saved", userData);
+    if (data.image && data.image !== currentUser.image) {
+      updatedUser.image = data.image;
+    }
+
+    if (Object.keys(updatedUser).length === 0) {
+      console.log("No changes to save");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = updateProfile(updatedUser);
+      toast.promise(res, {
+        loading: "Updating...",
+        success: "Profile updated successfully!",
+        error: (error) => error.message
+      });
+      const user = await res;
+      localStorage.setItem("user", JSON.stringify(user.user));
+    } catch (err) {
+      console.log("Error saving changes", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={saveChanges} className="p-8 bg-white rounded-lg shadow-lg">
+    <form onSubmit={handleSubmit(onSubmit)} className="py-14 p-8 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold mb-6">User Profile</h2>
+
       <div className="mb-6">
         <label htmlFor="username" className="block text-sm font-medium text-gray-700">
           Username
         </label>
         <input
           type="text"
-          name="name"
           id="username"
-          value={form.name}
-          onChange={handleInputChange}
+          {...register("userName")}
           className="mt-2 p-2 w-full border border-gray-300 rounded-lg"
         />
-        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+        {errors.userName && <p className="text-red-500 text-sm">{errors.userName.message}</p>}
       </div>
+
       <div className="mb-6">
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
         </label>
         <input
           type="email"
-          name="email"
           id="email"
-          value={form.email}
+          {...register("email")}
           disabled
           className="mt-2 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
         />
       </div>
+
       <div className="mb-6">
-        <label htmlFor="image-upload" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="image-upload" className="text-sm font-medium text-gray-700 flex items-center">
+          <div className="flex mr-2 items-center justify-center w-10 h-10 rounded-full border border-[#003a65] bg-white cursor-pointer">
+            <FaImage className="text-[#003a65]" />{" "}
+          </div>
+          {imagePreview && (
+            <div>
+              <img
+                src={imagePreview}
+                alt="Selected"
+                className="mx-2 border w-14 h-14 border-gray-300 rounded-full"
+              />
+            </div>
+          )}
           Upload Profile Image
         </label>
         <input
           type="file"
           id="image-upload"
-          name="image"
+          {...register("image")}
           accept="image/*"
-          onChange={handleImageChange}
-          className="mt-2 p-2 w-full border border-gray-300 rounded-lg"
+          className="hidden"
+          onChange={(e) => {
+            setValue("image", e.target.files[0]);
+          }}
         />
-        {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
+        {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
       </div>
-      <PrimaryButton type="submit">Save Changes</PrimaryButton>
+
+      <button
+        type="submit"
+        disabled={!isChanged || loading}
+        className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full ${
+          !isChanged ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400" : ""
+        }`}
+      >
+        {loading ? <Spinner /> : "Save Changes"}
+      </button>
     </form>
   );
 };

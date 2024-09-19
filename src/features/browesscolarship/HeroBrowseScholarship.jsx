@@ -27,7 +27,7 @@ function HeroBrowseScholarship() {
         </div>
 
         <img
-          src="../../../undraw_book_lover_mkck.svg"
+          src="/undraw_book_lover_mkck.svg"
           alt="Scholarship Search"
           className="w-[150px] md:w-[180px] lg:w-[200px] mb-[-90px] md:mb-[-110px] lg:mb-[-130px] mx-auto block  animate-slide-bottom "
         />
