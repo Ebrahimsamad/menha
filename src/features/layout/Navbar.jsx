@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiSearch } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
+import { UserContext } from "../../context/UserContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
+  const { user } = useContext(UserContext);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -77,21 +80,21 @@ const Navbar = () => {
         <div className="hidden lg:flex space-x-4 items-center">
           {isAuthenticated ? (
             <>
-            <Link to={"/profile"}>
-            <div className="flex">
+              <Link to={"/profile"}>
+                <div className="flex">
 
-              <span className="rounded-full overflow-hidden">
-                <img
-                  src={user?.image || ""}
-                  alt={user?.userName}
-                  className="w-8 h-8 md:w-10 md:h-10 object-cover rounded-full"
-                />
-              </span>
-              <span className="text-white px-3 py-2 rounded-md">
-                {user?.userName || "Guest"}
-              </span>
-            </div>
-            </Link>
+                  <span className="rounded-full overflow-hidden">
+                    <img
+                      src={user?.image || ""}
+                      alt={user?.userName}
+                      className="w-8 h-8 md:w-10 md:h-10 object-cover rounded-full"
+                    />
+                  </span>
+                  <span className="text-white px-3 py-2 rounded-md">
+                    {user?.userName || "Guest"}
+                  </span>
+                </div>
+              </Link>
               <button
                 onClick={logout}
                 className="bg-[#b92a3b] text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-white hover:text-[#b92a3b]"
@@ -140,11 +143,9 @@ const Navbar = () => {
 
       {/* Mobile and Medium Device Menu */}
       <ul
-        className={`${
-          isMenuOpen ? "flex mt-14" : "hidden"
-        } lg:hidden flex-col space-y-6 items-center bg-[#003a65] absolute top-0 right-0 w-2/3 md:w-2/3 h-screen p-6 z-20 transition-transform duration-300 transform ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`${isMenuOpen ? "flex mt-14" : "hidden"
+          } lg:hidden flex-col space-y-6 items-center bg-[#003a65] absolute top-0 right-0 w-2/3 md:w-2/3 h-screen p-6 z-20 transition-transform duration-300 transform ${isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <li className="group">
           <NavLink
@@ -195,23 +196,23 @@ const Navbar = () => {
         {/* Authentication Links for Mobile */}
         {isAuthenticated ? (
           <>
-          <Link to={"/profile"}>
+            <Link to={"/profile"}>
 
-            <li className="group text-white flex items-center space-x-4">
-              {/* User Image */}
-              <span className="rounded-full overflow-hidden">
-                <img
-                  src={user?.image || ""}
-                  alt={user?.userName}
-                  className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 object-cover rounded-full"
-                />
-              </span>
-              {/* Username */}
-              <span className="px-3 py-2 rounded-md">
-                {user?.userName || "Guest"}
-              </span>
-            </li>
-          </Link>
+              <li className="group text-white flex items-center space-x-4">
+                {/* User Image */}
+                <span className="rounded-full overflow-hidden">
+                  <img
+                    src={user?.image || ""}
+                    alt={user?.userName}
+                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 object-cover rounded-full"
+                  />
+                </span>
+                {/* Username */}
+                <span className="px-3 py-2 rounded-md">
+                  {user?.userName || "Guest"}
+                </span>
+              </li>
+            </Link>
             <li className="group">
               <button
                 onClick={logout}

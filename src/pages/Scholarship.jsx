@@ -8,11 +8,11 @@ export default function Scholarship() {
   return (
     <>
       <div className='flex bg-gray-100'>
-      <Filter isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className={`container mx-auto mt-8 flex justify-center  ${isOpen?'hidden md:flex':''}`}>
+        <Filter isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className={`container mx-auto mt-8 flex justify-center  ${isOpen ? 'hidden md:flex' : ''}`}>
 
-      <CardScholarship isOpen={isOpen}></CardScholarship>
-      </div>
+          <CardScholarship isOpen={isOpen}></CardScholarship>
+        </div>
 
       </div>
     </>

@@ -284,7 +284,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                                         </div>
                                     </div>
                                 </form>
-                            ) : <img src='fBg.png' className='cursor-pointer' onClick={() => setIsOpen(true)}/>}
+                            ) : <img src='fBg.png' className='cursor-pointer' onClick={() => setIsOpen(true)} />}
                         </div>
                     </div>
                 </div>

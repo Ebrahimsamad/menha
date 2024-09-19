@@ -27,7 +27,7 @@ export default function LatestScholarships() {
 
     getScholarships();
   }, []);
-  const handelViewScholarships=()=>{
+  const handelViewScholarships = () => {
     navigate(`/scholarships`);
   }
   return (
@@ -96,22 +96,22 @@ export default function LatestScholarships() {
                 {scholarships.slice(1, 3).map((scholarship) => (
 
                   <div key={scholarship._id}>
-                  <Link to={`/scolarshipdetails/${scholarship?._id}`}>
-                    <img
-                      src={scholarship?.universityId?.image}
-                      alt={scholarship?.title}
-                      className="w-full h-60 rounded-lg hover:scale-105"
-                    />
-                    <h3
-                      className="text-xl font-bold mt-4"
-                      style={{ color: "#003a65" }}
-                    >
-                      {scholarship?.title}
-                    </h3>
-                    <p className="mt-2" style={{ color: "#003a65" }}>
-                      {scholarship?.description}
-                    </p>
-                  </Link>
+                    <Link to={`/scolarshipdetails/${scholarship?._id}`}>
+                      <img
+                        src={scholarship?.universityId?.image}
+                        alt={scholarship?.title}
+                        className="w-full h-60 rounded-lg hover:scale-105"
+                      />
+                      <h3
+                        className="text-xl font-bold mt-4"
+                        style={{ color: "#003a65" }}
+                      >
+                        {scholarship?.title}
+                      </h3>
+                      <p className="mt-2" style={{ color: "#003a65" }}>
+                        {scholarship?.description}
+                      </p>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -123,7 +123,6 @@ export default function LatestScholarships() {
           <PrimaryButton onClick={handelViewScholarships}>VIEW SCHOLARSHIPS</PrimaryButton>
         </div>
 
-        {/* <Toaster /> */}
       </>
     </section>
   );

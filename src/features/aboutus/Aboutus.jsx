@@ -5,8 +5,25 @@ import "slick-carousel/slick/slick-theme.css";
 import BlueButton from "../../ui/BlueButton";
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { contact } from "../../services/ContactUs";
+import toast from "react-hot-toast";
+import Spinner from "../../ui/Spinner";
 
 const AboutUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+
   const teamMembers = [
     {
       name: "EBRAHIM SAMAD",
@@ -59,6 +76,65 @@ const AboutUs = () => {
       },
     ],
   };
+
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { name: "", email: "", message: "" };
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email address";
+      valid = false;
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleContactUs = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      setLoading(true);
+      try {
+        await toast.promise(
+          contact(formData),
+          {
+            loading: "Sending...",
+            success: "Email sent successfully",
+            error: (error) => `Error: ${error.message}`,
+          }
+        );
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        })
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+
 
   return (
     <div className="bg-white mt-5">
@@ -128,29 +204,49 @@ const AboutUs = () => {
         {/* Contact Us Section */}
         <div className="bg-gray-100 py-16 text-center">
           <h2 className="text-3xl font-bold text-[#003a65] mb-8">Contact Us</h2>
-          <form className="max-w-lg mx-auto space-y-4">
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300"
-            />
-            <textarea
-              placeholder="Your Message"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300"
-              rows="4"
-            />
-            <BlueButton
+          <form className="max-w-lg mx-auto space-y-4" onSubmit={handleContactUs}>
+            <div>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className={`w-full px-4 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            </div>
+
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className={`w-full px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
+              />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
+
+            <div>
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={handleInputChange}
+                className={`w-full px-4 py-2 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
+                rows="4"
+              />
+              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            </div>
+            <button
               type="submit"
-              className=" px-6 py-3 bg-[#003a65] text-white font-semibold rounded-lg hover:bg-[#002952] transition duration-300"
-              width="w-full"
+              disabled={loading}
+              className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full `}
             >
-              Send Message
-            </BlueButton>
+              {loading ? <Spinner /> : "Save Changes"}
+            </button>
           </form>
         </div>
       </div>

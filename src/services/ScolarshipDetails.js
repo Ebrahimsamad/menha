@@ -8,14 +8,9 @@ export const fetchScholarshipDetails = async (scholarshipId) => {
         "Content-Type": "application/json",
       },
     });
-
-  
     const data = await response.json();
-   
     return data;
-    
   } catch (error) {
     console.error("Error fetching scholarship details:", error);
-   
   }
 };
