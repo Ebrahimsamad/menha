@@ -18,7 +18,7 @@ const Profile = () => {
       
       <div className="col-span-1 md:col-span-10">
         <Routes>
-          <Route path="/profileinfo" element={<ProfileForm />} />
+          <Route path="" element={<ProfileForm name={savedUser?.name} email={savedUser.email}/>} />
           <Route path="/password" element={<ProfilePasswordForm />} />
         </Routes>
       </div>

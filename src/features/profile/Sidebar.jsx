@@ -4,7 +4,7 @@ import { FaGraduationCap } from "react-icons/fa";
 
 const Sidebar = ({ image, name }) => {
   return (
-    <div className="p-6 rounded-lg text-white bg-gradient-to-b from-[#003a65] to-[#000]">
+    <div className="p-6 rounded-lg text-white bg-gradient-to-b from-[#003a65] to-[#000] h-full">
       <div className="text-center mb-4">
         {image && (
           <img
@@ -17,7 +17,7 @@ const Sidebar = ({ image, name }) => {
         <h3 className="mt-4 text-xl font-semibold">{name}</h3>
         
         <div className="mt-6 space-y-2">
-          <Link to="/profile/profileinfo" className="block py-2 text-white hover:text-gray-300">Profile Info</Link>
+          <Link to="/profile" className="block py-2 text-white hover:text-gray-300">Profile Info</Link>
           <Link to="/profile/password" className="block py-2 text-white hover:text-gray-300">Change Password</Link>
         </div>
       </div>

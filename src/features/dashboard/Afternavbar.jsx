@@ -28,9 +28,10 @@ const Afternavbar = () => {
             peers and return home with the skills, knowledge, and network
             required to influence the change you want to see.
           </p>
+            <Link to="/scholarships">
           <PrimaryButton className="btn btn-primary bg-yellow-400 text-[#003a65] hover:bg-yellow-300">
-            <Link to="/scholarships">Apply today</Link>
-          </PrimaryButton>
+          VIEW SCHOLARSHIPS          </PrimaryButton>
+            </Link>
         </div>
       </div>
     </div>
