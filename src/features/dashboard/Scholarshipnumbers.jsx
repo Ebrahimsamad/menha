@@ -12,7 +12,7 @@ export default function ScholarshipNumbers() {
   useEffect(() => {
     const incrementCount = (start, end, setCount) => {
       if (start < end) {
-        const increment = Math.ceil((end - start) / 50); // Change 50 to control the speed
+        const increment = Math.ceil((end - start) / 50); 
         const interval = setInterval(() => {
           setCount(prevCount => {
             const nextCount = prevCount + increment;
@@ -22,9 +22,9 @@ export default function ScholarshipNumbers() {
             }
             return nextCount;
           });
-        }, 50); // Change 50 to control the interval delay
+        }, 50); 
       } else {
-        setCount(end); // If no animation, set the final value directly
+        setCount(end);
       }
     };
 
@@ -60,21 +60,21 @@ export default function ScholarshipNumbers() {
             <div className="flex flex-col items-center text-center">
               <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalUniversities}</h3>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
-              Menha currently has partnerships with numerous universities, expanding its reach within the academic community.
+                Menha currently has partnerships with numerous universities, expanding its reach within the academic community.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center">
               <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalScholarships}</h3>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
-              Menha provides a wide range of scholarships, creating opportunities and fostering connections across diverse fields and regions worldwide.
+                Menha provides a wide range of scholarships, creating opportunities and fostering connections across diverse fields and regions worldwide.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center">
               <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalUsers}</h3>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
-              Menha has a growing community of users, fostering connections and collaboration across various sectors and regions globally.
+                Menha has a growing community of users, fostering connections and collaboration across various sectors and regions globally.
               </p>
             </div>
           </div>

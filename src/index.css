@@ -6,9 +6,11 @@
 .active {
   position: relative;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .active::after {
   content: "";
   position: absolute;
@@ -19,6 +21,7 @@ html {
   background-color: #b92a3b;
   transition: width 0.3s ease-in-out;
 }
+
 @font-face {
   font-family: "Brush Script MT";
   src: url("/public/font/BRUSHSCI.TTF") format("truetype");

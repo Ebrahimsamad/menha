@@ -4,24 +4,21 @@ import PrimaryButton from "../../ui/PrimaryButton";
 import Spinner from "../../ui/Spinner";
 import { changePassword } from "../../services/ChangePassword";
 import toast from "react-hot-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for visibility toggle
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const validateForm = (data) => {
   const errors = {};
 
-  // Validate current password
   if (!data.currentPassword.trim()) {
     errors.currentPassword = "Current password is required.";
   }
 
-  // Validate new password
   if (!data.newPassword.trim()) {
     errors.newPassword = "New password is required.";
   } else if (data.newPassword.length < 8) {
     errors.newPassword = "New password must be at least 8 characters long.";
   }
 
-  // Validate confirm password
   if (data.newPassword !== data.confirmPassword) {
     errors.confirmPassword = "New password and confirmation password do not match.";
   }
@@ -75,7 +72,7 @@ const ProfilePasswordForm = () => {
       });
 
       await res;
-      reset(); // Reset form fields after successful submission
+      reset();
     } catch (err) {
       console.log("Password change failed", err);
     } finally {

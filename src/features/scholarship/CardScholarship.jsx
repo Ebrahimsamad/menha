@@ -29,8 +29,8 @@ const CardScholarship = ({ isOpen }) => {
       if (searchParams.get('isWinter')) params.append('isWinter', searchParams.get('isWinter') === 'true');
       if (searchParams.get('isFree')) params.append('isFree', searchParams.get('isFree') === 'true');
       if (searchParams.get('isFullTime')) params.append('isFullTime', searchParams.get('isFullTime') === 'true');
-      if (searchParams.get('page')) params.append('page', searchParams.get('page') === 'true');
-      setCurrentPage(parseInt( searchParams.get('page'))||1)
+      if (searchParams.get('page')) params.append('page', searchParams.get('page'));
+      setCurrentPage(parseInt(searchParams.get('page')) || 1)
       params.append('size', 2);
 
       try {
@@ -48,7 +48,7 @@ const CardScholarship = ({ isOpen }) => {
     };
 
     fetchScholarships();
-  }, [ location]);
+  }, [location]);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('savedScholarships')) || [];
@@ -70,13 +70,13 @@ const CardScholarship = ({ isOpen }) => {
     const searchParams = new URLSearchParams(location.search);
     if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      
-      searchParams.set('page', currentPage+1);
+
+      searchParams.set('page', currentPage + 1);
     } else if (direction === 'prev' && currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      searchParams.set('page', currentPage-1);
-      
-      
+      searchParams.set('page', currentPage - 1);
+
+
     }
     navigate(`/scholarships?${searchParams.toString()}`);
 
@@ -124,7 +124,7 @@ const CardScholarship = ({ isOpen }) => {
       ) : scholarships.length === 0 ? (
         <div className="text-center py-10">
           <h2 className="text-xl font-bold mb-5">No scholarships found</h2>
-          <img src='/Empty.gif'/>
+          <img src='/Empty.gif' />
         </div>
       ) : (
         <>

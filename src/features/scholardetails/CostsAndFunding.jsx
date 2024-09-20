@@ -2,17 +2,17 @@
 import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 
-import  { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 
 
 
-export default function CostsAndFunding({scholarship}) {
+export default function CostsAndFunding({ scholarship }) {
 
 
-  const durationYears = parseInt(scholarship.duration); 
-  const totalSemesters = durationYears * 2; 
-  
+  const durationYears = parseInt(scholarship.duration);
+  const totalSemesters = durationYears * 2;
+
   return (
     <div className="container mx-auto py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
       <Toaster />
@@ -34,9 +34,9 @@ export default function CostsAndFunding({scholarship}) {
         `}
       </style>
 
-   
+
       <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
-       
+
         <table className="table-auto w-full text-left">
           <tbody>
             <tr className="table-row">
@@ -66,7 +66,7 @@ export default function CostsAndFunding({scholarship}) {
             <tr className="table-row">
               <td className="secondary-text border px-4 py-5">Funding opportunities within the university</td>
               <td className="primary-text border px-4 py-5">
-                {scholarship.isFree? "YES" : "NOT Free"}
+                {scholarship.isFree ? "YES" : "NOT Free"}
               </td>
             </tr>
             <tr className="table-row">
@@ -79,8 +79,8 @@ export default function CostsAndFunding({scholarship}) {
               <td className="secondary-text border px-4 py-5">Country</td>
               <td className="primary-text border px-4 py-5">{scholarship.country}</td>
             </tr>
-          
-        
+
+
           </tbody>
         </table>
       </div>
@@ -95,6 +95,7 @@ export default function CostsAndFunding({scholarship}) {
             <a
               href={`mailto:${scholarship.universityId.email}`}
               className="text-blue-500 underline"
+              target="_blank"
             >
               Email
             </a>
@@ -103,6 +104,7 @@ export default function CostsAndFunding({scholarship}) {
             <a
               href={`tel:+${scholarship.universityId.phone}`}
               className="text-blue-500 underline"
+              target="_blank"
             >
               {scholarship.universityId.phone}
             </a>
@@ -113,6 +115,7 @@ export default function CostsAndFunding({scholarship}) {
               href="https://www.facebook.com/ebrahim7asn"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="Facebook"
+              target="_blank"
             >
               <FaFacebook size={24} />
             </a>
@@ -120,6 +123,7 @@ export default function CostsAndFunding({scholarship}) {
               href="https://github.com/Ebrahimsamad"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="GitHub"
+              target="_blank"
             >
               <FaGithub size={24} />
             </a>
@@ -127,6 +131,7 @@ export default function CostsAndFunding({scholarship}) {
               href="https://www.linkedin.com/in/ebrahim7asn"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="LinkedIn"
+              target="_blank"
             >
               <FaLinkedin size={24} />
             </a>

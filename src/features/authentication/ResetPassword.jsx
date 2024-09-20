@@ -141,11 +141,10 @@ const ResetPassword = () => {
 
           <button
             type="submit"
-            className={`h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold transition duration-300 ${
-              isButtonDisabled || loading
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-[#a52633]"
-            }`}
+            className={`h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold transition duration-300 hover:bg-[#a52633] ${isButtonDisabled || loading
+                ? "opacity-50 cursor-not-allowed bg-gray-400  hover:bg-gray-400"
+                : ""
+              }`}
             disabled={isButtonDisabled || loading}
           >
             {loading ? <Spinner /> : "Reset Password"}

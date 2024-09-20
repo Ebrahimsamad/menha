@@ -1,5 +1,5 @@
 const BASE_URL = "https://menha-backend.vercel.app/update-profile";
-  
+
 export const updateProfile = async (userData) => {
   try {
     const token = localStorage.getItem("token");
@@ -11,7 +11,7 @@ export const updateProfile = async (userData) => {
     const response = await fetch(BASE_URL, {
       method: "PATCH",
       headers: {
-        Authorization: `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -21,8 +21,8 @@ export const updateProfile = async (userData) => {
       throw new Error(result.message || "Failed to update profile");
     }
 
-    return result; 
+    return result;
   } catch (err) {
-    throw err; 
+    throw err;
   }
 };

@@ -73,7 +73,7 @@ const ScholarshipComponent = () => {
                         >
                             <div
                                 className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-4"
-                                style={{ backgroundColor: colors[index % colors.length] ,color:color[index % colors.length]} }
+                                style={{ backgroundColor: colors[index % colors.length], color: color[index % colors.length] }}
                             >
                                 <span className="text-xl md:text-2xl font-bold ">{getInitials(field.fieldOfStudy)}</span>
                             </div>

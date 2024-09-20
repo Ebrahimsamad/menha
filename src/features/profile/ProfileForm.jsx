@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaImage } from "react-icons/fa";
 import Spinner from "../../ui/Spinner";
 import { updateProfile } from "../../services/UpdateProfile";
 import toast from "react-hot-toast";
+import { UserContext } from "../../context/UserContext";
 
 const validateForm = (data) => {
   const errors = {};
 
-  // Validate userName
   if (!data.userName.trim()) {
     errors.userName = "Username is required.";
   } else if (!/^[a-zA-Z\s]+$/.test(data.userName)) {
     errors.userName = "Username must only contain alphabetic characters and spaces.";
   }
 
-  // Validate image
   if (data.image && data.image instanceof File) {
     if (!/^image\//.test(data.image.type)) {
       errors.image = "Invalid image type. Only image files are allowed.";
@@ -32,6 +31,7 @@ const ProfileForm = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   const {
     register,
@@ -49,24 +49,17 @@ const ProfileForm = () => {
     }
   });
 
-  // Load saved user data from localStorage
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      const user = JSON.parse(savedUser);
-      setCurrentUser(user); // Save current user data
+    if (user) {
+      setCurrentUser(user);
       setValue("userName", user.userName || "");
       setValue("email", user.email || "");
       setValue("image", user.image || null);
 
-      // Set initial image preview
-      if (user.image) {
-        setImagePreview(user.image);
-      }
-    }
-  }, [setValue]);
 
-  // Watch for changes in the image and userName fields
+    }
+  }, [setValue, user]);
+
   const selectedImage = watch("image");
   const watchedUserName = watch("userName");
 
@@ -74,15 +67,12 @@ const ProfileForm = () => {
     if (selectedImage && selectedImage instanceof File) {
       const objectUrl = URL.createObjectURL(selectedImage);
       setImagePreview(objectUrl);
-
-      // Cleanup object URL after component unmount or image change
       return () => URL.revokeObjectURL(objectUrl);
     } else {
       setImagePreview("");
     }
   }, [selectedImage]);
 
-  // Check if any fields have changed
   useEffect(() => {
     if (currentUser) {
       const hasChanges =
@@ -125,6 +115,8 @@ const ProfileForm = () => {
       });
       const user = await res;
       localStorage.setItem("user", JSON.stringify(user.user));
+      setUser(user.user);
+      setCurrentUser(user.user);
     } catch (err) {
       console.log("Error saving changes", err);
     } finally {
@@ -167,7 +159,7 @@ const ProfileForm = () => {
           <div className="flex mr-2 items-center justify-center w-10 h-10 rounded-full border border-[#003a65] bg-white cursor-pointer">
             <FaImage className="text-[#003a65]" />{" "}
           </div>
-          {imagePreview && (
+          {(imagePreview) && (
             <div>
               <img
                 src={imagePreview}
@@ -194,9 +186,8 @@ const ProfileForm = () => {
       <button
         type="submit"
         disabled={!isChanged || loading}
-        className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full ${
-          !isChanged ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400" : ""
-        }`}
+        className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full ${!isChanged ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400" : ""
+          }`}
       >
         {loading ? <Spinner /> : "Save Changes"}
       </button>

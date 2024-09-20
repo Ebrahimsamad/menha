@@ -27,7 +27,7 @@ export default function AboutUniversity({ scholarship }) {
       </style>
 
       <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-6">
-    
+
         <table className="table-auto w-full text-left">
           <tbody>
             <tr className="table-row">
@@ -58,7 +58,13 @@ export default function AboutUniversity({ scholarship }) {
                 University Email
               </td>
               <td className="primary-text border px-4 py-5">
-                {scholarship.universityId.email}
+                <a
+                  href={`mailto:${scholarship.universityId.email}`}
+                  className="text-blue-500 underline"
+                  target="_blank"
+                >
+                  {scholarship.universityId.email}
+                </a>
               </td>
             </tr>
             <tr className="table-row">
@@ -70,7 +76,7 @@ export default function AboutUniversity({ scholarship }) {
             <tr className="table-row">
               <td className="secondary-text border px-4 py-5">Page Url</td>
               <td className="primary-text border px-4 py-5">
-                scholarship.universityId.pageUrl
+                <a href={scholarship.universityId.pageUrl} target="_blank" className="text-blue-500 underline">{scholarship.universityId.pageUrl}</a>
               </td>
             </tr>
           </tbody>
@@ -87,6 +93,7 @@ export default function AboutUniversity({ scholarship }) {
             <a
               href={`mailto:${scholarship.universityId.email}`}
               className="text-blue-500 underline"
+              target="_blank"
             >
               Email
             </a>
@@ -95,6 +102,7 @@ export default function AboutUniversity({ scholarship }) {
             <a
               href={`tel:+${scholarship.universityId.phone}`}
               className="text-blue-500 underline"
+              target="_blank"
             >
               {scholarship.universityId.phone}
             </a>
@@ -105,6 +113,7 @@ export default function AboutUniversity({ scholarship }) {
               href="https://www.facebook.com/ebrahim7asn"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="Facebook"
+              target="_blank"
             >
               <FaFacebook size={24} />
             </a>
@@ -112,6 +121,7 @@ export default function AboutUniversity({ scholarship }) {
               href="https://github.com/Ebrahimsamad"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="GitHub"
+              target="_blank"
             >
               <FaGithub size={24} />
             </a>
@@ -119,6 +129,7 @@ export default function AboutUniversity({ scholarship }) {
               href="https://www.linkedin.com/in/ebrahim7asn"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
               aria-label="LinkedIn"
+              target="_blank"
             >
               <FaLinkedin size={24} />
             </a>

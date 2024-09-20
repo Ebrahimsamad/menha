@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SecondaryButton from "../../ui/SecondaryButton";
 
 function BrowseScholarship() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const handleNavigate = () => {
     navigate('/browse-scholarships');
   };
@@ -13,7 +13,7 @@ function BrowseScholarship() {
       <div className="container px-4 text-center">
         <RepeatParagrah>
           <h2 className="text-3xl sm:text-5xl md:text-7xl mb-6 text-center mx-auto max-w-full">
-          Men7a scholarships are open!
+            Men7a scholarships are open!
           </h2>
         </RepeatParagrah>
 
@@ -23,8 +23,8 @@ function BrowseScholarship() {
         </p>
 
         <div className="flex justify-center mb-6 mt-4">
-        <SecondaryButton onClick={handleNavigate}>BROWSE SCHOLARSHIP</SecondaryButton>
-         
+          <SecondaryButton onClick={handleNavigate}>BROWSE SCHOLARSHIP</SecondaryButton>
+
         </div>
       </div>
     </section>

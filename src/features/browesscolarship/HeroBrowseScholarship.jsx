@@ -5,18 +5,18 @@ import RepeatParagrah from '../../ui/RepeatPara';
 function HeroBrowseScholarship() {
   const navigate = useNavigate();
 
-  const handelAllScholarshipsBtn=()=>{
+  const handelAllScholarshipsBtn = () => {
     navigate(`/scholarships`);
   }
   return (
     <div id="Page-Content-All">
       <header className="text-center mb-7 bg-[#003A65] py-10 lg:py-16">
-      <RepeatParagrah>
+        <RepeatParagrah>
 
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#b92a3b]">
-          Browse Scholarships
-        </h1>
-      </RepeatParagrah>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#b92a3b]">
+            Browse Scholarships
+          </h1>
+        </RepeatParagrah>
         <span className="block text-lg md:text-2xl lg:text-3xl font-light mt-4 text-white px-4 md:px-8 lg:px-0">
           Check out these popular scholarship categories and find awards for everyone from artists to engineers!
         </span>

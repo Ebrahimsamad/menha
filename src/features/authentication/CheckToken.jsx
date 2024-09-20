@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
@@ -13,10 +13,18 @@ const CheckToken = () => {
 
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const token = watch("token");
+
+  useEffect(() => {
+    const isValidToken = /^[a-zA-Z0-9]+$/.test(token);
+    setIsButtonDisabled(!isValidToken);
+  }, [token]);
 
   const onSubmit = async (data) => {
     const { token } = data;
@@ -62,8 +70,8 @@ const CheckToken = () => {
 
           <button
             type="submit"
-            className="h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold hover:bg-[#a52633] transition duration-300 flex items-center justify-center"
-            disabled={loading}
+            className={`h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold hover:bg-[#a52633] transition duration-300 flex items-center justify-center ${isButtonDisabled || loading ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' : ''}`}
+            disabled={loading || isButtonDisabled}
           >
             {loading ? <Spinner /> : "Verify Token"}
           </button>
