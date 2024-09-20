@@ -16,6 +16,7 @@ const ResetPassword = () => {
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
   const token = searchParams.get("token");
+  const [loading, setLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -25,7 +26,7 @@ const ResetPassword = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { resetPassword, loading } = useAuth();
+  const { resetPassword } = useAuth();
   const navigate = useNavigate();
 
   const newPassword = watch("newPassword");
@@ -51,12 +52,12 @@ const ResetPassword = () => {
     }
 
     try {
+    setLoading(true);
       await resetPassword(token, email, data.newPassword, data.confirmPassword);
-      toast.success("Password reset successfully!");
+      setLoading(false);
       navigate("/login");
     } catch (error) {
       console.error("Error during password reset:", error);
-      toast.error("Password reset failed. Please try again.");
     }
   };
 

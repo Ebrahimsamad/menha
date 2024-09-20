@@ -39,7 +39,7 @@ const Signup = () => {
       password
     );
     const doPasswordsMatch = password === confirmPassword;
-    const isValidUsername = username && username.length >= 6;
+    const isValidUsername = username && username.length >= 6 && /^[a-zA-Z\s]+$/.test(username);
     setIsButtonDisabled(
       !(
         isValidUsername &&
@@ -87,6 +87,7 @@ const Signup = () => {
     password
   );
   const doPasswordsMatch = password === confirmPassword;
+  const isValidUsername = username && username.length >= 6 && /^[a-zA-Z\s]+$/.test(username);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -106,7 +107,7 @@ const Signup = () => {
           Sign Up
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="relative">
+        <div className="relative">
             <input
               type="text"
               {...register("username", {
@@ -115,13 +116,27 @@ const Signup = () => {
                   value: 6,
                   message: "Username must be at least 6 characters",
                 },
+                pattern: {
+                  value: /^[a-zA-Z\s]+$/,
+                  message: "Username can only contain letters and spaces",
+                },
               })}
-              className="peer  h-12 w-full px-4 text-[#003a65] border-b-2 border-[#003a65] focus:border-[#b92a3b] focus:outline-none transition duration-300"
+              className="peer h-12 w-full px-4 text-[#003a65] border-b-2 border-[#003a65] focus:border-[#b92a3b] focus:outline-none transition duration-300"
               placeholder="Username"
             />
-            {errors.username && (
-              <p className="text-red-600">{errors.username.message}</p>
-            )}
+            <div className="flex items-center mt-1">
+              {isValidUsername ? (
+                <p className="text-green-600 flex items-center">
+                  <FaCheckCircle className="mr-1" /> Valid Username
+                </p>
+              ) : (
+                username && (
+                  <p className="text-red-600 flex items-center">
+                    <FaTimesCircle className="mr-1" /> Username must be at least 6 characters and only contain letters and spaces
+                  </p>
+                )
+              )}
+            </div>
           </div>
 
           <div className="relative">

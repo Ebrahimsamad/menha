@@ -151,6 +151,7 @@ const Navbar = () => {
           <NavLink
             to="/dashboard"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
           >
             Dashboard
           </NavLink>
@@ -159,6 +160,7 @@ const Navbar = () => {
           <NavLink
             to="/scholarships"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
           >
             Scholarships
           </NavLink>
@@ -167,6 +169,7 @@ const Navbar = () => {
           <NavLink
             to="/browse-scholarships"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
           >
             Browse Scholarships
           </NavLink>
@@ -175,6 +178,7 @@ const Navbar = () => {
           <NavLink
             to="/about"
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
           >
             About
           </NavLink>
@@ -186,6 +190,7 @@ const Navbar = () => {
             <a
               href="#search"
               className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
+              onClick={toggleMenu}
             >
               <FiSearch size={20} />
               <span>Search</span>
@@ -198,7 +203,7 @@ const Navbar = () => {
           <>
             <Link to={"/profile"}>
 
-              <li className="group text-white flex items-center space-x-4">
+              <li className="group text-white flex items-center space-x-4" onClick={toggleMenu}>
                 {/* User Image */}
                 <span className="rounded-full overflow-hidden">
                   <img
@@ -215,7 +220,7 @@ const Navbar = () => {
             </Link>
             <li className="group">
               <button
-                onClick={logout}
+                onClick={()=>{logout(); toggleMenu()}}
                 className="bg-[#b92a3b] text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-white hover:text-[#b92a3b]"
               >
                 Logout
@@ -228,6 +233,7 @@ const Navbar = () => {
               <NavLink
                 to="/login"
                 className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+                onClick={toggleMenu}
               >
                 Log In
               </NavLink>
@@ -236,6 +242,7 @@ const Navbar = () => {
               <NavLink
                 to="/signup"
                 className="bg-[#b92a3b] text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-white hover:text-[#b92a3b]"
+                onClick={toggleMenu}
               >
                 Sign Up
               </NavLink>
