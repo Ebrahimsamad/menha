@@ -40,24 +40,31 @@ export default function Search() {
         e.preventDefault();
         let courseTypeId
         let languageId
-        let fieldOfStudyId
+        let fieldOfStudy
         if (e.target.id === "formOne") {
             courseTypeId = courseTypeRef.current.value;
             languageId = languageRef.current.value;
-            fieldOfStudyId = fieldOfStudyRef.current.value;
+            fieldOfStudy = fieldOfStudyRef.current.value;
         } else {
 
             courseTypeId = courseTypeRef2.current.value;
             languageId = languageRef2.current.value;
-            fieldOfStudyId = fieldOfStudyRef2.current.value;
+            fieldOfStudy = fieldOfStudyRef2.current.value;
         }
-
-        const query = new URLSearchParams({
-            courseTypeId,
-            languageId,
-            fieldOfStudyId,
+        const params = {
             page: 1
-        }).toString();
+        };
+        
+        if (courseTypeId) {
+            params.courseTypeId = courseTypeId;
+        }
+        if (languageId) {
+            params.languageId = languageId;
+        }
+        if (fieldOfStudy) {
+            params.fieldOfStudy = fieldOfStudy;
+        }
+        const query = new URLSearchParams(params).toString();
 
         navigate(`/scholarships?${query}`);
     };

@@ -8,20 +8,22 @@ import {
   checkResetPasswordToken as checkResetPasswordTokenService,
 } from "../services/AuthService";
 import { toast } from "react-hot-toast";
+import { UserContext } from "./UserContext";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
   const [loading, setLoading] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+
 
   useEffect(() => {
     if (token) {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const storedUser = user;
       if (storedUser) {
         setUser(storedUser);
       }
@@ -77,7 +79,6 @@ export const AuthProvider = ({ children }) => {
 
       const data = await promise;
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
       setToken(data.token);
       setUser(data.user);
       setIsAuthenticated(true);

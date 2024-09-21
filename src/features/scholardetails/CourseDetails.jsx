@@ -100,7 +100,7 @@ export default function CourseDetails({ scholarship }) {
               className="text-blue-500 underline"
               target="_blank"
             >
-              Email
+             {scholarship.universityId.email}
             </a>
           </p>
           <p className="primary-text">
@@ -122,14 +122,7 @@ export default function CourseDetails({ scholarship }) {
             >
               <FaFacebook size={24} />
             </a>
-            <a
-              href="https://github.com/Ebrahimsamad"
-              className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
-              aria-label="GitHub"
-              target="_blank"
-            >
-              <FaGithub size={24} />
-            </a>
+            
             <a
               href="https://www.linkedin.com/in/ebrahim7asn"
               className="hover:bg-white hover:text-[#003a65] p-2 rounded-full transition-colors"
@@ -145,7 +138,7 @@ export default function CourseDetails({ scholarship }) {
           <img
             src={scholarship.universityId.image}
             alt={scholarship.universityId.name}
-            className="rounded-lg shadow-lg"
+            className="rounded-lg shadow-lg h-80"
           />
           <p className="mt-2 text-sm text-center text-gray-500">
             {scholarship.universityId.name}
