@@ -17,7 +17,7 @@ function HeroBrowseScholarship() {
             Browse Scholarships
           </h1>
         </RepeatParagrah>
-        <span className="block text-lg md:text-2xl lg:text-3xl font-light mt-4 text-white px-4 md:px-8 lg:px-0">
+        <span className="block text-lg md:text-xl lg:text-2xl font-light mt-4 text-white px-4 md:px-8 lg:px-0">
           Check out these popular scholarship categories and find awards for everyone from artists to engineers!
         </span>
         <div className="mt-6 lg:mt-8 mb-3">
