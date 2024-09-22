@@ -17,6 +17,7 @@ import ProfilePage from "./pages/ProfilePage";
 import About from "./pages/About";
 import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
 import Scholarship from "./pages/Scholarship";
+import SavedScholarships from "./features/savedscholarship/SavedScholarship";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile/*" element={<ProfilePage />} />
+            <Route path="/saved-scholarship" element={<SavedScholarships />} />
             <Route path="/scolarshipdetails/:scholarshipId/*" element={<ScolarshipDetails />} />
             <Route path="/scholarships" element={<Scholarship />} />
             <Route
