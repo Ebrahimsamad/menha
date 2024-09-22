@@ -5,7 +5,7 @@ import PrimaryButton from '../../ui/PrimaryButton';
 import SecondaryButton from '../../ui/SecondaryButton';
 import { getAllScholarships } from '../../services/Scholarship';
 import { UserContext } from '../../context/UserContext';
-import { getSaveScholarship, toggle } from '../../services/savedScholarship';
+import { getSaveScholarship, toggle } from '../../services/SavedScholarship';
 import Spinner from '../../ui/Spinner';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
@@ -69,12 +69,11 @@ const CardScholarship = ({ isOpen }) => {
       setSaveLoadingId(id);
       let newSaved= toggle(id)
       toast.promise(newSaved, {
-        loading: "saving...",
-        success: "saved successfully!",
+        loading: savedScholarships.has(id) ? 'unsaving...' : 'saving...',
+        success: savedScholarships.has(id) ? 'unsaved successfully!' : 'saved successfully!',
         error: "try again"
       })
       const saved=await newSaved
-      console.log(saved.savedScholarshipIds)
       setSavedScholarships(new Set( saved.savedScholarshipIds));
       localStorage.setItem('savedScholarships', JSON.stringify(saved.savedScholarshipIds));
      setSevedScholarship(saved.savedScholarshipIds)

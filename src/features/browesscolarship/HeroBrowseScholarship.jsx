@@ -13,7 +13,7 @@ function HeroBrowseScholarship() {
       <header className="text-center mb-7 bg-[#003A65] py-10 lg:py-16">
         <RepeatParagrah>
 
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#b92a3b]">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white">
             Browse Scholarships
           </h1>
         </RepeatParagrah>

@@ -18,6 +18,7 @@ import About from "./pages/About";
 import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
 import Scholarship from "./pages/Scholarship";
 import SavedScholarships from "./features/savedscholarship/SavedScholarship";
+import NoAuthenticatedRoute from "./ui/NoAuthenticatedRoute";
 
 function App() {
   return (
@@ -45,9 +46,26 @@ function App() {
           <Route element={<Layout />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile/*" element={<ProfilePage />} />
-            <Route path="/saved-scholarship" element={<SavedScholarships />} />
-            <Route path="/scolarshipdetails/:scholarshipId/*" element={<ScolarshipDetails />} />
+            <Route
+              path="/profile/*"
+              element={
+                <NoAuthenticatedRoute>
+                  <ProfilePage />
+                </NoAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/saved-scholarship"
+              element={
+                <NoAuthenticatedRoute>
+                  <SavedScholarships />
+                </NoAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/scolarshipdetails/:scholarshipId/*"
+              element={<ScolarshipDetails />}
+            />
             <Route path="/scholarships" element={<Scholarship />} />
             <Route
               path="/browse-scholarships"

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { fetchSavedScholarships } from "../../services/SavedScholarship";
-import { removeSavedScholarship } from "../../services/RemoveFromSavedScholarships";
+import React, { useState, useEffect, useContext } from "react";
+import { fetchSavedScholarships,toggle } from "../../services/SavedScholarship";
 import PrimaryButton from '../../ui/PrimaryButton';
 import RepeatParagrah from "../../ui/RepeatPara";
+import { UserContext } from "../../context/UserContext";
+import toast from "react-hot-toast";
+import Spinner from "../../ui/Spinner";
+import SecondaryButton from "../../ui/SecondaryButton";
 
 
 const SkeletonCard = () => (
@@ -33,15 +36,18 @@ const SkeletonCard = () => (
 
 const SavedScholarships = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const scholarshipsPerPage = 3; // Updated to display 3 scholarships per page
-
+  const scholarshipsPerPage = 3; 
+  const [isRemoved, setIsRemoved] = useState(false);
   const [scholarships, setScholarships] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [savedScholarships, setSavedScholarships] = useState(new Set());
+  const [saveLoadingId, setSaveLoadingId] = useState('');
+  const { sevedScholarship,setSevedScholarship}=useContext(UserContext)
 
   useEffect(() => {
+    setIsRemoved(false)
     const getScholarships = async () => {
       setIsLoading(true);
       setError(null);
@@ -60,7 +66,7 @@ const SavedScholarships = () => {
     };
 
     getScholarships();
-  }, [currentPage]);
+  }, [currentPage,isRemoved]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
@@ -71,44 +77,53 @@ const SavedScholarships = () => {
   };
 
   const handleSaveScholarship = async (id) => {
-    setSavedScholarships((prev) => {
-      const updated = new Set(prev);
-      updated.has(id) ? updated.delete(id) : updated.add(id);
-      return updated;
-    });
+    // setSavedScholarships((prev) => {
+    //   const updated = new Set(prev);
+    //   updated.has(id) ? updated.delete(id) : updated.add(id);
+    //   return updated;
+    // });
 
-    if (savedScholarships.has(id)) {
-      setScholarships((prevScholarships) =>
-        prevScholarships.filter((scholarship) => scholarship._id !== id)
-      );
+    // if (savedScholarships.has(id)) {
+    //   setScholarships((prevScholarships) =>
+    //     prevScholarships.filter((scholarship) => scholarship._id !== id)
+    //   );
 
       try {
-        await removeSavedScholarship(id);
-        console.log(`Scholarship ${id} removed successfully.`);
+        setSaveLoadingId(id);
+      let newSaved= toggle(id)
+      toast.promise(newSaved, {
+        loading: "unsaving...",
+        success: "unsaved successfully!",
+        error: "try again"
+      })
+      const saved=await newSaved
+      localStorage.setItem('savedScholarships', JSON.stringify(saved.savedScholarshipIds));
+      setSevedScholarship(saved.savedScholarshipIds)
+        setIsRemoved(true)
       } catch (error) {
         console.error(`Failed to remove scholarship ${id}:`, error.message);
-        setSavedScholarships((prev) => {
-          const reverted = new Set(prev);
-          reverted.add(id);
-          return reverted;
-        });
-        setError("Failed to remove the scholarship. Please try again.");
+        // setSavedScholarships((prev) => {
+        //   const reverted = new Set(prev);
+        //   reverted.add(id);
+        //   return reverted;
+        // });
+        // setError("Failed to remove the scholarship. Please try again.");
       }
-    } 
+    // } 
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 container mx-auto mb-5">
       
           <RepeatParagrah>
 
-          <h1 className="text-4xl md:text-5xl lg:text-7xl">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl mb-5">
           Saved Scholarships
           </h1>
           </RepeatParagrah>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
           {Array.from({ length: scholarshipsPerPage }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
@@ -124,7 +139,10 @@ const SavedScholarships = () => {
           </button>
         </div>
       ) : scholarships.length === 0 ? (
-        <p>No scholarships available.</p>
+        <div className="flex flex-col items-center py-10">
+          <h2 className="text-xl font-bold mb-5">No saved scholarships found</h2>
+          <img src='/Empty.gif' />
+        </div>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -140,7 +158,7 @@ const SavedScholarships = () => {
                     <h5 className="text-xl font-medium leading-tight">
                       {scholarship.title || "No Title Available"}
                     </h5>
-                    <svg
+                    {(saveLoadingId===scholarship._id?(<Spinner color="red-500" />):(<svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill={savedScholarships.has(scholarship._id) ? '#003a65' : 'none'}
                       viewBox="0 0 24 24"
@@ -156,7 +174,7 @@ const SavedScholarships = () => {
                         strokeLinejoin="round"
                         d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
                       />
-                    </svg>
+                    </svg>))}
                   </div>
 
                   <p className="mb-4 text-base">
@@ -184,28 +202,23 @@ const SavedScholarships = () => {
 
           
           <div className="flex justify-between items-center mt-6">
-            <button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`px-4 py-2 bg-blue-500 text-white rounded ${
-                currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'hover:bg-blue-600'
-              }`}
-            >
-              Previous
-            </button>
-            <span className="text-lg font-medium">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`px-4 py-2 bg-blue-500 text-white rounded ${
-                currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'hover:bg-blue-600'
-              }`}
-            >
-              Next
-            </button>
-          </div>
+              <div className={`${currentPage === 1 ? 'hidden' : ''}`}>
+
+                <SecondaryButton onClick={handlePrevPage} >Previous</SecondaryButton>
+              </div>
+              <button className={`bg-gray-500 ${currentPage === 1 ? '' : 'hidden'} text-white font-bold py-2 px-4 rounded-full transition duration-300 `}>
+                Previous
+              </button>
+
+              <span className="mx-2">Page {currentPage} of {totalPages}</span>
+              <div className={` ${currentPage === totalPages ? 'hidden' : ''}`}>
+
+                <PrimaryButton onClick={handleNextPage} >Next</PrimaryButton>
+              </div>
+              <button className={`bg-gray-500 ${currentPage === totalPages ? '' : 'hidden'} text-white font-bold py-2 px-4 rounded-full transition duration-300 `}>
+                Next
+              </button>
+            </div>
         </>
       )}
     </div>

@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FiMenu, FiX, FiSearch } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 import { UserContext } from "../../context/UserContext";
-import { getSaveScholarship } from "../../services/savedScholarship";
+import { getSaveScholarship } from "../../services/SavedScholarship";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
@@ -102,7 +102,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`w-6 h-6 cursor-pointer  `}
+                className={`w-6 h-6 cursor-pointer hover:text-[#b92a3b] `}
               >
                 <path
                   strokeLinecap="round"
