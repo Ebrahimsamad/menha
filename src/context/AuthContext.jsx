@@ -155,6 +155,7 @@ export const AuthProvider = ({ children }) => {
     logoutService();
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("savedScholarships");
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);

@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import RepeatParagraph from '../../ui/RepeatPara';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../ui/PrimaryButton';
 import SecondaryButton from '../../ui/SecondaryButton';
 import { getAllScholarships } from '../../services/Scholarship';
+import { UserContext } from '../../context/UserContext';
+import { getSaveScholarship, toggle } from '../../services/savedScholarship';
+import Spinner from '../../ui/Spinner';
+import toast from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
 const CardScholarship = ({ isOpen }) => {
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [saveLoadingId, setSaveLoadingId] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [savedScholarships, setSavedScholarships] = useState(new Set());
@@ -15,6 +21,9 @@ const CardScholarship = ({ isOpen }) => {
   const location = useLocation();
   const params = new URLSearchParams();
   const navigate = useNavigate();
+  const { sevedScholarship,setSevedScholarship}=useContext(UserContext)
+  const { isAuthenticated} = useAuth();
+
 
   useEffect(() => {
     const fetchScholarships = async () => {
@@ -51,19 +60,30 @@ const CardScholarship = ({ isOpen }) => {
   }, [location]);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('savedScholarships')) || [];
-    setSavedScholarships(new Set(saved));
+    setSavedScholarships(new Set(sevedScholarship));
   }, []);
 
-  const handleSaveScholarship = (id) => {
-    const updatedSavedScholarships = new Set(savedScholarships);
-    if (updatedSavedScholarships.has(id)) {
-      updatedSavedScholarships.delete(id);
-    } else {
-      updatedSavedScholarships.add(id);
+  const handleSaveScholarship = async(id) => {
+    try {
+      if(!isAuthenticated)return toast.error("sorry, login first")
+      setSaveLoadingId(id);
+      let newSaved= toggle(id)
+      toast.promise(newSaved, {
+        loading: "saving...",
+        success: "saved successfully!",
+        error: "try again"
+      })
+      const saved=await newSaved
+      console.log(saved.savedScholarshipIds)
+      setSavedScholarships(new Set( saved.savedScholarshipIds));
+      localStorage.setItem('savedScholarships', JSON.stringify(saved.savedScholarshipIds));
+     setSevedScholarship(saved.savedScholarshipIds)
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setSaveLoadingId('')
     }
-    setSavedScholarships(updatedSavedScholarships);
-    localStorage.setItem('savedScholarships', JSON.stringify(Array.from(updatedSavedScholarships)));
+   
   };
 
   const handlePageChange = (direction) => {
@@ -95,7 +115,7 @@ const CardScholarship = ({ isOpen }) => {
         <>
           <div className="flex flex-col w-full  space-y-5 pb-5">
             {[1, 2, 3].map((i) => (
-              <div className="card bg-base-100 w-full mx-auto lg:w-3/4 bg-white shadow-lg p-5 m-2 animate-pulse" key={i}>
+              <div className="card  w-full mx-auto lg:w-3/4 bg-white shadow-lg p-5 m-2 animate-pulse" key={i}>
                 <div className="card-body">
                   <div className="flex justify-between items-center">
                     <div className="h-8 bg-gray-300 rounded w-3/4"></div>
@@ -131,7 +151,7 @@ const CardScholarship = ({ isOpen }) => {
           <div className="flex flex-col w-full space-y-5 ">
             {scholarships.map((scholarship) => (
 
-              <div key={scholarship._id} className="card bg-base-100 w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white hover:scale-105">
+              <div key={scholarship._id} className="card  w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white hover:scale-105">
                 <div className="card-body">
                   <div className="flex justify-between items-center">
                     <Link to={`/scolarshipdetails/${scholarship._id}`}>
@@ -140,6 +160,8 @@ const CardScholarship = ({ isOpen }) => {
                         <h2 className="text-4xl text-[#B92A3B]">{scholarship.title}</h2>
                       </RepeatParagraph>
                     </Link>
+                    {(saveLoadingId===scholarship._id?(<Spinner color="red-500" />):(
+
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill={savedScholarships.has(scholarship._id) ? '#003a65' : 'none'}
@@ -148,6 +170,7 @@ const CardScholarship = ({ isOpen }) => {
                       stroke="currentColor"
                       className={`w-6 h-6 cursor-pointer ${savedScholarships.has(scholarship._id) ? 'text-[#003a65]' : ''} `}
                       onClick={() => handleSaveScholarship(scholarship._id)}
+                      disabled={saveLoadingId}
                     >
                       <path
                         strokeLinecap="round"
@@ -155,6 +178,9 @@ const CardScholarship = ({ isOpen }) => {
                         d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
                       />
                     </svg>
+                    )
+
+                    )}
                   </div>
                   <hr />
                   <Link to={`/scolarshipdetails/${scholarship._id}`}>
