@@ -52,7 +52,7 @@ const ResetPassword = () => {
     }
 
     try {
-    setLoading(true);
+      setLoading(true);
       await resetPassword(token, email, data.newPassword, data.confirmPassword);
       setLoading(false);
       navigate("/login");
@@ -142,11 +142,12 @@ const ResetPassword = () => {
 
           <button
             type="submit"
-            className={`h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold transition duration-300 hover:bg-[#a52633] ${isButtonDisabled || loading
-                ? "opacity-50 cursor-not-allowed bg-gray-400  hover:bg-gray-400"
-                : ""
-              }`}
             disabled={isButtonDisabled || loading}
+            className={`w-full py-3 rounded-lg transition duration-300 bg-[#b92a3b] hover:bg-[#a02234] text-white flex justify-center items-center ${
+              isButtonDisabled
+                ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400"
+                : ""
+            }`}
           >
             {loading ? <Spinner /> : "Reset Password"}
           </button>

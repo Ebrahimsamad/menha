@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .active {
   position: relative;
 }
@@ -27,4 +26,38 @@ html {
   src: url("/public/font/BRUSHSCI.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+html,
+body {
+  --sb-track-color: #003a65 !important;
+  --sb-thumb-color: #ffffff !important;
+  --sb-size: 14px !important;
+}
+
+html::-webkit-scrollbar {
+  width: var(--sb-size) !important;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--sb-track-color) !important;
+  border-radius: 3px !important;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color) !important;
+  border-radius: 3px !important;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
+  }
+}
+
+html,
+body,
+*:hover,
+*:focus {
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color) !important;
 }
