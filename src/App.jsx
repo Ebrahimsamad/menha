@@ -19,6 +19,7 @@ import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
 import Scholarship from "./pages/Scholarship";
 import SavedScholarships from "./features/savedscholarship/SavedScholarship";
 import NoAuthenticatedRoute from "./ui/NoAuthenticatedRoute";
+import Pricing from "./pages/Pricing";
 
 function App() {
   return (
@@ -110,6 +111,12 @@ function App() {
                 <ProtectedRoute>
                   <ResetPasswordPage />
                 </ProtectedRoute>
+              }
+            />
+              <Route
+              path="/pricing"
+              element={
+                <Pricing/>
               }
             />
             <Route path="*" element={<PageNotFound />} />
