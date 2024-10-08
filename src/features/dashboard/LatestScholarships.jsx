@@ -43,31 +43,31 @@ export default function LatestScholarships() {
           {loading ? (
             <>
               <div className="md:col-span-2">
-                <div className="animate-pulse">
-                  <div className="bg-gray-300 w-full h-96 rounded-lg"></div>
-                  <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                  <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                <div className="animate-pulse h-full">
+                  <div className="bg-gray-300 w-full h-4/5 rounded-lg"></div>
+                  <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                  <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
                 </div>
               </div>
               <div className="space-y-8">
                 <div>
                   <div className="animate-pulse">
                     <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
-                    <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                    <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                    <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                    <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
                   </div>
                 </div>
                 <div><div className="animate-pulse">
                   <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
-                  <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                  <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
+                  <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                  <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
                 </div></div>
               </div>
 
             </>
           ) : (
             <>
-              <div className="md:col-span-2">
+              <div className="md:col-span-2 hover:overflow-hidden transition">
                 {scholarships.length > 0 ? (
                   <>
                     <Link to={`/scolarshipdetails/${scholarships[0]?._id}`}>

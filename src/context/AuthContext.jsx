@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }) => {
 
       const data = await promise;
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setToken(data.token);
       setUser(data.user);
       setIsAuthenticated(true);

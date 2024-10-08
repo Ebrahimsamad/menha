@@ -55,7 +55,7 @@ const Navbar = () => {
               to="/dashboard"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
-              Dashboard
+              Home
             </NavLink>
           </li>
           <li className="group">
@@ -71,7 +71,7 @@ const Navbar = () => {
               to="/browse-scholarships"
               className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             >
-              Browse Scholarships
+              Field Of Study
             </NavLink>
           </li>
           <li className="group">
@@ -83,7 +83,23 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          <li className="group">
+
+          {/* Conditionally render Search Icon for /dashboard route */}
+          
+        </ul>
+        
+        {/* Authentication Links */}
+        <div className="hidden lg:flex space-x-4 items-center">
+            <div className="group">
+              <a
+                href="#search"
+                className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
+              >
+                <FiSearch size={20} />
+              </a>
+            </div>
+            {isAuthenticated && (
+          <div className="group">
             <div
               className="relative"
               onClick={() => {
@@ -91,11 +107,11 @@ const Navbar = () => {
                 navigate("/saved-scholarship")
               }}
             >
-              {isAuthenticated && (
+              
                 <strong className="absolute top-[-12px] right-[-5px] bg-white rounded-full w-5 text-yellow-400 text-center text-sm">
                   {sevedScholarship.length || 0}
                 </strong>
-              )}
+              
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill={location.pathname === "/saved-scholarship"?"#b92a3b":"none"}
@@ -111,23 +127,7 @@ const Navbar = () => {
                 />
               </svg>
             </div>
-          </li>
-
-          {/* Conditionally render Search Icon for /dashboard route */}
-          {location.pathname === "/dashboard" && (
-            <li className="group">
-              <a
-                href="#search"
-                className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
-              >
-                <FiSearch size={20} />
-              </a>
-            </li>
-          )}
-        </ul>
-
-        {/* Authentication Links */}
-        <div className="hidden lg:flex space-x-4 items-center">
+          </div>)}
           {isAuthenticated ? (
             <div className="dropdown dropdown-end z-50">
               <label
@@ -267,7 +267,7 @@ const Navbar = () => {
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             onClick={toggleMenu}
           >
-            Dashboard
+            Home
           </NavLink>
         </li>
         <li className="group">
@@ -285,7 +285,7 @@ const Navbar = () => {
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             onClick={toggleMenu}
           >
-            Browse Scholarships
+             Field Of Study
           </NavLink>
         </li>
         <li className="group">

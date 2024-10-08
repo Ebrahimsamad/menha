@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import ProfileForm from "./ProfileForm";
 import Sidebar from "./Sidebar";
 import ProfilePasswordForm from "./ProfilePasswordForm ";
+import Info from "./Info";
+import { UserContext } from "../../context/UserContext";
+import Portfolio from "./Portfolio";
 
 
 const Profile = () => {
-  const savedUser = JSON.parse(localStorage.getItem("user"));
+  const { user ,setUser} = useContext(UserContext);
 
   return (
-    <div className="container mx-auto my-8 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-4">
+    <div className="container mx-auto my-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-4">
 
       <div className="h-full col-span-1 md:col-span-4 lg:col-span-3">
-        <Sidebar image={savedUser?.image} name={savedUser?.name} />
+        <Sidebar user={user} />
       </div>
 
 
       <div className="col-span-1 md:col-span-8 lg:col-span-9">
         <Routes>
-          <Route path="" element={<ProfileForm name={savedUser?.name} email={savedUser.email} />} />
-          <Route path="/password" element={<ProfilePasswordForm />} />
+
+          <Route path="/" element={<Portfolio user={user}/>} />
+          <Route path="/info" element={<Info user={user} />} />
+          <Route path="/edit-profile" element={<ProfileForm user={user} setUser={setUser} />} />
+          <Route path="/change-password" element={<ProfilePasswordForm />} />
         </Routes>
       </div>
     </div>

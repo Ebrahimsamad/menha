@@ -49,7 +49,7 @@ const CheckToken = () => {
     <div className="min-h-screen bg-[url('/3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
       <div className="relative z-10 p-6 bg-white rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
-          Check Reset Token
+          Check Your Email
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="relative">
@@ -59,7 +59,7 @@ const CheckToken = () => {
                 required: "Token is required",
               })}
               className="h-12 w-full px-4 text-[#003a65] border-b-2 border-[#003a65] focus:border-[#b92a3b] focus:outline-none transition duration-300"
-              placeholder="Enter Token"
+              placeholder="Enter code"
             />
             {errors.token && (
               <p className="text-red-600 text-center mt-1">
@@ -73,7 +73,7 @@ const CheckToken = () => {
             className={`h-12 w-full bg-[#b92a3b] text-white rounded-lg font-semibold hover:bg-[#a52633] transition duration-300 flex items-center justify-center ${isButtonDisabled || loading ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' : ''}`}
             disabled={loading || isButtonDisabled}
           >
-            {loading ? <Spinner /> : "Verify Token"}
+            {loading ? <Spinner /> : "Verify Code"}
           </button>
         </form>
       </div>

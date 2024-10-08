@@ -196,9 +196,11 @@ const AboutUs = () => {
             their dreams. Our platform connects students with scholarships that
             align with their needs and qualifications.
           </p>
+            <Link to="/scholarships">
           <BlueButton>
-            <Link to="/scholarships">Explore Scholarships</Link>
+            Explore Scholarships
           </BlueButton>
+            </Link>
         </div>
 
         {/* Contact Us Section */}
