@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaImage } from "react-icons/fa";
 import Spinner from "../../ui/Spinner";
 import { updateProfile } from "../../services/UpdateProfile";
 import toast from "react-hot-toast";
-import { UserContext } from "../../context/UserContext";
+import SecondaryButton from "../../ui/SecondaryButton";
+import { useNavigate } from "react-router-dom";
 
 const validateForm = (data) => {
   const errors = {};
@@ -26,12 +27,12 @@ const validateForm = (data) => {
   return errors;
 };
 
-const ProfileForm = () => {
+const ProfileForm = ({ user, setUser }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -125,8 +126,13 @@ const ProfileForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="py-14 p-8 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6">User Profile</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="py-14 p-8 bg-gradient-to-r from-white to-[#e9e9e9] rounded-lg shadow-lg">
+     <div className="flex justify-between items-center border-b-2 border-[#003a65] pb-3 mb-5">
+          <h2 className="text-2xl font-bold text-[#003a65]">
+            Edit Profile
+          </h2>
+          
+        </div>
 
       <div className="mb-6">
         <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -186,11 +192,12 @@ const ProfileForm = () => {
       <button
         type="submit"
         disabled={!isChanged || loading}
-        className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full ${!isChanged ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400" : ""
+        className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full me-2 ${!isChanged ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400" : ""
           }`}
       >
         {loading ? <Spinner /> : "Save Changes"}
       </button>
+      <SecondaryButton onClick={()=>navigate("/profile/change-password")}>Change Password</SecondaryButton>
     </form>
   );
 };

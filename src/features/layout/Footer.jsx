@@ -8,11 +8,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#003a65] text-white py-8">
-      <div className="container lg:ml-36 lg:mr-36 mx-auto text-center md:text-left">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-[#003a65] text-white py-8 flex justify-center">
+      <div className="container mx-auto lg:max-w-screen-xl text-center">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
           {/* Brand Logo */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <Link to="/dashboard" onClick={scrollToTop}>
               <img
                 src="/logo.png"
@@ -20,13 +20,11 @@ const Footer = () => {
                 className="w-32 h-12 mb-4 object-contain"
               />
             </Link>
-            <p className="text-sm">
-              Empowering scholarships and opportunities.
-            </p>
+            <p className="text-sm">Empowering scholarships and opportunities.</p>
           </div>
 
           {/* Navigation Links */}
-          <div className="flex flex-col space-y-2 items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start space-y-2">
             <h5 className="text-lg font-semibold">Quick Links</h5>
             <Link
               to="/dashboard"
@@ -91,7 +89,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom Section */}
-        <div className="mt-8 border-t border-white/10 pt-4 text-sm text-center">
+        <div className="mt-8 border-t border-white/10 pt-4 text-sm">
           <p>&copy; {new Date().getFullYear()} Men7a. All rights reserved.</p>
         </div>
       </div>

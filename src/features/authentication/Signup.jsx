@@ -67,7 +67,7 @@ const Signup = () => {
       const response = await signup(formData);
 
       if (response && response.token) {
-        navigate("/login");
+        navigate("/dashboard");
       } else {
         console.error("Signup failed:", response.message);
       }

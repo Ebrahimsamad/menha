@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { FaGraduationCap } from "react-icons/fa";
-import { UserContext } from "../../context/UserContext";
 
-const Sidebar = () => {
-  const { user } = useContext(UserContext);
+const Sidebar = ({user}) => {
 
   return (
     <div className="p-6 rounded-lg text-white bg-gradient-to-b from-[#003a65] to-[#000] h-full">
@@ -20,7 +18,9 @@ const Sidebar = () => {
         <h3 className="mt-4 text-xl font-semibold">{user.userName}</h3>
 
         <div className="mt-6 space-y-2">
-          <Link to="/profile" className="block py-2 text-white hover:text-gray-300">Profile Info</Link>
+          <Link to="/profile/info" className="block py-2 text-white hover:text-gray-300">Profile Info</Link>
+          <Link to="/profile" className="block py-2 text-white hover:text-gray-300">Portfolio</Link>
+
           <Link to="/profile/password" className="block py-2 text-white hover:text-gray-300">Change Password</Link>
         </div>
       </div>
