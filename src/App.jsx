@@ -19,7 +19,8 @@ import ScolarshipDetails from "./features/scholardetails/ScolarshipDetails";
 import Scholarship from "./pages/Scholarship";
 import SavedScholarships from "./features/savedscholarship/SavedScholarship";
 import NoAuthenticatedRoute from "./ui/NoAuthenticatedRoute";
-import Pricing from "./pages/Pricing";
+import PricingPage from "./pages/PricingPage";
+import SuccessPage from "./pages/SuccessPage";
 
 function App() {
   return (
@@ -116,7 +117,13 @@ function App() {
               <Route
               path="/pricing"
               element={
-                <Pricing/>
+                <PricingPage/>
+              }
+            />
+            <Route
+              path="/buy-success/*"
+              element={
+                <SuccessPage/>
               }
             />
             <Route path="*" element={<PageNotFound />} />

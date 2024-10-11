@@ -83,51 +83,54 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-
           {/* Conditionally render Search Icon for /dashboard route */}
-          
         </ul>
-        
+
         {/* Authentication Links */}
         <div className="hidden lg:flex space-x-4 items-center">
-            <div className="group">
-              <a
-                href="#search"
-                className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
-              >
-                <FiSearch size={20} />
-              </a>
-            </div>
-            {isAuthenticated && (
           <div className="group">
-            <div
-              className="relative"
-              onClick={() => {
-                if (!isAuthenticated) return toast.error("sorry, login first");
-                navigate("/saved-scholarship")
-              }}
+            <a
+              href="#search"
+              className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
             >
-              
+              <FiSearch size={20} />
+            </a>
+          </div>
+          {isAuthenticated && (
+            <div className="group">
+              <div
+                className="relative"
+                onClick={() => {
+                  if (!isAuthenticated)
+                    return toast.error("sorry, login first");
+                  navigate("/saved-scholarship");
+                }}
+              >
                 <strong className="absolute top-[-12px] right-[-5px] bg-white rounded-full w-5 text-yellow-400 text-center text-sm">
                   {sevedScholarship.length || 0}
                 </strong>
-              
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill={location.pathname === "/saved-scholarship"?"#b92a3b":"none"}
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className={`w-6 h-6 cursor-pointer hover:text-[#b92a3b] `}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-                />
-              </svg>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill={
+                    location.pathname === "/saved-scholarship"
+                      ? "#b92a3b"
+                      : "none"
+                  }
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className={`w-6 h-6 cursor-pointer hover:text-[#b92a3b] `}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                  />
+                </svg>
+              </div>
             </div>
-          </div>)}
+          )}
           {isAuthenticated ? (
             <div className="dropdown dropdown-end z-50">
               <label
@@ -166,6 +169,27 @@ const Navbar = () => {
                 >
                   <li onClick={toggleDropdown}>
                     <Link to="/profile" className="">
+                      <div className="flex items-center text-[#003A65]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6 text-[#b92a3b] me-2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+                          />
+                        </svg>
+                        Portfolio
+                      </div>
+                    </Link>
+                  </li>
+                  <li onClick={toggleDropdown}>
+                    <Link to="/profile/info" className="">
                       <div className="flex items-center text-[#003A65]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -285,7 +309,7 @@ const Navbar = () => {
             className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
             onClick={toggleMenu}
           >
-             Field Of Study
+            Field Of Study
           </NavLink>
         </li>
         <li className="group">
@@ -332,20 +356,20 @@ const Navbar = () => {
                 className=" text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-white hover:text-[#b92a3b] flex"
               >
                 <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6 me-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                        />
-                      </svg>
-                      <span>Logout</span>
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 me-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                  />
+                </svg>
+                <span>Logout</span>
               </button>
             </li>
           </>
