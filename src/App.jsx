@@ -114,16 +114,20 @@ function App() {
                 </ProtectedRoute>
               }
             />
-              <Route
+            <Route
               path="/pricing"
               element={
-                <PricingPage/>
+                <NoAuthenticatedRoute>
+                  <PricingPage />
+                </NoAuthenticatedRoute>
               }
             />
             <Route
               path="/buy-success/*"
               element={
-                <SuccessPage/>
+                <NoAuthenticatedRoute>
+                  <SuccessPage />{" "}
+                </NoAuthenticatedRoute>
               }
             />
             <Route path="*" element={<PageNotFound />} />

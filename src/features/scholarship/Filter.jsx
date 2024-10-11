@@ -81,10 +81,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
     return (
         <div
-            className={`relative z-50 bg-white border-r border-r-border-base shadow-lg transition-all duration-300 ${isOpen ? 'w-full md:w-96' : 'w-0 lg:w-24'} `}
+            className={`relative  bg-white border-r border-r-border-base shadow-lg transition-all duration-300 ${isOpen ? 'w-full md:w-96' : 'w-0 lg:w-24'} `}
         >
             <button
-                className={` absolute top-3 z-[51] ${isOpen ? 'right-3 rounded-full' : 'right-[-30px] lg:right-[-32px] rounded-e-full h-14'} bg-[#003a65]  text-white p-1   transition-all duration-300`}
+                className={` absolute top-3 z-40 ${isOpen ? 'right-3 rounded-full' : 'right-[-30px] lg:right-[-32px] rounded-e-full h-14'} bg-[#003a65]  text-white p-1   transition-all duration-300`}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className='flex justify-between'>
