@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import RepeatParagraph from "../../ui/RepeatParagrah";
 import PrimaryButton from "../../ui/PrimaryButton";
 import { fetchScholarships } from "../../services/LatestScholarships";
-import toast, { Toaster } from "react-hot-toast";
-import Spinner from "../../ui/Spinner";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LatestScholarships() {
@@ -29,13 +28,15 @@ export default function LatestScholarships() {
   }, []);
   const handelViewScholarships = () => {
     navigate(`/scholarships`);
-  }
+  };
   return (
     <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <>
         <div className="flex justify-center mb-8">
           <RepeatParagraph>
-            <h2 className="text-center text-3xl sm:text-5xl md:text-6xl ">Latest Scholarships</h2>
+            <h2 className="text-center text-3xl sm:text-5xl md:text-6xl ">
+              Latest Scholarships
+            </h2>
           </RepeatParagraph>
         </div>
 
@@ -57,17 +58,18 @@ export default function LatestScholarships() {
                     <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
                   </div>
                 </div>
-                <div><div className="animate-pulse">
-                  <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
-                  <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                  <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
-                </div></div>
+                <div>
+                  <div className="animate-pulse">
+                    <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
+                    <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                    <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
+                  </div>
+                </div>
               </div>
-
             </>
           ) : (
             <>
-              <div className="md:col-span-2 hover:overflow-hidden transition">
+              <div className="md:col-span-2 hover: transition">
                 {scholarships.length > 0 ? (
                   <>
                     <Link to={`/scolarshipdetails/${scholarships[0]?._id}`}>
@@ -94,7 +96,6 @@ export default function LatestScholarships() {
 
               <div className="space-y-8">
                 {scholarships.slice(1, 3).map((scholarship) => (
-
                   <div key={scholarship._id}>
                     <Link to={`/scolarshipdetails/${scholarship?._id}`}>
                       <img
@@ -120,12 +121,11 @@ export default function LatestScholarships() {
         </div>
 
         <div className="mt-8 text-center">
-          <PrimaryButton onClick={handelViewScholarships}>VIEW SCHOLARSHIPS</PrimaryButton>
+          <PrimaryButton onClick={handelViewScholarships}>
+            VIEW SCHOLARSHIPS
+          </PrimaryButton>
         </div>
-
       </>
     </section>
   );
 }
-
-

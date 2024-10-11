@@ -92,11 +92,13 @@ const Navbar = () => {
               About
             </NavLink>
           </li>
+
         </ul>
 
         {/* Authentication Links */}
         <div className="hidden lg:flex space-x-4 items-center">
           <div className="group">
+
             <button
               onClick={openSearchModal} // Open the search modal on click
               className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
@@ -109,20 +111,28 @@ const Navbar = () => {
               <div
                 className="relative"
                 onClick={() => {
-                  if (!isAuthenticated) return toast.error("sorry, login first");
+                  if (!isAuthenticated)
+                    return toast.error("sorry, login first");
+
                   navigate("/saved-scholarship");
                 }}
               >
                 <strong className="absolute top-[-12px] right-[-5px] bg-white rounded-full w-5 text-yellow-400 text-center text-sm">
                   {sevedScholarship.length || 0}
                 </strong>
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill={location.pathname === "/saved-scholarship" ? "#b92a3b" : "none"}
+                  fill={
+                    location.pathname === "/saved-scholarship"
+                      ? "#b92a3b"
+                      : "none"
+                  }
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 cursor-pointer hover:text-[#b92a3b]"
+                  className={`w-6 h-6 cursor-pointer hover:text-[#b92a3b] `}
+
                 >
                   <path
                     strokeLinecap="round"
@@ -170,6 +180,27 @@ const Navbar = () => {
                 >
                   <li onClick={toggleDropdown}>
                     <Link to="/profile" className="">
+                      <div className="flex items-center text-[#003A65]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6 text-[#b92a3b] me-2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+                          />
+                        </svg>
+                        Portfolio
+                      </div>
+                    </Link>
+                  </li>
+                  <li onClick={toggleDropdown}>
+                    <Link to="/profile/info" className="">
                       <div className="flex items-center text-[#003A65]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -240,6 +271,71 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Mobile and Medium Device Menu */}
+      <ul
+        className={`${
+          isMenuOpen ? "flex mt-14" : "hidden"
+        } lg:hidden flex-col space-y-6 items-center bg-[#003a65] absolute top-0 right-0 w-2/3 md:w-1/3 h-screen p-6 z-20 transition-transform duration-300 transform ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <li className="group">
+          <NavLink
+            to="/dashboard"
+            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li className="group">
+          <NavLink
+            to="/scholarships"
+            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
+          >
+            Scholarships
+          </NavLink>
+        </li>
+        <li className="group">
+          <NavLink
+            to="/browse-scholarships"
+            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
+          >
+            Field Of Study
+          </NavLink>
+        </li>
+        <li className="group">
+          <NavLink
+            to="/about"
+            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
+          >
+            About
+          </NavLink>
+        </li>
+
+        {/* Conditional Search Link with Icon for mobile */}
+        {location.pathname === "/dashboard" && (
+          <li className="group">
+            <a
+              href="#search"
+              className=" text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
+              onClick={toggleMenu}
+            >
+              <span>Search</span>
+            </a>
+          </li>
+        )}
+
+        {/* Authentication Links for Mobile */}
+        {isAuthenticated ? (
+          <>
+            <Link to={"/profile"}>
+              <li
+                className="group text-white flex items-center space-x-4"
+                onClick={toggleMenu}
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="lg:hidden bg-white text-black py-4">
@@ -257,6 +353,22 @@ const Navbar = () => {
                 to="/scholarships"
                 className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
               >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 me-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                  />
+                </svg>
+                <span>Logout</span>
+              </button>
                 Scholarships
               </NavLink>
             </li>
