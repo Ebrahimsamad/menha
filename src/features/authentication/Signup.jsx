@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
-import SecondWelcome from "./secondwelcome";
+import SignUpSplit from "./SignUpSplit";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -106,7 +106,7 @@ const Signup = () => {
       
     <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
       <div className="w-full lg:w-1/2 bg-[#003a65]  ">
-      <SecondWelcome />
+      <SignUpSplit />
       </div>
   
         <div className="w-full lg:w-1/2 p-6">

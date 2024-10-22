@@ -9,7 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
-import Welcome from "./Welcome";
+import LoginImageSplit from "./LoginImageSplit";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,14 +58,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-[url('/3.jpg')] bg-cover flex items-center justify-center">
-    {/* Container for both Welcome and Login Form */}
 <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
-      {/* Welcome section */}
       <div className="w-full lg:w-1/2 bg-[#003a65] ">
-        <Welcome />
+        <LoginImageSplit />
       </div>
   
-        {/* Login form section */}
         <div className="w-full lg:w-1/2 p-6">
         <div className="relative z-10">
             <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
