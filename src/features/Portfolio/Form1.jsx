@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import { addCourseType } from "../../services/CourseType";
@@ -13,17 +13,51 @@ export default function Form1({
   fieldsOfStudy,
   setCourseType,
   setFieldOfStudy,
+  setEditMode,
+  setId,
 }) {
   const [loading, setLoading] = useState(false);
   const [showOtherFieldOfStudy, setShowOtherFieldOfStudy] = useState(false);
   const [showOtherCourseType, setShowOtherCourseType] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
   const [showAddFieldButton, setShowAddFieldButton] = useState(false);
-  const [isoption, setIsoption] = useState(true);
-  const [isoptionFieldOfStudy, setisoptionFieldOfStudy] = useState(true);
+  const [ setIsoption] = useState(true);
+  const [ setisoptionFieldOfStudy] = useState(true);
   const [selectedImage1, setSelectedImage1] = useState(null);
   const [selectedImage2, setSelectedImage2] = useState(null);
   const [selectedImage3, setSelectedImage3] = useState(null);
+  const [IDImageUrl, setIDImageUrl] = useState(null);
+  const [graduationImageUrl,setgraduationImageUrl] = useState(null);
+  const [militaryStatusImageUrl, setmilitaryStatusImageUrl] = useState(null);
+  const [dateOfBirth, setDateOfBirth] = useState(""); 
+  
+  const [searchParams] = useSearchParams();
+  // const editMode = searchParams.get('editMode');
+  //   const idParam = searchParams.get('id');
+  // const idParam = "12345678910";
+  const editMode = localStorage.getItem("editMode");
+  const idParam = localStorage.getItem("id");
+
+  console.log('editMode:', editMode);
+  console.log('id:', idParam);
+  useEffect(() => {
+    if (editMode) {
+      setEditMode(true); // Update the parent's editMode state
+    } else {
+      setEditMode(false);
+    }
+    console.log('editMode:', editMode);
+  }, [editMode, setEditMode]);
+
+  useEffect(() => {
+    if (idParam) {
+      setId(idParam); 
+      console.log('id from query param:', idParam);
+    }
+  }, [ idParam, setId]);
+  
+
+
   const fileInputRef1 = useRef(null);
   const fileInputRef2 = useRef(null);
   const fileInputRef3 = useRef(null);
@@ -48,32 +82,40 @@ export default function Form1({
     const savedData = localStorage.getItem("form1Data");
     if (savedData) {
       const formData = JSON.parse(savedData);
+      if (formData.dateOfBirth) {
+        const formattedDate = formData.dateOfBirth.split("T")[0]; 
+        setDateOfBirth(formattedDate);
+      }
       Object.keys(formData).forEach((key) => {
         setValue(key, formData[key], { shouldValidate: true });
       });
+      console.log(localStorage.getItem("form1Data"));
+      
+
     }
   }, [setValue]);
-  useEffect(() => {
-    if (courseTypes.length > 0) {
-      console.log("Updated Course Types:", courseTypes);
-    }
-  }, [courseTypes]);
+  // useEffect(() => {
+  //   if (courseTypes.length > 0) {
+  //     console.log("Updated Course Types:", courseTypes);
+  //   }
+  // }, [courseTypes]);
 
-  useEffect(() => {
-    if (fieldsOfStudy.length > 0) {
-      console.log("Updated field of study:", fieldsOfStudy);
-    }
-  }, [fieldsOfStudy]);
+  // useEffect(() => {
+  //   if (fieldsOfStudy.length > 0) {
+  //     console.log("Updated field of study:", fieldsOfStudy);
+  //   }
+  // }, [fieldsOfStudy]);
 
   const saveDataToLocalStorage = () => {
     const currentValues = getValues();
     const dataToSave = {
       ...currentValues,
-      militaryStatusImage: selectedImage1,
-      IDImage: selectedImage2,
-      graduationImage: selectedImage3,
+      militaryStatusImageUrl: "https://ik.imagekit.io/2crfufcjy/menha/image-1728127153610_86F9q5W0fa.jpeg",
+      IDImageUrl: "https://ik.imagekit.io/2crfufcjy/menha/image-1728127153610_86F9q5W0fa.jpeg",
+      graduationImageUrl: "https://ik.imagekit.io/2crfufcjy/menha/image-1728127153610_86F9q5W0fa.jpeg",
     };
     localStorage.setItem("form1Data", JSON.stringify(dataToSave));
+    
   };
 
   const base64ToFile = (base64String, filename) => {
@@ -93,6 +135,10 @@ export default function Form1({
 
     if (savedData) {
       const parsedData = JSON.parse(savedData);
+      setmilitaryStatusImageUrl(parsedData.militaryStatusImageUrl)
+      setgraduationImageUrl(parsedData.graduationImageUrl)
+      setIDImageUrl(parsedData.IDImageUrl)
+      
 
       const militaryStatusImageBase64 = localStorage.getItem(
         "militaryStatusImage"
@@ -102,6 +148,8 @@ export default function Form1({
           militaryStatusImageBase64,
           "military_status_image.png"
         );
+        console.log("ghggggggggggggggg",militaryStatusImage)
+        console.log("ghggggggggggggggg",militaryStatusImageBase64)
         setSelectedImage1(militaryStatusImage);
         setValue("militaryStatusImage", militaryStatusImage);
         console.log("Retrieved Military Status Image:", militaryStatusImage);
@@ -112,6 +160,7 @@ export default function Form1({
       if (IDImageBase64) {
         const IDImage = base64ToFile(IDImageBase64, "ID_image.png");
         setSelectedImage2(IDImage);
+        setValue("ID Image", IDImage);
         console.log("Retrieved ID Image:", IDImage);
       }
 
@@ -123,10 +172,11 @@ export default function Form1({
           "graduation_image.png"
         );
         setSelectedImage3(graduationImage);
+        setValue("graduationImage", graduationImage);
         console.log("Retrieved Graduation Image:", graduationImage);
       }
     }
-  }, []);
+  }, [setValue]);
 
   const handleImageChange = (event, imageIndex) => {
     const file = event.target.files[0];
@@ -142,6 +192,7 @@ export default function Form1({
         } else if (imageIndex === 3) {
           setSelectedImage3(file);
           localStorage.setItem("graduationImage", reader.result);
+          
         }
         saveDataToLocalStorage();
       };
@@ -152,36 +203,39 @@ export default function Form1({
       if (imageIndex === 3) setSelectedImage3(null);
     }
   };
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+  
   const onSubmit = async (data) => {
     setLoading(true);
-     // تحويل الصور إلى Base64
-     const militaryStatusImageBase64 = selectedImage1 ? await convertToBase64(selectedImage1) : "";
-     const IDImageBase64 = selectedImage2 ? await convertToBase64(selectedImage2) : "";
-     const graduationImageBase64 = selectedImage3 ? await convertToBase64(selectedImage3) : "";
 
+    // const dataToSubmit = {
+    //   ...data,
+    //   ...(selectedImage1 && { militaryStatusImage: selectedImage1 }),
+    //   ...(selectedImage2 && { IDImage: selectedImage2 }),
+    //   ...(selectedImage3 && { graduationImage: selectedImage3 }),
+    //   // IDImage: selectedImage2,
+    //   // graduationImage: selectedImage3,
+      
+    // };
     const dataToSubmit = {
       ...data,
-      militaryStatusImage: militaryStatusImageBase64,
-      IDImage: IDImageBase64,
-      graduationImage: graduationImageBase64,
+      ...(selectedImage1 && { militaryStatusImage: selectedImage1 }),
+      ...(selectedImage2 && { IDImage: selectedImage2 }),
+      ...(selectedImage3 && { graduationImage: selectedImage3 }),
     };
+    
+    console.log("photo1",selectedImage1)
+    console.log(selectedImage2)
+    console.log(selectedImage3)
+
 
     onSubmitSuccess(dataToSubmit);
 
     try {
       console.log("Form Data:", data);
 
-      toast.success("Form1 submitted successfully!");
+      // toast.success("Form1 submitted successfully!");
 
-      navigate("/portfolio/form2");
+      navigate("/portfolio/form2", { state: { editMode }});
     } catch (error) {
       console.error("Error:", error);
       toast.error("Submission failed. Please try again.");
@@ -310,12 +364,28 @@ export default function Form1({
     }
   };
 
-  useEffect(() => {
-    const currentValues = getValues();
-    if (currentValues.courseType) {
-      saveDataToLocalStorage();
-    }
-  }, [getValues, setValue]);
+  // useEffect(() => {
+  //   const currentValues = getValues();
+  //   if (currentValues.courseType) {
+  //     saveDataToLocalStorage();
+  //   }
+  // }, [getValues, setValue]);
+
+  //   useEffect(() => {
+  //   const savedGpaOption = localStorage.getItem("gpaOption");
+  //   const savedGpa = localStorage.getItem("gpa");
+
+  //   if (savedGpaOption) {
+  //     setValue("gpaOption", savedGpaOption );
+
+  //     if (savedGpaOption === "other") {
+  //       setGpaOther(true);
+  //       if (savedGpa) {
+  //         setValue("gpa", savedGpa);
+  //       }
+  //     }
+  //   }
+  // }, [setValue])
 
   const handleGpaChange = (event) => {
     const selectedValue = event.target.value;
@@ -330,7 +400,41 @@ export default function Form1({
 
     saveDataToLocalStorage();
   };
-  console.log("Selected Image 3:", selectedImage3);
+  
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
+        <Toaster />
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
+          <form className="space-y-6">
+            <div className="animate-pulse">
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-1/2 rounded mb-4"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-3/4 rounded mb-4"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-full rounded mb-4"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-1/2 rounded mb-4"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-1/2 rounded mb-4"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="h-6 bg-gray-300 w-1/2 rounded mb-4"></div>
+              </div>
+              <div className="h-12 bg-gray-300 rounded"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+ 
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
@@ -391,14 +495,63 @@ export default function Form1({
 
           <div className="flex items-center">
             <label className="text-[#8A690F] mr-2 font-medium text-xl">
-              GPA (1 - 4)
+              GPA (1 - 5)
             </label>
-            {errors.gpaOption ? (
+            {errors.gpaOption&& errors.gpa? (
               <FaExclamationCircle className="text-red-600" />
             ) : (
               <FaCheckCircle className="text-green-600" />
             )}
           </div>
+
+          {editMode ? (
+  // Input field when editMode is true
+   getValues("gpa") ? (
+    // Show this input if "gpa" has a value
+    <input
+      type="text"
+      {...register("gpa", {
+        required: "GPA is required",
+        min: { value: 1, message: "GPA must be between 1 and 5" },
+        max: { value: 5, message: "GPA must be between 1 and 5" },
+        pattern: {
+          value: /^[0-9]+(\.[0-9]{1,2})?$/,
+          message: "GPA must be a valid number",
+        },
+        onChange: (e) => {
+          const value = e.target.value;
+          setValue("gpa", value, { shouldValidate: true });
+          saveDataToLocalStorage();
+        }
+      })}
+      className="w-full px-4 py-2 border border-gray-300 rounded-md mt-2 focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
+      placeholder="Enter GPA"
+      defaultValue={getValues("gpa")}
+    />
+  ) : (
+    // Show this input if "gpa" is empty
+    <input
+      type="text"
+      {...register("gpaOption", {
+        required: "GPA is required",
+        min: { value: 1, message: "GPA must be between 1 and 5" },
+        max: { value: 5, message: "GPA must be between 1 and 5" },
+        pattern: {
+          value: /^[0-9]+(\.[0-9]{1,2})?$/,
+          message: "GPA must be a valid number",
+        },
+        onChange: (e) => {
+          const value = e.target.value;
+          setValue("gpa", value, { shouldValidate: true })
+          saveDataToLocalStorage();
+        }
+      })}
+      className="w-full px-4 py-2 border border-gray-300 rounded-md mt-2 focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
+      placeholder="Enter GPA"
+      defaultValue={getValues("gpaOption")}
+    />
+  )
+) : (
           <select
             {...register("gpaOption", { required: "GPA is required" })}
             onChange={handleGpaChange}
@@ -412,7 +565,8 @@ export default function Form1({
             <option value="4">5</option>
             <option value="other">Other</option>
           </select>
-          {errors.gpaOption && (
+)}
+          {errors.gpaOption && errors.gpa && (
             <p className="text-red-600">{errors.gpaOption.message}</p>
           )}
 
@@ -464,7 +618,7 @@ export default function Form1({
             <label className="text-[#8A690F] mr-2 font-medium text-xl">
               Date of Birth
             </label>
-            {errors.dateOfBirth ? (
+            {errors.dateOfBirth && !dateOfBirth? (
               <FaExclamationCircle className="text-red-600" />
             ) : (
               <FaCheckCircle className="text-green-600" />
@@ -472,13 +626,15 @@ export default function Form1({
           </div>
           <input
             type="date"
+            value={dateOfBirth}
             {...register("dateOfBirth", {
-              required: "Date of Birth is required",
+               required: "Date of Birth is required",
+              onChange: (e) => setDateOfBirth(e.target.value),
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
             placeholder="Select your birth date"
           />
-          {errors.dateOfBirth && (
+          {errors.dateOfBirth&& !dateOfBirth&& (
             <p className="text-red-600">{errors.dateOfBirth.message}</p>
           )}
 
@@ -627,7 +783,7 @@ export default function Form1({
             <label className="text-[#8A690F] mr-2 font-medium text-xl">
               Military Status Image
             </label>
-            {errors.militaryStatusImage ? (
+            {errors.militaryStatusImage && !selectedImage1 && !militaryStatusImageUrl? (
               <FaExclamationCircle className="text-red-600" />
             ) : (
               <FaCheckCircle className="text-green-600" />
@@ -637,34 +793,62 @@ export default function Form1({
             type="file"
             ref={fileInputRef1}
             {...register("militaryStatusImage", {
-              required: "Military status image is required",
+              required: {
+                value: !selectedImage1 && !militaryStatusImageUrl,
+                message: "military Status Image is required",
+              },
               validate: {
-                validType: (value) =>
-                  value[0]?.type.startsWith("image/") || "Invalid image type",
+                validType: (value) =>{
+                  return (
+            !value.length ||  (value[0]?.type.startsWith("image/") ? true : "Invalid image type")
+          );
+            },
               },
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
             accept="image/*"
             onChange={(e) => handleImageChange(e, 1)}
           />
-          {errors.militaryStatusImage && (
+          {errors.militaryStatusImage && !selectedImage1 && !militaryStatusImageUrl && (
             <p className="text-red-600">{errors.militaryStatusImage.message}</p>
           )}
-          {selectedImage1 && (
+          {editMode === 'true' ? (
+            selectedImage1 ? (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage1)}
+              alt="military Status Status"
+              className="w-24 h-24"
+            />
+          </div>
+        ) : (
+          militaryStatusImageUrl && (
             <div className="mt-4">
               <img
-                src={URL.createObjectURL(selectedImage1)}
-                alt="Military Status"
+                src={militaryStatusImageUrl}
+                alt="military Status Status"
                 className="w-24 h-24"
               />
             </div>
+          )
+        )
+      ) : (
+        selectedImage1 && (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage1)}
+              alt="military Status Status"
+              className="w-24 h-24"
+            />
+          </div>
+        )
           )}
 
           <div className="flex items-center">
             <label className="text-[#8A690F] mr-2 font-medium text-xl">
               ID Image
             </label>
-            {errors.IDImage ? (
+            {errors.IDImage && !selectedImage2 && !IDImageUrl ? (
               <FaExclamationCircle className="text-red-600" />
             ) : (
               <FaCheckCircle className="text-green-600" />
@@ -675,36 +859,61 @@ export default function Form1({
             ref={fileInputRef2}
             {...register("IDImage", {
               required: {
-                value: !selectedImage2,
+                value: !selectedImage2 && !IDImageUrl,
                 message: "IDImage is required",
               },
               validate: {
-                validType: (value) =>
-                  value[0]?.type.startsWith("image/") || "Invalid image type",
+                validType: (value) =>{
+                  return (
+            !value.length ||  (value[0]?.type.startsWith("image/") ? true : "Invalid image type")
+          );
+            },
               },
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
             accept="image/*"
             onChange={(e) => handleImageChange(e, 2)}
           />
-          {errors.IDImage && (
+          {errors.IDImage &&!selectedImage2 && !IDImageUrl && (
             <p className="text-red-600">{errors.IDImage.message}</p>
           )}
-          {selectedImage2 && (
+          {editMode === 'true' ? (
+     selectedImage2 ? (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage2)}
+              alt="IDImage Status"
+              className="w-24 h-24"
+            />
+          </div>
+        ) : (
+          IDImageUrl && (
             <div className="mt-4">
               <img
-                src={URL.createObjectURL(selectedImage2)}
-                alt="Military Status"
+                src={IDImageUrl}
+                alt="IDImage Status"
                 className="w-24 h-24"
               />
             </div>
+          )
+        )
+      ) : (
+        selectedImage2 && (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage2)}
+              alt="IDImage Status"
+              className="w-24 h-24"
+            />
+          </div>
+        )
           )}
 
           <div className="flex items-center">
             <label className="text-[#8A690F] mr-2 font-medium text-xl">
               Graduation Image
             </label>
-            {errors.graduationImage ? (
+            {errors.graduationImage && !selectedImage3 && !graduationImageUrl ? (
               <FaExclamationCircle className="text-red-600" />
             ) : (
               <FaCheckCircle className="text-green-600" />
@@ -715,31 +924,71 @@ export default function Form1({
             ref={fileInputRef3}
             {...register("graduationImage", {
               required: {
-                value: !selectedImage3?.name,
-                message: "graduationImage is required",
+                value: !selectedImage3 && !graduationImageUrl,
+                message: "Graduation Image is required",
               },
 
               validate: {
-                validType: (value) =>
-                  value[0]?.type.startsWith("image/") || "Invalid image type",
-              },
+                validType: (value) =>{
+                  console.log('Value received for validation:', value);
+                return (
+          !value.length ||  (value[0]?.type.startsWith("image/") ? true : "Invalid image type")
+        );
+          },
+              },  
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
             accept="image/*"
             onChange={(e) => handleImageChange(e, 3)}
           />
-          {errors.graduationImage && (
+          {errors.graduationImage &&!selectedImage3 && !graduationImageUrl && (
             <p className="text-red-600">{errors.graduationImage.message}</p>
           )}
-          {selectedImage3 && (
+         {editMode === 'true' ? (
+        selectedImage3 ? (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage3)}
+              alt="Graduation Status"
+              className="w-24 h-24"
+            />
+          </div>
+        ) : (
+          graduationImageUrl && (
             <div className="mt-4">
               <img
-                src={URL.createObjectURL(selectedImage3)}
-                alt="Military Status"
+                src={graduationImageUrl}
+                alt="Graduation Status"
                 className="w-24 h-24"
               />
             </div>
-          )}
+          )
+        )
+      ) : (
+        selectedImage3 && (
+          <div className="mt-4">
+            <img
+              src={URL.createObjectURL(selectedImage3)}
+              alt="Graduation Status"
+              className="w-24 h-24"
+            />
+          </div>
+        )
+      )}
+      {editMode ? (
+        <button
+        type="submit"
+        disabled={!isValid || loading}
+        className={`w-full py-3  text-white rounded-lg ${
+          isValid
+            ? "bg-[#003a65] hover:bg-[#002a4b]"
+            : "bg-blue-600 hover:bg-blue-700"
+        } disabled:bg-gray-400 focus:outline-none`}
+      >
+        {loading ? "editting..." : "Next"}
+      </button>
+
+) : (
           <button
             type="submit"
             disabled={!isValid || loading}
@@ -751,73 +1000,9 @@ export default function Form1({
           >
             {loading ? "Submitting..." : "Submit"}
           </button>
+          )}
         </form>
       </div>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-useEffect(() => {
-  const savedData = localStorage.getItem("form1Data");
-
-  if (savedData) {
-    const graduationImageBase64 = localStorage.getItem("graduationImage");
-    if (graduationImageBase64) {
-      const graduationImage = base64ToFile(
-        graduationImageBase64,
-        "graduation_image.png"
-      );
-      setSelectedImage3(graduationImage);
-      
-      // هنا بنحدث قيمة الـ graduationImage يدويًا في الفورم
-      setValue("graduationImage", graduationImage);
-      console.log("Retrieved Graduation Image:", graduationImage);
-    }
-  }
-}, [setValue]); // تأكد إنك أضفت setValue للـ dependencies
-
-// كود الفورم:
-<input
-  type="file"
-  ref={fileInputRef3}
-  {...register("graduationImage", {
-    required: {
-      value: !selectedImage3, // هنا التأكد من عدم وجود صورة مسترجعة
-      message: "Graduation image is required",
-    },
-    validate: {
-      validType: (value) =>
-        value.length === 0 || value[0]?.type.startsWith("image/") || "Invalid image type",
-    },
-  })}
-  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
-  accept="image/*"
-  onChange={(e) => handleImageChange(e, 3)}
-/>
-
-{selectedImage3 && (
-  <div className="mt-4">
-    <img
-      src={URL.createObjectURL(selectedImage3)}
-      alt="Graduation Image"
-      className="w-24 h-24"
-    />
-  </div>
-)}
