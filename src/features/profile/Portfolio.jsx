@@ -26,7 +26,6 @@ export default function Portfolio({ user }) {
         const data = await getUserPortfolio();
         const portfolioData = data.portfolio[0];
         setPortfolio(portfolioData);
-        console.log(portfolio);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching portfolio data:", error);
@@ -119,7 +118,7 @@ export default function Portfolio({ user }) {
   };
 
   const currentDate = new Date();
-  const userBuydate = new Date(user.expBuyPortfolio);
+  const userBuydate = new Date(user.expBuyPortfolio).toISOString();
 
   if (!user.isBuyPortfolio || userBuydate < currentDate) {
     return (

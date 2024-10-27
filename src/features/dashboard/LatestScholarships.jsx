@@ -69,7 +69,7 @@ export default function LatestScholarships() {
             </>
           ) : (
             <>
-              <div className="md:col-span-2 hover: transition">
+              <div className="md:col-span-2 hover: transition overflow-hidden">
                 {scholarships.length > 0 ? (
                   <>
                     <Link to={`/scolarshipdetails/${scholarships[0]?._id}`}>
@@ -94,7 +94,7 @@ export default function LatestScholarships() {
                 )}
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-8 overflow-hidden">
                 {scholarships.slice(1, 3).map((scholarship) => (
                   <div key={scholarship._id}>
                     <Link to={`/scolarshipdetails/${scholarship?._id}`}>

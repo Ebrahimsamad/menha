@@ -54,7 +54,6 @@ const MatchingPercentageWithPortfolio = () => {
       setError(null);
       try {
         const data = await fetchMatchingPercentage();
-        console.log(data)
         const sortedData = data.matchingPercentage.matchingPercentage.sort(
           (a, b) => b.percentage - a.percentage
         );

@@ -52,7 +52,6 @@ const CardScholarship = ({ isOpen }) => {
 
       try {
         const data =  isAuthenticated? await getAllScholarshipsWithPercentage(params.toString()): await getAllScholarships(params.toString());
-        console.log(data)
         setScholarships(data.scholarships);
         setTotalPages(data.pagination.totalPages);
       } catch (error) {
@@ -176,9 +175,9 @@ const CardScholarship = ({ isOpen }) => {
             {scholarships.map((scholarship) => (
               <div
                 key={scholarship._id}
-                className="card w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white  hover:border-2 hover:border-[#003a65] transition-transform duration-500"
+                className="card w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white  hover:border-2 hover:border-[#003a65] transition-transform duration-100"
               >
-                <div className="card-body">
+                <div className="card-body p-0 ">
                   <div className="flex justify-between items-center">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center">
 
@@ -318,7 +317,7 @@ const CardScholarship = ({ isOpen }) => {
               }`}
             >
               <div>
-                <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?"text-white bg-[#6b7280] hover:bg-gray-500":""}`}>
+              <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?" bg-[#6b7281] text-white hover:bg-[#6b7279]":""}`}>
                   Previous
                 </SecondaryButton>
               </div>
