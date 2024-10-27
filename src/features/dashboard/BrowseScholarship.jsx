@@ -23,7 +23,7 @@ function BrowseScholarship() {
         </p>
 
         <div className="flex justify-center mb-6 mt-4">
-          <SecondaryButton onClick={handleNavigate}>BROWSE SCHOLARSHIP</SecondaryButton>
+          <SecondaryButton onClick={handleNavigate} color="bg-white">BROWSE SCHOLARSHIP</SecondaryButton>
 
         </div>
       </div>

@@ -12,13 +12,10 @@ export default function SuccessPage() {
 
   const isBuyPortfolio = queryParams.get("isBuyPortfolio");
   const expBuyPortfolio = queryParams.get("expBuyPortfolio");
-  const expDate = expBuyPortfolio ? new Date(expBuyPortfolio).toISOString() : null;
-  const formattedExpDate =
-    expDate && !isNaN(expDate.getTime())
-      ? expDate.toISOString()
-      : "Invalid Date";
+  const expDate = expBuyPortfolio ? new Date(expBuyPortfolio) : null;
+  
   user.isBuyPortfolio = isBuyPortfolio === "true";
-  user.expBuyPortfolio = formattedExpDate;
+  user.expBuyPortfolio = expDate;
   setUser(user);
   setTimeout(() => {
     navigate("/portfolio/form1");

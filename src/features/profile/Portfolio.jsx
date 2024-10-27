@@ -118,7 +118,7 @@ export default function Portfolio({ user }) {
   };
 
   const currentDate = new Date();
-  const userBuydate = new Date(user.expBuyPortfolio).toISOString();
+  const userBuydate = new Date(user.expBuyPortfolio);
 
   if (!user.isBuyPortfolio || userBuydate < currentDate) {
     return (
@@ -200,7 +200,7 @@ export default function Portfolio({ user }) {
               Create your portfolio, and enjoy a wide range of benefits with
               ease!
             </h2>
-            <PrimaryButton onClick={() => navigate("/portfolio/")}>
+            <PrimaryButton onClick={() => navigate("/portfolio/form1")}>
               Add Portfolio
             </PrimaryButton>
           </div>

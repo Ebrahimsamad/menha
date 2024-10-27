@@ -194,7 +194,7 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
     try {
       setsubmitloading(true);
       const token = localStorage.getItem("token");
-      const res = await updatePortfolio(formData,id, token, {
+      const res =  updatePortfolio(formData,id, token, {
       });
       toast.promise(res, {
         loading: "editing portfolio...",
