@@ -20,22 +20,17 @@ export default function PortfolioNavbar({
         
         <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center justify-between">
           <div className="hidden lg:flex items-center w-full justify-between">
-            <Link to="/dashboard" className="flex items-center mb-4 lg:mb-0">
-              <img
-                src="/output-onlinepngtools.png"
-                alt="Men7a Logo"
-                className="w-24 h-12 md:w-40 md:h-8 object-contain"
-              />
-            </Link>
+           
 
             <div className="flex-grow flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
-           
+           <div >
+
               <Link
                 to="/portfolio/form1"
                 className={`flex flex-col items-center space-y-2 ${
                   location.pathname.includes("form1")
                     ? "border-b-2 border-[#b92a3b] text-[#003a65] font-bold"
-                    : "text-[#003a65]"
+                    : `${isForm1Submitted?"text-[#003a65]":"text-gray-300"}`
                 }`}
               >
                 <div
@@ -51,21 +46,22 @@ export default function PortfolioNavbar({
                 </div>
                 <span>Personal Information</span>
               </Link>
+           </div>
+           <div>
 
-            
               <Link
                 to={isForm1Submitted ? "/portfolio/form2" : "#"}
                 className={`flex flex-col items-center space-y-2 ${
                   location.pathname.includes("form2")
                     ? "border-b-2 border-[#b92a3b] text-[#003a65] font-bold"
-                    : "text-[#003a65]"
+                    : "text-gray-300  "
                 }`}
               >
                 <div
                   className={`w-8 h-8 border-2 rounded-full flex items-center justify-center ${
                     isForm2Submitted
                       ? "bg-white border-[#003a65]"
-                      : "text-[#7c98ad] bg-[#003a65]  "
+                      : `${location.pathname.includes("form2")?"bg-[#003a65]":"bg-gray-300"}   `
                   }`}
                 >
                   {isForm2Submitted && (
@@ -74,6 +70,9 @@ export default function PortfolioNavbar({
                 </div>
                 <span>Scholarship Informations</span>
               </Link>
+           </div>
+
+            
             </div>
           </div>
 
