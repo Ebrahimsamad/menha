@@ -61,12 +61,12 @@ export default function Search({ isOpen, onClose }) {
             <div className="relative bg-[#003A65] p-6 rounded-lg text-white w-[90%] sm:w-[60%] ">
                 
                 <div className="flex justify-end m-2">
-                <PrimaryButton
-                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white text-black font-bold text-lg border border-gray-300"
+                <button
+                  className="absolute top-4 right-4 p-2 px-4 rounded-lg bg-[#B92A3B] text-white text-xl hover:bg-white hover:text-[#B92A3B]"
                   onClick={onClose}
                 >
                     &times;
-                </PrimaryButton>
+                </button>
                 </div>
                 <h2 className="text-4xl font-semibold text-center mb-4">
                     INTERNATIONAL PROGRAMMES 2024/2025

@@ -46,7 +46,6 @@ const Signup = () => {
         isValidUsername &&
         isValidEmail &&
         isValidPassword &&
-        selectedImage &&
         doPasswordsMatch
       )
     );
@@ -100,11 +99,10 @@ const Signup = () => {
   const handleProfilePictureClick = () => {
     fileInputRef.current.click();
   };
-
   return (
-    <div className="min-h-screen bg-[url('/3.jpg')] bg-cover flex items-center justify-center">
+    <div className="min-h-screen  bg-cover flex items-center justify-center mb-10">
       
-    <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+    <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden mt-5">
       <div className="w-full lg:w-1/2 bg-[#003a65]  ">
       <SignUpSplit />
       </div>

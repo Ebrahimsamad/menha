@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
+import LoginImageSplit from "./LoginImageSplit";
 
 const ForgotPassword = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -46,8 +47,14 @@ const ForgotPassword = () => {
   const isValidEmail = /^\S+@\S+\.\S+$/.test(email);
 
   return (
-    <div className="min-h-screen bg-[url('/3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
-      <div className="relative z-10 p-6 bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div className="min-h-screen   bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
+    <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="w-full lg:w-1/2 bg-[#003a65] ">
+          <LoginImageSplit />
+        </div>
+
+        <div className="w-full lg:w-1/2 p-6">
+      <div className="relative z-10 p-6 ">
         <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
           Forgot Password
         </h2>
@@ -87,7 +94,7 @@ const ForgotPassword = () => {
             disabled={isButtonDisabled || loading}
             className={`w-full py-3 rounded-lg transition duration-300 bg-[#b92a3b] hover:bg-[#a02234] text-white flex justify-center items-center ${isButtonDisabled || loading ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' : ''}`}
           >
-            {loading ? <Spinner /> : "Send Reset Link"}
+            {loading ? <Spinner /> : "Send Reset Code"}
           </button>
         </form>
 
@@ -99,6 +106,8 @@ const ForgotPassword = () => {
             Back to Login
           </Link>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );

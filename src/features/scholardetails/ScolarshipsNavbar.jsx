@@ -13,16 +13,16 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
 
   return (
     <nav className="bg-white shadow-lg relative">
-      <div className="container mx-auto p-4 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
+      <div className="container mx-auto p-4 flex justify-center items-center">
+        {/* <div className="flex items-center space-x-4">
           <img
             src="/output-onlinepngtools.png"
             alt="Men7a Logo"
             className="w-24 h-12 md:w-40 md:h-8 object-contain"
           />
-        </div>
+        </div> */}
 
-        <div className="lg:hidden flex items-center">
+        {/* <div className="lg:hidden flex items-center">
           <button onClick={toggleMenu} className="text-[#003a65] focus:outline-none">
             {isMenuOpen ? (
               <FiX size={28} className="hover:text-[#b92a3b] transition-colors" />
@@ -30,14 +30,14 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
               <FiMenu size={28} className="hover:text-[#b92a3b] transition-colors" />
             )}
           </button>
-        </div>
+        </div> */}
 
 
-        <ul className="hidden lg:flex space-x-6" style={{ color: "#003a65" }}>
+        <ul className="flex space-x-3 md:space-x-16 " style={{ color: "#003a65" }}>
           <li className="group">
             <Link
               to={`/scolarshipdetails/${scholarshipId}/overview`}
-              className={`hover:text-[#b92a3b] hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('overview') ? 'border-b-2 border-[#b92a3b]' : ''
+              className={`hover:text-[#b92a3b] text- hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('overview') ? 'border-b-2 border-[#b92a3b]' : ''
                 }`}
             >
               Overview
@@ -46,7 +46,7 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
           <li className="group">
             <Link
               to={`/scolarshipdetails/${scholarshipId}/course-details`}
-              className={`hover:text-[#b92a3b] hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('course-details') ? 'border-b-2 border-[#b92a3b]' : ''
+              className={`hover:text-[#b92a3b] text- hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('course-details') ? 'border-b-2 border-[#b92a3b]' : ''
                 }`}
             >
               Course Details
@@ -55,26 +55,26 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
           <li className="group">
             <Link
               to={`/scolarshipdetails/${scholarshipId}/costs-funding`}
-              className={`hover:text-[#b92a3b] hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('costs-funding') ? 'border-b-2 border-[#b92a3b]' : ''
+              className={`hover:text-[#b92a3b] text- hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('costs-funding') ? 'border-b-2 border-[#b92a3b]' : ''
                 }`}
             >
-              Costs & Funding
+              Funding
             </Link>
           </li>
           <li className="group">
             <Link
               to={`/scolarshipdetails/${scholarshipId}/about-university`}
-              className={`hover:text-[#b92a3b] hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('about-university') ? 'border-b-2 border-[#b92a3b]' : ''
+              className={`hover:text-[#b92a3b] text- hover:border-b-2 hover:border-[#b92a3b] transition-all duration-300 pb-1 ${location.pathname.includes('about-university') ? 'border-b-2 border-[#b92a3b]' : ''
                 }`}
             >
-              About University
+             University
             </Link>
           </li>
         </ul>
       </div>
 
       {/* Mobile Menu */}
-      <ul
+      {/* <ul
         className={`${isMenuOpen ? "flex" : "hidden"
           } lg:hidden flex-col space-y-6 items-center bg-white absolute top-0 right-0 w-full h-screen p-6 z-20 transition-transform duration-300 transform ${isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
@@ -119,7 +119,7 @@ export default function ScolarshipsNavbar({ scholarshipId }) {
             About University
           </Link>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 }

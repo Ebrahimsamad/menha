@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useState } from "react";
+import { VscDash } from "react-icons/vsc";
 
-const LoginImageSplit = () => {
+export default function LoginImageSplit() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Welecome to our Services",
+      highlight: "Services",
+    },
+  ];
+
   return (
-    <div className=" md:flex flex-col items-center justify-center bg-[#003a65] space-y-4"> 
-      <img
-        src="/logo.png"
-        alt="Men7a Logo"
-        className="w-30 h-12 mt-4 md:w-40 md:h-8 object-cover" 
-      /> 
-      <img
-        src="/script.png"
-        alt="Men7a Script"
-        className=" w-full h-auto max-h-[400px] max-w-[100%]" 
-      />
+    <div className="flex justify-center items-center  shadow-lg h-full  bg-[#003a65]">
+      <div className="flex flex-col justify-center items-start bg-[#003a65] text-white  w-full p-8">
+        <img src="/logo.png" alt="Men7a Logo" className="w-28 h-12 mb-8" />
+        <div className="text-start space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight leading-snug">
+            {
+              slides[currentSlide].title.split(
+                slides[currentSlide].highlight
+              )[0]
+            }
+            <br />
+            <span className="text-[#e6a23c] text-3xl font-extrabold">
+              {slides[currentSlide].highlight}
+            </span>
+          </h2>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default LoginImageSplit;
+}

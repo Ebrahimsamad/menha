@@ -3,7 +3,7 @@ import RepeatParagraph from "../../ui/RepeatPara";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../ui/PrimaryButton";
 import SecondaryButton from "../../ui/SecondaryButton";
-import { getAllScholarships } from "../../services/Scholarship";
+import { getAllScholarships, getAllScholarshipsWithPercentage } from "../../services/Scholarship";
 import { UserContext } from "../../context/UserContext";
 import { getSaveScholarship, toggle } from "../../services/SavedScholarship";
 import Spinner from "../../ui/Spinner";
@@ -48,11 +48,11 @@ const CardScholarship = ({ isOpen }) => {
       if (searchParams.get("page"))
         params.append("page", searchParams.get("page"));
       setCurrentPage(parseInt(searchParams.get("page")) || 1);
-      params.append("size", 2);
+      params.append("size", 5);
 
       try {
-        const data = await getAllScholarships(params.toString());
-
+        const data =  isAuthenticated? await getAllScholarshipsWithPercentage(params.toString()): await getAllScholarships(params.toString());
+        console.log(data)
         setScholarships(data.scholarships);
         setTotalPages(data.pagination.totalPages);
       } catch (error) {
@@ -72,7 +72,7 @@ const CardScholarship = ({ isOpen }) => {
 
   const handleSaveScholarship = async (id) => {
     try {
-      if (!isAuthenticated) return toast.error("sorry, login first");
+      if (!isAuthenticated) return toast.error("Please log in to save scholarships.");
       setSaveLoadingId(id);
       let newSaved = toggle(id);
       toast.promise(newSaved, {
@@ -108,6 +108,11 @@ const CardScholarship = ({ isOpen }) => {
     }
     navigate(`/scholarships?${searchParams.toString()}`);
   };
+  const handlePageChangeNumber = (page) => {
+    setCurrentPage(page);
+    params.set("page", page);
+    navigate(`/scholarships?${params.toString()}`);
+  };
   if (error) {
     return (
       <div className="text-center py-10">
@@ -123,7 +128,10 @@ const CardScholarship = ({ isOpen }) => {
     <>
       {loading ? (
         <>
-          <div className="flex flex-col w-full  space-y-5 pb-5">
+          <div className="flex flex-col w-full  space-y-5 pb-5 ">
+          <RepeatParagraph>
+        <h1 className="text-4xl md:text-5xl lg:text-7xl mb-5 ms-5">Scholarships</h1>
+      </RepeatParagraph>
             {[1, 2, 3].map((i) => (
               <div
                 className="card  w-full mx-auto lg:w-3/4 bg-white shadow-lg p-5 m-2 animate-pulse"
@@ -162,13 +170,18 @@ const CardScholarship = ({ isOpen }) => {
       ) : (
         <>
           <div className="flex flex-col w-full space-y-5 ">
+          <RepeatParagraph>
+        <h1 className="text-4xl md:text-5xl lg:text-7xl mb-5 ms-5">Scholarships</h1>
+      </RepeatParagraph>
             {scholarships.map((scholarship) => (
               <div
                 key={scholarship._id}
-                className="card  w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white hover:scale-105"
+                className="card w-full mx-auto lg:w-3/4 shadow-md p-5 m-2 bg-white  hover:border-2 hover:border-[#003a65] transition-transform duration-500"
               >
                 <div className="card-body">
                   <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center">
+
                     <Link to={`/scolarshipdetails/${scholarship._id}`}>
                       <RepeatParagraph>
                         <h2 className="text-4xl text-[#B92A3B]">
@@ -176,6 +189,11 @@ const CardScholarship = ({ isOpen }) => {
                         </h2>
                       </RepeatParagraph>
                     </Link>
+                    {scholarship.percentage&&<span className="ps-2 text-gray-500 rounded-xl ">
+                    Matching - {scholarship.percentage}%
+                </span>}
+                  </div>
+                    <div className="flex items-center">
                     {saveLoadingId === scholarship._id ? (
                       <Spinner color="red-500" />
                     ) : (
@@ -204,6 +222,7 @@ const CardScholarship = ({ isOpen }) => {
                         />
                       </svg>
                     )}
+                    </div>
                   </div>
                   <hr />
                   <Link to={`/scolarshipdetails/${scholarship._id}`}>
@@ -213,9 +232,8 @@ const CardScholarship = ({ isOpen }) => {
                       <div className={`w-full ${!isOpen ? "md:w-1/2" : ""}`}>
                         <div className="flex flex-wrap">
                           <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
+                            className={`w-full 
+                              mt-8`}
                           >
                             <p>
                               <strong className="text-[#8A690F]">
@@ -225,9 +243,8 @@ const CardScholarship = ({ isOpen }) => {
                             </p>
                           </div>
                           <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
+                            className={`w-full 
+                              mt-4`}
                           >
                             <p>
                               <strong className="text-[#8A690F]">
@@ -236,34 +253,11 @@ const CardScholarship = ({ isOpen }) => {
                               {scholarship.courseTypeId.courseType}
                             </p>
                           </div>
+                         
+                         
                           <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
-                          >
-                            <p>
-                              <strong className="text-[#8A690F]">
-                                Duration:
-                              </strong>{" "}
-                              {scholarship.duration}
-                            </p>
-                          </div>
-                          <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
-                          >
-                            <p>
-                              <strong className="text-[#8A690F]">
-                                Mode of Study:
-                              </strong>{" "}
-                              {scholarship.modeOfStudyId.modeOfStudy}
-                            </p>
-                          </div>
-                          <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
+                            className={`w-full 
+                              mt-4`}
                           >
                             <p>
                               <strong className="text-[#8A690F]">
@@ -273,9 +267,8 @@ const CardScholarship = ({ isOpen }) => {
                             </p>
                           </div>
                           <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
+                            className={`w-full 
+                              mt-4`}
                           >
                             <p>
                               <strong className="text-[#8A690F]">
@@ -285,15 +278,24 @@ const CardScholarship = ({ isOpen }) => {
                             </p>
                           </div>
                           <div
-                            className={`w-full ${
-                              !isOpen ? "md:w-1/2" : ""
-                            }  mt-8`}
+                            className={`w-full 
+                              mt-4`}
                           >
                             <p>
                               <strong className="text-[#8A690F]">
                                 Faculty:
                               </strong>{" "}
                               {scholarship.universityId.faculityName}
+                            </p>
+                          </div>
+                          <div
+                            className={`w-full 
+                              mt-8`}
+                          >
+                            <p>
+                              <strong className="underline text-[#003a65]">
+                                View Details
+                              </strong>{" "}
                             </p>
                           </div>
                         </div>
@@ -315,34 +317,26 @@ const CardScholarship = ({ isOpen }) => {
                 totalPages === 1 ? "hidden" : ""
               }`}
             >
-              <div className={`${currentPage === 1 ? "hidden" : ""}`}>
-                <SecondaryButton onClick={() => handlePageChange("prev")}>
+              <div>
+                <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?"text-white bg-[#6b7280] hover:bg-gray-500":""}`}>
                   Previous
                 </SecondaryButton>
               </div>
-              <button
-                className={`bg-gray-500 ${
-                  currentPage === 1 ? "" : "hidden"
-                } text-white font-bold py-2 px-4 rounded-full transition duration-300 `}
-              >
-                Previous
-              </button>
+              
 
-              <span className="mx-2">
-                Page {currentPage} of {totalPages}
-              </span>
-              <div className={` ${currentPage === totalPages ? "hidden" : ""}`}>
-                <PrimaryButton onClick={() => handlePageChange("next")}>
+              <div className="hidden md:flex justify-center  space-x-4">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button key={page} className={`px-4 py-2 ${currentPage === page ? "bg-[#003a65] text-white" : "bg-gray-300"} rounded-md`} onClick={() => handlePageChangeNumber(page)}>
+                {page}
+              </button>
+            ))}
+          </div>
+              <div>
+                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500":""}`}>
                   Next
                 </PrimaryButton>
               </div>
-              <button
-                className={`bg-gray-500 ${
-                  currentPage === totalPages ? "" : "hidden"
-                } text-white font-bold py-2 px-4 rounded-full transition duration-300 `}
-              >
-                Next
-              </button>
+              
             </div>
           </div>
         </>

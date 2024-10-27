@@ -16,7 +16,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false); // State to manage modal visibility
+  let currentDate 
+  let userBuydate 
+  if(isAuthenticated){
 
+     currentDate = new Date();
+     userBuydate = new Date(user.expBuyPortfolio);
+  }
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -45,7 +51,13 @@ const Navbar = () => {
   const closeSearchModal = () => {
     setSearchModalOpen(false);
   };
-
+  const shouldDisplayMatchingScholarship = () => {
+    if(isAuthenticated){
+    const hasExperience = userBuydate < currentDate
+   
+    return isAuthenticated && user.isBuyPortfolio && !hasExperience;
+    }else return false;
+  };
   return (
     <div className="bg-[#003a65] text-white">
       <nav className="container mx-auto flex justify-between items-center py-3 md:py-4">
@@ -84,6 +96,14 @@ const Navbar = () => {
               Field Of Study
             </NavLink>
           </li>
+          { shouldDisplayMatchingScholarship() && <li className="group">
+            <NavLink
+              to="/matching-percentage"
+              className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            >
+              Matching Scholarship
+            </NavLink>
+          </li>}
           <li className="group">
             <NavLink
               to="/about"
@@ -95,7 +115,7 @@ const Navbar = () => {
 
           {/* Conditionally render Search Icon for /dashboard route */}
         </ul>
-
+       
         {/* Authentication Links */}
         <div className="hidden lg:flex space-x-4 items-center">
           <div className="group">
@@ -322,6 +342,15 @@ const Navbar = () => {
             Field Of Study
           </NavLink>
         </li>
+        { shouldDisplayMatchingScholarship() && <li className="group">
+          <NavLink
+            to="/matching-percentage"
+            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={toggleMenu}
+          >
+            Matching Scholarship
+          </NavLink>
+        </li>}
         <li className="group">
           <NavLink
             to="/about"
@@ -331,6 +360,7 @@ const Navbar = () => {
             About
           </NavLink>
         </li>
+
 
         {/* Conditional Search Link with Icon for mobile */}
           <li className="group">

@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
+import LoginImageSplit from "./LoginImageSplit";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -62,8 +63,14 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[url('/3.jpg')]  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
-      <div className="relative z-10 p-6 bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div className="min-h-screen  bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
+    <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="w-full lg:w-1/2 bg-[#003a65] ">
+          <LoginImageSplit />
+        </div>
+
+        <div className="w-full lg:w-1/2 p-6">
+      <div className="relative z-10 p-6 ">
         <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
           Reset Password
         </h2>
@@ -152,6 +159,8 @@ const ResetPassword = () => {
             {loading ? <Spinner /> : "Reset Password"}
           </button>
         </form>
+      </div>
+      </div>
       </div>
     </div>
   );

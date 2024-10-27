@@ -1,3 +1,4 @@
+import { FaGlobe, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
@@ -108,19 +109,16 @@ const AboutUs = () => {
     if (validateForm()) {
       setLoading(true);
       try {
-        await toast.promise(
-          contact(formData),
-          {
-            loading: "Sending...",
-            success: "Email sent successfully",
-            error: (error) => `Error: ${error.message}`,
-          }
-        );
+        await toast.promise(contact(formData), {
+          loading: "Sending...",
+          success: "Email sent successfully",
+          error: (error) => `Error: ${error.message}`,
+        });
         setFormData({
           name: "",
           email: "",
           message: "",
-        })
+        });
       } catch (error) {
         console.log(error);
       } finally {
@@ -133,8 +131,6 @@ const AboutUs = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-
 
   return (
     <div className="bg-white mt-5">
@@ -196,60 +192,118 @@ const AboutUs = () => {
             their dreams. Our platform connects students with scholarships that
             align with their needs and qualifications.
           </p>
-            <Link to="/scholarships">
-          <BlueButton>
-            Explore Scholarships
-          </BlueButton>
-            </Link>
+          <Link to="/scholarships">
+            <BlueButton>Explore Scholarships</BlueButton>
+          </Link>
         </div>
 
         {/* Contact Us Section */}
-        <div className="bg-gray-100 py-16 text-center">
-          <h2 className="text-3xl font-bold text-[#003a65] mb-8">Contact Us</h2>
-          <form className="max-w-lg mx-auto space-y-4" onSubmit={handleContactUs}>
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
-              />
-              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+
+        <div className="mb-4">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-stretch">
+            {/* Left Column - Contact Info */}
+            <div className="w-full md:w-1/2 mb-8 md:mb-0 px-6 py-8 bg-[#003a65] rounded-s-lg shadow-lg flex flex-col justify-center items-center text-white">
+              <h2 className="text-4xl font-bold mb-4 text-center">
+                Contact Us
+              </h2>
+
+              {/* Contact Details */}
+              <div className="space-y-4 text-center w-full">
+                {[
+                  {
+                    icon: <FaGlobe className="text-2xl" />,
+                    text: "https://menha.vercel.app",
+                  },
+                  {
+                    icon: <FaPhone className="text-2xl" />,
+                    text: "+20 128 248 8435",
+                  },
+                  {
+                    icon: <FaEnvelope className="text-2xl" />,
+                    text: "menhafinalproject2024@gmail.com",
+                  },
+                  {
+                    icon: <FaMapMarkerAlt className="text-2xl" />,
+                    text: "Egypt",
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center bg-white text-[#003a65] rounded-lg px-4 py-3"
+                  >
+                    {item.icon}
+                    <p className="ml-3 font-bold">{item.text}</p>
+                  </div>
+                ))}
+                <p className="pt-4 text-center">
+                  Or, you can send us a message here
+                </p>
+              </div>
             </div>
 
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
-              />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-            </div>
+            {/* Right Column - Contact Form */}
+            <div className="w-full md:w-1/2 px-6 py-8 bg-white rounded-lg shadow-lg flex flex-col justify-between">
+              <form className="space-y-4" onSubmit={handleContactUs}>
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border ${
+                      errors.name ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005a7a] transition duration-300`}
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                  )}
+                </div>
 
-            <div>
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-2 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b92a3b] transition duration-300`}
-                rows="4"
-              />
-              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border ${
+                      errors.email ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005a7a] transition duration-300`}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  )}
+                </div>
+
+                <div>
+                  <textarea
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 border ${
+                      errors.message ? "border-red-500" : "border-gray-300"
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005a7a] transition duration-300`}
+                    rows="4"
+                  />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 transition duration-300 bg-[#b92a3b] hover:bg-[#003a65] text-white font-bold rounded-full focus:outline-none focus:ring-2 focus:ring-[#005a7a]"
+                >
+                  {loading ? <div className="w-full flex justify-center"><Spinner /></div> : "Submit"}
+                </button>
+              </form>
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className={`transition duration-300 bg-[#b92a3b] hover:bg-[#002b4c] text-white font-bold py-2 px-4 rounded-full `}
-            >
-              {loading ? <Spinner /> : "Save Changes"}
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
