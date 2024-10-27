@@ -10,7 +10,6 @@ export const fetchScholarshipDetails = async (scholarshipId) => {
       },
     });
     const data = await response.json();
-    console.log(data)
     
     return data;
   } catch (error) {
@@ -29,7 +28,6 @@ export const fetchScholarshipDetailsWithPercentage = async (scholarshipId) => {
       },
     });
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error("Error fetching scholarship details:", error);

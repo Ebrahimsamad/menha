@@ -16,12 +16,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isSearchModalOpen, setSearchModalOpen] = useState(false); // State to manage modal visibility
-  let currentDate 
-  let userBuydate 
-  if(isAuthenticated){
-
-     currentDate = new Date();
-     userBuydate = new Date(user.expBuyPortfolio);
+  let currentDate;
+  let userBuydate;
+  if (isAuthenticated) {
+    currentDate = new Date();
+    userBuydate = new Date(user.expBuyPortfolio);
   }
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -52,11 +51,11 @@ const Navbar = () => {
     setSearchModalOpen(false);
   };
   const shouldDisplayMatchingScholarship = () => {
-    if(isAuthenticated){
-    const hasExperience = userBuydate < currentDate
-   
-    return isAuthenticated && user.isBuyPortfolio && !hasExperience;
-    }else return false;
+    if (isAuthenticated) {
+      const hasExperience = userBuydate < currentDate;
+
+      return isAuthenticated && user.isBuyPortfolio && !hasExperience;
+    } else return false;
   };
   return (
     <div className="bg-[#003a65] text-white">
@@ -96,14 +95,16 @@ const Navbar = () => {
               Field Of Study
             </NavLink>
           </li>
-          { shouldDisplayMatchingScholarship() && <li className="group">
-            <NavLink
-              to="/matching-percentage"
-              className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
-            >
-              Matching Scholarship
-            </NavLink>
-          </li>}
+          {shouldDisplayMatchingScholarship() && (
+            <li className="group">
+              <NavLink
+                to="/matching-percentage"
+                className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+              >
+                Matching Scholarship
+              </NavLink>
+            </li>
+          )}
           <li className="group">
             <NavLink
               to="/about"
@@ -115,16 +116,21 @@ const Navbar = () => {
 
           {/* Conditionally render Search Icon for /dashboard route */}
         </ul>
-       
+
         {/* Authentication Links */}
         <div className="hidden lg:flex space-x-4 items-center">
           <div className="group">
-            <button
-              onClick={openSearchModal} // Open the search modal on click
+            <a
+              href="#search" 
+              onClick={
+                !location.pathname.includes("dashboard")
+                  ? openSearchModal
+                  : undefined
+              }
               className="bg-[#b92a3b] text-white transition-all duration-300 px-3 py-2 rounded-md flex items-center space-x-2 hover:bg-white hover:text-[#b92a3b]"
             >
               <FiSearch size={20} />
-            </button>
+            </a>
           </div>
           {isAuthenticated && (
             <div className="group">
@@ -218,27 +224,7 @@ const Navbar = () => {
                       </div>
                     </Link>
                   </li>
-                  <li onClick={toggleDropdown}>
-                    <Link to="/profile/info" className="">
-                      <div className="flex items-center text-[#003A65]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="size-6 me-2 text-[#b92a3b]"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                          />
-                        </svg>
-                        Profile
-                      </div>
-                    </Link>
-                  </li>
+
                   <li onClick={toggleDropdown}>
                     <button
                       onClick={() => {
@@ -342,15 +328,17 @@ const Navbar = () => {
             Field Of Study
           </NavLink>
         </li>
-        { shouldDisplayMatchingScholarship() && <li className="group">
-          <NavLink
-            to="/matching-percentage"
-            className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
-            onClick={toggleMenu}
-          >
-            Matching Scholarship
-          </NavLink>
-        </li>}
+        {shouldDisplayMatchingScholarship() && (
+          <li className="group">
+            <NavLink
+              to="/matching-percentage"
+              className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+              onClick={toggleMenu}
+            >
+              Matching Scholarship
+            </NavLink>
+          </li>
+        )}
         <li className="group">
           <NavLink
             to="/about"
@@ -361,17 +349,21 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-
         {/* Conditional Search Link with Icon for mobile */}
-          <li className="group">
-            <a
-              href="#search"
-              className=" hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
-              onClick={()=>{openSearchModal(); toggleMenu()}} // Open the search modal on click
-            >
-              <span>Search</span>
-            </a>
-          </li>
+        <li className="group">
+          <a
+            href="#search"
+            className=" hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
+            onClick={() => {
+              toggleMenu();
+              !location.pathname.includes("dashboard")
+                  ? openSearchModal()
+                  : undefined
+            }} // Open the search modal on click
+          >
+            <span>Search</span>
+          </a>
+        </li>
 
         {/* Authentication Links for Mobile */}
         {isAuthenticated ? (
@@ -384,14 +376,7 @@ const Navbar = () => {
                 Portfolio
               </li>
             </NavLink>
-            <NavLink to={"/profile/info"}>
-              <li
-                className="hover:bg-[#b92a3b] hover:text-white transition-all duration-300 px-3 py-2 rounded-md"
-                onClick={toggleMenu}
-              >
-                Profile
-              </li>
-            </NavLink>
+
             <li className="group">
               <button
                 onClick={() => {

@@ -23,7 +23,6 @@ export const changePassword = async (passwordPayload) => {
     }
 
     const data = await response.json();
-    console.log("Password changed successfully:", data);
     return data; 
   } catch (error) {
     console.error("Error changing password:", error.message || error);
