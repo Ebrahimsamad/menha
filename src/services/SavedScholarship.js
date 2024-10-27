@@ -50,7 +50,6 @@ export const getSaveScholarship = async () => {
 
 export const toggle = async (id) => {
   try {
-    console.log(id);
     const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}`, {
       method: "POST",

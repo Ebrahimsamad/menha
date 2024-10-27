@@ -57,14 +57,14 @@ const Login = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[url('/3.jpg')] bg-cover flex items-center justify-center">
-<div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
-      <div className="w-full lg:w-1/2 bg-[#003a65] ">
-        <LoginImageSplit />
-      </div>
-  
+    <div className="min-h-screen  bg-cover flex items-center justify-center">
+      <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="w-full lg:w-1/2 bg-[#003a65] ">
+          <LoginImageSplit />
+        </div>
+
         <div className="w-full lg:w-1/2 p-6">
-        <div className="relative z-10">
+          <div className="relative z-10">
             <h2 className="text-3xl font-bold text-[#003a65] text-center mb-6">
               Login
             </h2>
@@ -138,7 +138,8 @@ const Login = () => {
                     password && (
                       <p className="text-red-600 flex items-center text-left">
                         <FaTimesCircle className="mr-3 w-6 h-6" /> Password must
-                        contain at least 8 characters, one letter, and one number.
+                        contain at least 8 characters, one letter, and one
+                        number.
                       </p>
                     )
                   )}
@@ -176,7 +177,10 @@ const Login = () => {
             <div className="mt-4 text-center">
               <p className="text-[#003a65]">
                 Don&apos;t have an account?
-                <Link to="/signup" className="text-red-600 hover:underline ml-2">
+                <Link
+                  to="/signup"
+                  className="text-red-600 hover:underline ml-2"
+                >
                   Sign up
                 </Link>
               </p>

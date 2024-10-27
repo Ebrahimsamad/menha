@@ -40,7 +40,25 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         }
         fetchData();
     }, []);
+    useEffect(() => {
+        // Open sidebar by default on large screens (LG and up)
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setIsOpen(true);
+            } else {
+                setIsOpen(false);
+            }
+        };
 
+        // Initial check
+        handleResize();
+
+        // Add event listener
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener
+        return () => window.removeEventListener('resize', handleResize);
+    }, [setIsOpen]);
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         setSelectedCourseType(params.get('courseTypeId') || '');
@@ -84,7 +102,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             className={`relative  bg-white border-r border-r-border-base shadow-lg transition-all duration-300 ${isOpen ? 'w-full md:w-96' : 'w-0 lg:w-24'} `}
         >
             <button
-                className={` absolute top-3 z-40 ${isOpen ? 'right-3 rounded-full' : 'right-[-30px] lg:right-[-32px] rounded-e-full h-14'} bg-[#003a65]  text-white p-1   transition-all duration-300`}
+                className={` absolute top-3 z-40 ${isOpen ? 'right-3 rounded-full' : 'right-[-30px] lg:right-[-32px] rounded-e-full h-14'} bg-[#B92A3B]  text-white p-1   transition-all duration-300 hover:bg-white hover:text-[#B92A3B]`}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className='flex justify-between'>

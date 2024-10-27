@@ -40,29 +40,29 @@ export default function LatestScholarships() {
           </RepeatParagraph>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:h-[80vh]">
           {loading ? (
             <>
               <div className="md:col-span-2">
                 <div className="animate-pulse h-full">
                   <div className="bg-gray-300 w-full h-4/5 rounded-lg"></div>
-                  <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                  <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
+                  <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                  <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
                 </div>
               </div>
               <div className="space-y-8">
                 <div>
                   <div className="animate-pulse">
                     <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
-                    <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                    <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
+                    <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                    <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
                   </div>
                 </div>
                 <div>
                   <div className="animate-pulse">
                     <div className="bg-gray-300 w-full h-64 rounded-lg"></div>
-                    <div className="h-8 bg-[#003a65] rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
-                    <div className="h-6 bg-[#003a65] rounded mt-4 w-3/4 "></div>
+                    <div className="h-8 bg-gray-300 rounded mt-6 w-3/4 sm:w-2/3 md:w-1/2 lg:w-1/3 "></div>
+                    <div className="h-6 bg-gray-300 rounded mt-4 w-3/4 "></div>
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@ export default function LatestScholarships() {
                       <img
                         src={scholarships[0]?.universityId?.image}
                         alt={scholarships[0]?.title}
-                        className="w-full h-[80%] rounded-lg hover:scale-105"
+                        className="w-full h-[30vh] md:h-[63vh] rounded-lg hover:scale-105 transition-transform duration-500"
                       />
                       <h3
                         className="font-bold mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
@@ -84,7 +84,7 @@ export default function LatestScholarships() {
                       >
                         {scholarships[0]?.title}
                       </h3>
-                      <p className="mt-4" style={{ color: "#003a65" }}>
+                      <p className="mt-4" >
                         {scholarships[0]?.description}
                       </p>
                     </Link>
@@ -101,7 +101,7 @@ export default function LatestScholarships() {
                       <img
                         src={scholarship?.universityId?.image}
                         alt={scholarship?.title}
-                        className="w-full h-60 rounded-lg hover:scale-105"
+                        className="w-full h-60 rounded-lg hover:scale-105 transition-transform duration-500"
                       />
                       <h3
                         className="text-xl font-bold mt-4"
@@ -109,7 +109,7 @@ export default function LatestScholarships() {
                       >
                         {scholarship?.title}
                       </h3>
-                      <p className="mt-2" style={{ color: "#003a65" }}>
+                      <p className="mt-2" >
                         {scholarship?.description}
                       </p>
                     </Link>
@@ -120,7 +120,7 @@ export default function LatestScholarships() {
           )}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className=" text-center">
           <PrimaryButton onClick={handelViewScholarships}>
             VIEW SCHOLARSHIPS
           </PrimaryButton>
