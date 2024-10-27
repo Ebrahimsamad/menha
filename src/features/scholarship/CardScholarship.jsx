@@ -317,7 +317,7 @@ const CardScholarship = ({ isOpen }) => {
               }`}
             >
               <div>
-              <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?" bg-[#6b7281] text-white hover:bg-[#6b7279]":""}`}>
+              <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?" bg-[#6b7281] text-white cursor-not-allowed hover:bg-[#6b7281] ":"bg-white"}`}>
                   Previous
                 </SecondaryButton>
               </div>
@@ -331,7 +331,7 @@ const CardScholarship = ({ isOpen }) => {
             ))}
           </div>
               <div>
-                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500":""}`}>
+                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500 cursor-not-allowed":""}`}>
                   Next
                 </PrimaryButton>
               </div>

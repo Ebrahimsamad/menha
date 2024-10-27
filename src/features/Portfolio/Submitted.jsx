@@ -1,7 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RepeatParagrah from "../../ui/RepeatPara";
+import { useEffect } from "react";
 
 export default function Submitted() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      const timer = setTimeout(() => {
+        navigate("/profile/");
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    
+  }, []);
+
   return (
     <div className="bg-[#003A65] w-[700px] rounded-lg shadow-lg p-8 mx-auto mt-10">
       {/* Header section */}

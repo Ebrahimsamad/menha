@@ -180,7 +180,7 @@ const SavedScholarships = () => {
                 />
                 <div className="p-6">
                   <div className="flex justify-between items-center mb-2">
-                    <h5 className="text-xl font-medium leading-tight">
+                    <h5 className="text-xl font-medium leading-tight text-[#B92A3B]">
                       {scholarship.title || "No Title Available"}
                     </h5>
                     {saveLoadingId === scholarship._id ? (
@@ -219,14 +219,14 @@ const SavedScholarships = () => {
                   </div>
 
                   <p className="mb-4 text-base">
-                    <strong>Field of Study:</strong>{" "}
+                    <strong className="text-[#8A690F]">Field of Study:</strong>{" "}
                     {scholarship.fieldOfStudyId.fieldOfStudy} <br />
-                    <strong>Course Type:</strong>{" "}
+                    <strong className="text-[#8A690F]">Course Type:</strong>{" "}
                     {scholarship.courseTypeId.courseType} <br/>
-                    <strong>Country:</strong> {scholarship.country} <br />
-                    <strong>University:</strong> {scholarship.universityId.name}{" "}
+                    <strong className="text-[#8A690F]">Country:</strong> {scholarship.country} <br />
+                    <strong className="text-[#8A690F]">University:</strong> {scholarship.universityId.name}{" "}
                     <br />
-                    <strong>Faculty:</strong>{" "}
+                    <strong className="text-[#8A690F]">Faculty:</strong>{" "}
                     {scholarship.universityId.faculityName}
                   </p>
                   <div className="flex space-x-2">
@@ -251,7 +251,7 @@ const SavedScholarships = () => {
             }`}
           >
            <div>
-                <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?"text-white bg-[#6b7280] hover:bg-gray-500":""}`}>
+                <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?" bg-[#6b7281] text-white cursor-not-allowed hover:bg-[#6b7281] ":"bg-white"}`}>
                   Previous
                 </SecondaryButton>
               </div>
@@ -265,7 +265,7 @@ const SavedScholarships = () => {
             ))}
           </div>
               <div>
-                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500":""}`}>
+                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500 cursor-not-allowed":""}`}>
                   Next
                 </PrimaryButton>
               </div>
