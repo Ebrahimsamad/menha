@@ -21,6 +21,8 @@ import SavedScholarships from "./features/savedscholarship/SavedScholarship";
 import NoAuthenticatedRoute from "./ui/NoAuthenticatedRoute";
 import PricingPage from "./pages/PricingPage";
 import SuccessPage from "./pages/SuccessPage";
+import PortfolioPage from "./pages/PortfolioPage";
+
 
 function App() {
   return (
@@ -53,6 +55,14 @@ function App() {
               element={
                 <NoAuthenticatedRoute>
                   <ProfilePage />
+                </NoAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/Portfolio/*"
+              element={
+                  <NoAuthenticatedRoute>
+                   <PortfolioPage />
                 </NoAuthenticatedRoute>
               }
             />

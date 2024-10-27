@@ -26,7 +26,11 @@ export const getAllSelect = async () => {
     method: "GET",
   })
   const modeOfStudy = await res5.json();
+  const res6 = await fetch(`${BASE_URL}/scholarship`, {
+    method: "GET",
+  });
+  const scholarships = await res6.json();
 
-  return { courseType, courseLanguage, fieldOfStudy, university, modeOfStudy };
+  return { courseType, courseLanguage, fieldOfStudy, university, modeOfStudy,scholarships, };
 
 }
