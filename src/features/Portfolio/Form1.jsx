@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import { addCourseType } from "../../services/CourseType";
 import { AddFieldOfStudy } from "../../services/FieldOfStudy";
@@ -405,7 +405,6 @@ export default function Form1({
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
-        <Toaster />
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
           <form className="space-y-6">
             <div className="animate-pulse">
@@ -438,7 +437,6 @@ export default function Form1({
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
-      <Toaster />
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="flex items-center">
@@ -627,6 +625,7 @@ export default function Form1({
           <input
             type="date"
             value={dateOfBirth}
+            max="2010-12-31"
             {...register("dateOfBirth", {
                required: "Date of Birth is required",
               onChange: (e) => setDateOfBirth(e.target.value),

@@ -17,6 +17,7 @@ import { postPortfolio } from "../../services/PostPortfolio";
 import { Link } from 'react-router-dom';
 import { updatePortfolio } from './../../services/UpdatePortfolio';
 import { DotLoader } from "react-spinners";
+import toast from "react-hot-toast";
 export default function AddPortfolio() {
   const navigate = useNavigate();
   const [form1Data, setForm1Data] = useState({});
@@ -193,8 +194,14 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
     try {
       setsubmitloading(true);
       const token = localStorage.getItem("token");
-      const response = await updatePortfolio(formData,id, token, {
+      const res = await updatePortfolio(formData,id, token, {
       });
+      toast.promise(res, {
+        loading: "editing portfolio...",
+        success: "edited portfolio successfully!",
+        error: (error) => error.message,
+      });
+      const response=await res
       console.log("Successfully Update portfolio", response);
 
       navigate("/portfolio/submitted");
@@ -271,8 +278,14 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
       try {
         setsubmitloading(true);
         const token = localStorage.getItem("token");
-        const response = await postPortfolio(formData, token, {
+        const res =  postPortfolio(formData, token, {
         });
+        toast.promise(res, {
+          loading: "adding portfolio...",
+          success: "added portfolio successfully!",
+          error: (error) => error.message,
+        });
+        const response=await res
         console.log("Successfully added portfolio", response);
   
         navigate("/portfolio/submitted");
