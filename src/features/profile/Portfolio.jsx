@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import  { useEffect, useState } from "react";
 import RepeatParagrah from "../../ui/RepeatPara";
 import { HiXCircle } from "react-icons/hi";
 import { MdPending } from "react-icons/md";
@@ -66,7 +67,7 @@ export default function Portfolio({ user }) {
     if (Number.isInteger(portfolio.gpa)) {
       gpa += portfolio.gpa;
     } else {
-      gpaOption += portfolio.gpa;
+      gpa += portfolio.gpa;
     }
     const form1Data = {
       levelOfStudy: portfolio.levelOfStudy,
@@ -76,7 +77,7 @@ export default function Portfolio({ user }) {
       fieldOfStudy: portfolio.fieldOfStudyId._id,
       courseType: portfolio.courseTypeId._id,
       gender: portfolio.gender,
-      dateOfBirth: portfolio.dateOfBirth,
+      dateOfBirth: portfolio.dateOfBirthDate,
       militaryStatusImageUrl: portfolio.militaryStatusImage,
       graduationImageUrl: portfolio.graduationImage,
       IDImageUrl: portfolio.IDImage,
@@ -99,16 +100,20 @@ export default function Portfolio({ user }) {
     } else {
       studyType = "Part-Time";
     }
+    const courses=portfolio.languageId.course.join(", ");
     const form2Data = {
       begining: begining,
       funding: funding,
       language: portfolio.languageId._id,
       modeOfStudy: portfolio.modeOfStudyId._id,
       studyType: studyType,
+      courses:courses
     };
 
     localStorage.setItem("form1Data", JSON.stringify(form1Data));
     localStorage.setItem("form2Data", JSON.stringify(form2Data));
+     localStorage.setItem("editMode", "true");
+  localStorage.setItem("id", portfolio._id);
 
     navigate(`/portfolio/form1?editMode=true&id=${portfolio._id}`);
   };
@@ -196,7 +201,7 @@ export default function Portfolio({ user }) {
               Create your portfolio, and enjoy a wide range of benefits with
               ease!
             </h2>
-            <PrimaryButton onClick={() => navigate("/portfolio/form1")}>
+            <PrimaryButton onClick={() => navigate("/portfolio/")}>
               Add Portfolio
             </PrimaryButton>
           </div>
