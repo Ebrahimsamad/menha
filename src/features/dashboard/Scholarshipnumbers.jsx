@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaUniversity, FaUserGraduate, FaHandHoldingUsd, FaBriefcase } from 'react-icons/fa';
 import RepeatParagraph from "../../ui/RepeatParagrah";
 import { impact } from '../../services/ImpactMen7a';
 
@@ -53,26 +54,32 @@ export default function ScholarshipNumbers() {
       ) : (
         <>
           <RepeatParagraph>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl">Men7a's impact on society</h2>
+            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl mb-10">Men7a's impact on society</h2>
           </RepeatParagraph>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10">
             <div className="flex flex-col items-center text-center">
-              <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalUniversities}</h3>
+              <FaUniversity className="text-4xl sm:text-5xl text-red-600 mb-2" />
+              <h3 className="text-3xl sm:text-4xl text-red-600 font-bold mb-3">{totalUniversities}</h3>
+              <p className="mt-2 sm:mt-4 text-[#002b4c] max-w-xs font-bold text-2xl">Partner Universities</p>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
                 Menha currently has partnerships with numerous universities, expanding its reach within the academic community.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center">
-              <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalScholarships}</h3>
+            <FaBriefcase className="text-4xl sm:text-5xl text-red-600 mb-2" /> 
+              <h3 className="text-3xl sm:text-4xl text-red-600 font-bold mb-3">{totalScholarships}</h3>
+              <p className="mt-2 sm:mt-4 text-[#002b4c] max-w-xs font-bold text-2xl">Available Scholarships</p>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
                 Menha provides a wide range of scholarships, creating opportunities and fostering connections across diverse fields and regions worldwide.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center">
-              <h3 className="text-4xl sm:text-6xl text-red-600 font-bold">{totalUsers}</h3>
+              <FaUserGraduate className="text-4xl sm:text-5xl text-red-600 mb-2" />
+              <h3 className="text-3xl sm:text-4xl text-red-600 font-bold mb-3">{totalUsers}</h3>
+              <p className="mt-2 sm:mt-4 text-[#002b4c] max-w-xs font-bold text-2xl">Active Users</p>
               <p className="mt-2 sm:mt-4 text-gray-600 max-w-xs">
                 Menha has a growing community of users, fostering connections and collaboration across various sectors and regions globally.
               </p>

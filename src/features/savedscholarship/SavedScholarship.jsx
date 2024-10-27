@@ -38,7 +38,7 @@ const SkeletonCard = () => (
 
 const SavedScholarships = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const scholarshipsPerPage = 3;
+  const scholarshipsPerPage = 9;
   const [isRemoved, setIsRemoved] = useState(false);
   const [scholarships, setScholarships] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -109,6 +109,7 @@ const SavedScholarships = () => {
         JSON.stringify(saved.savedScholarshipIds)
       );
       setSevedScholarship(saved.savedScholarshipIds);
+      setCurrentPage(1)
       setIsRemoved(true);
     } catch (error) {
       console.error(`Failed to remove scholarship ${id}:`, error.message);
@@ -121,7 +122,11 @@ const SavedScholarships = () => {
     }
     // }
   };
-
+  const handlePageChangeNumber = (page) => {
+    setCurrentPage(page);
+    params.set("page", page);
+    navigate(`/scholarships?${params.toString()}`);
+  };
   return (
     <div className="p-6 container mx-auto mb-5">
       <RepeatParagrah>
@@ -159,8 +164,12 @@ const SavedScholarships = () => {
             {scholarships.map((scholarship) => (
               <div
                 key={scholarship._id}
-                className="block rounded-lg bg-white shadow-lg"
+                className="relative block rounded-lg bg-white shadow-lg"
               >
+                {scholarship.percentage&&<span className="absolute top-0 left-0 m-3 p-3 text-white rounded-xl bg-[#003a65]">
+                  {scholarship.percentage}%
+                </span>}
+
                 <img
                   className="rounded-t-lg w-full h-48 object-cover"
                   src={
@@ -213,10 +222,7 @@ const SavedScholarships = () => {
                     <strong>Field of Study:</strong>{" "}
                     {scholarship.fieldOfStudyId.fieldOfStudy} <br />
                     <strong>Course Type:</strong>{" "}
-                    {scholarship.courseTypeId.courseType} <br />
-                    <strong>Duration:</strong> {scholarship.duration} <br />
-                    <strong>Mode of Study:</strong>{" "}
-                    {scholarship.modeOfStudyId.modeOfStudy} <br />
+                    {scholarship.courseTypeId.courseType} <br/>
                     <strong>Country:</strong> {scholarship.country} <br />
                     <strong>University:</strong> {scholarship.universityId.name}{" "}
                     <br />
@@ -244,32 +250,25 @@ const SavedScholarships = () => {
               totalPages === 1 ? "hidden" : ""
             }`}
           >
-            <div className={`${currentPage === 1 ? "hidden" : ""}`}>
-              <SecondaryButton onClick={handlePrevPage}>
-                Previous
-              </SecondaryButton>
-            </div>
-            <button
-              className={`bg-gray-500 ${
-                currentPage === 1 ? "" : "hidden"
-              } text-white font-bold py-2 px-4 rounded-full transition duration-300 `}
-            >
-              Previous
-            </button>
+           <div>
+                <SecondaryButton onClick={() => {if(currentPage !== 1){handlePageChange("prev")}}} color={`${currentPage === 1 ?"text-white bg-[#6b7280] hover:bg-gray-500":""}`}>
+                  Previous
+                </SecondaryButton>
+              </div>
+              
 
-            <span className="mx-2">
-              Page {currentPage} of {totalPages}
-            </span>
-            <div className={` ${currentPage === totalPages ? "hidden" : ""}`}>
-              <PrimaryButton onClick={handleNextPage}>Next</PrimaryButton>
-            </div>
-            <button
-              className={`bg-gray-500 ${
-                currentPage === totalPages ? "" : "hidden"
-              } text-white font-bold py-2 px-4 rounded-full transition duration-300 `}
-            >
-              Next
-            </button>
+              <div className="hidden md:flex justify-center  space-x-4 ">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button key={page} className={`px-4 py-2 ${currentPage === page ? "bg-[#003a65] text-white" : "bg-gray-300"} rounded-md`} onClick={() => handlePageChangeNumber(page)}>
+                {page}
+              </button>
+            ))}
+          </div>
+              <div>
+                <PrimaryButton onClick={() => {if(currentPage !== totalPages) {handlePageChange("next")}}} color={`${currentPage === totalPages ?"bg-gray-500 hover:bg-gray-500":""}`}>
+                  Next
+                </PrimaryButton>
+              </div>
           </div>
         </>
       )}

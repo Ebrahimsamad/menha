@@ -57,7 +57,8 @@ export default function Portfolio({ user }) {
     } catch (error) {
       console.log(error);
     } finally {
-      setDeleteLoading(true);
+      setPortfolio(null)
+      setDeleteLoading(false);
     }
   };
   const handleEditPortfolio = (portfolio) => {
@@ -150,18 +151,18 @@ export default function Portfolio({ user }) {
   if (loading) {
     return (
       <>
-        <div className="border rounded-lg shadow-lg bg-gradient-to-r from-white to-[#e9e9e9] p-6">
-          <div className="flex justify-between items-center border-b-2 border-[#003a65] pb-3 mb-5">
+        <div className="border rounded-lg shadow-lg bg-white p-6">
+          <div className="flex justify-between items-center border-b-2 border-gray-300 pb-3 mb-5">
             <div className="flex items-center">
-              <div className="h-8 w-36 bg-[#003a65] animate-pulse rounded-md"></div>
-              <div className="h-6 w-20 bg-[#8A690F] animate-pulse rounded-md ml-3"></div>
+              <div className="h-8 w-36 bg-gray-300 animate-pulse rounded-md"></div>
+              <div className="h-6 w-20 bg-gray-300 animate-pulse rounded-md ml-3"></div>
             </div>
             <div className="flex">
               <div className="h-10 w-10 bg-gray-300 animate-pulse rounded-full"></div>
               <div className="h-10 w-10 bg-gray-300 animate-pulse rounded-full ml-2"></div>
             </div>
           </div>
-          <div className="h-8 w-48 bg-[#8A690F] animate-pulse rounded-md mb-2"></div>
+          <div className="h-8 w-48 bg-gray-300 animate-pulse rounded-md mb-2"></div>
           <div className="grid grid-cols-2 gap-4">
             {Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className="text-gray-500">
@@ -169,7 +170,7 @@ export default function Portfolio({ user }) {
               </div>
             ))}
           </div>
-          <div className="h-8 w-48 bg-[#8A690F] animate-pulse rounded-md my-2"></div>
+          <div className="h-8 w-48 bg-gray-300 animate-pulse rounded-md my-2"></div>
           <div className="grid grid-cols-2 gap-4">
             {Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="text-gray-500">
@@ -211,7 +212,7 @@ export default function Portfolio({ user }) {
 
   return (
     <>
-      <div className="border rounded-lg shadow-lg bg-gradient-to-r from-white to-[#e9e9e9] p-6">
+      <div className="border rounded-lg shadow-lg bg-white p-6">
         {/* Header */}
         <div className="flex justify-between items-center border-b-2 border-[#003a65] pb-3 mb-5">
           <div className="flex items-center">
@@ -222,7 +223,7 @@ export default function Portfolio({ user }) {
             {portfolio.isAccept && (
               <div className="text-green-400 text-xl flex items-center">
                 <FaCheckCircle />
-                <p className="text-gray-400 text-lg ms-3">
+                <p className="text-gray-400 text-lg hidden lg:block ms-3">
                   {" "}
                   - Your Portfolio Accepted
                 </p>
@@ -231,7 +232,7 @@ export default function Portfolio({ user }) {
             {portfolio.isReject && (
               <div className="text-red-500 text-xl flex items-center">
                 <HiXCircle />
-                <p className="text-gray-400 text-lg ms-3">
+                <p className="text-gray-400 text-lg ms-3 hidden lg:block ">
                   {" "}
                   - Your Portfolio Rejected Check Your Email
                 </p>
@@ -240,7 +241,7 @@ export default function Portfolio({ user }) {
             {!portfolio.isAccept && !portfolio.isReject && (
               <div className="text-yellow-400 text-xl flex items-center">
                 <MdPending />
-                <p className="text-gray-400 text-lg ms-3">
+                <p className="text-gray-400 text-lg ms-3 hidden lg:block ">
                   {" "}
                   - Your Portfolio is Under Review
                 </p>

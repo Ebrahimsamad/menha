@@ -20,3 +20,18 @@ export const fetchScholarships = async (size = 3) => {
     throw error;
   }
 };
+export const fetchScholarshipsWithPercentage = async (size = 3) => {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`https://menha-backend.vercel.app/scholarship/percentage?size=3`,{
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  const data = await response.json();
+  return data;
+
+  
+}

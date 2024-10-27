@@ -81,7 +81,7 @@ const ProfilePasswordForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-8 bg-gradient-to-r from-white to-[#e9e9e9] rounded-lg shadow-lg">
+    <form onSubmit={handleSubmit(onSubmit)} className="p-8 bg-white  rounded-lg shadow-lg">
       <div className="flex justify-between items-center border-b-2 border-[#003a65] pb-3 mb-5">
           <h2 className="text-2xl font-bold text-[#003a65]">
             Change Password

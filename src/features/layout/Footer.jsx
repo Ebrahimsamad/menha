@@ -1,7 +1,28 @@
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const Footer = () => {
+  const { isAuthenticated } = useAuth();
+  const { user } =
+  useContext(UserContext);
+  let currentDate 
+  let userBuydate 
+  if(isAuthenticated){
+
+     currentDate = new Date();
+     userBuydate = new Date(user.expBuyPortfolio);
+  }
+  const shouldDisplayMatchingScholarship = () => {
+    if(isAuthenticated){
+    const hasExperience = userBuydate < currentDate
+   
+    return isAuthenticated && user.isBuyPortfolio && !hasExperience;
+    }else return false;
+  };
+
   // Function to scroll the page to the top
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -31,7 +52,7 @@ const Footer = () => {
               onClick={scrollToTop}
               className="hover:bg-[#b92a3b] hover:text-white px-3 py-2 rounded-md"
             >
-              Dashboard
+              Home
             </Link>
             <Link
               to="/scholarships"
@@ -45,8 +66,15 @@ const Footer = () => {
               onClick={scrollToTop}
               className="hover:bg-[#b92a3b] hover:text-white px-3 py-2 rounded-md"
             >
-              Browse Scholarships
+              Field Of Study
             </Link>
+            {shouldDisplayMatchingScholarship()&&<Link
+              to="/matching-percentage"
+              onClick={scrollToTop}
+              className="hover:bg-[#b92a3b] hover:text-white px-3 py-2 rounded-md"
+            >
+              Matching Scholarship
+            </Link>}
             <Link
               to="/about"
               onClick={scrollToTop}

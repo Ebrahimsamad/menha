@@ -22,15 +22,15 @@ import NoAuthenticatedRoute from "./ui/NoAuthenticatedRoute";
 import PricingPage from "./pages/PricingPage";
 import SuccessPage from "./pages/SuccessPage";
 import PortfolioPage from "./pages/PortfolioPage";
-
+import MatchingPercentage from "./pages/MatchingPercentage";
 
 function App() {
   return (
     <AuthProvider>
       <Toaster
         position="top-right"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
+        gutter={15}
+        containerStyle={{ margin: "80px" }}
         toastOptions={{
           success: {
             duration: 3000,
@@ -137,6 +137,14 @@ function App() {
               element={
                 <NoAuthenticatedRoute>
                   <SuccessPage />{" "}
+                </NoAuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/matching-percentage"
+              element={
+                <NoAuthenticatedRoute>
+                  <MatchingPercentage />{" "}
                 </NoAuthenticatedRoute>
               }
             />
