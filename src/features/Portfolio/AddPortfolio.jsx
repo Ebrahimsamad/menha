@@ -300,6 +300,8 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
         setForm2Data({});
         localStorage.setItem("isForm1Submitted", JSON.stringify(false));
         localStorage.setItem("isForm2Submitted", JSON.stringify(false));
+        localStorage.removeItem("editMode");
+        setEditMode(false)
       } catch (error) {
         console.error("Error submitting the final data:", error);
       }
@@ -446,8 +448,8 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
             location.pathname !== "/portfolio/submitted" &&
             location.pathname !== "/portfolio/" && (
               <RepeatPara>
-                <h3 className="text-center sm:text-5xl md:text-7xl">
-                  New Portfolio
+                <h3 className="text-center text-5xl md:text-7xl">
+                 {editMode?"Edit":"New"} Portfolio
                 </h3>
               </RepeatPara>
             )}
@@ -487,6 +489,7 @@ if (combinedData.militaryStatusImage && combinedData.militaryStatusImage.name !=
                   onSubmitSuccess={handleForm2Submit}
                   modeOfStudy={modeOfStudy}
                   courseLanguage={courseLanguage}
+                  isForm1Submitted={isForm1Submitted}
                 />
               }
             />

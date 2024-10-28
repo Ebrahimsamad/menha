@@ -165,26 +165,7 @@ const Login = () => {
               </button>
             </form>
 
-            <div className="mt-4 text-center">
-              <Link
-                to="/forget-password"
-                className="text-[#003a65] hover:underline transition-colors"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-
-            <div className="mt-4 text-center">
-              <p className="text-[#003a65]">
-                Don&apos;t have an account?
-                <Link
-                  to="/signup"
-                  className="text-red-600 hover:underline ml-2"
-                >
-                  Sign up
-                </Link>
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>

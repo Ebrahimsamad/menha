@@ -223,17 +223,13 @@ export default function Form1({
       ...(selectedImage3 && { graduationImage: selectedImage3 }),
     };
     
-    console.log("photo1",selectedImage1)
-    console.log(selectedImage2)
-    console.log(selectedImage3)
+    
 
 
     onSubmitSuccess(dataToSubmit);
 
     try {
-      console.log("Form Data:", data);
-
-      // toast.success("Form1 submitted successfully!");
+     
 
       navigate("/portfolio/form2", { state: { editMode }});
     } catch (error) {
@@ -997,7 +993,7 @@ export default function Form1({
                 : "bg-blue-600 hover:bg-blue-700"
             } disabled:bg-gray-400 focus:outline-none`}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? "Submitting..." : "Next"}
           </button>
           )}
         </form>
