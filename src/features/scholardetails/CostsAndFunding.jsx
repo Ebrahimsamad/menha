@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 
-import { Toaster } from "react-hot-toast";
 
 
 
@@ -15,7 +13,6 @@ export default function CostsAndFunding({ scholarship }) {
 
   return (
     <div className="container mx-auto py-6 ">
-      <Toaster />
       <style>
         {`
           .table-row:nth-child(odd) {
