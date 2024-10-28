@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
 import LoginImageSplit from "./LoginImageSplit";
+import ForgetImageSplit from "./ForgetImageSplit";
 
 const ForgotPassword = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -50,7 +51,7 @@ const ForgotPassword = () => {
     <div className="min-h-screen   bg-cover from-[#003a65] to-[#b92a3b] flex items-center justify-center">
     <div className="flex flex-col md:flex-row w-full max-w-5xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
         <div className="w-full lg:w-1/2 bg-[#003a65] ">
-          <LoginImageSplit />
+          <ForgetImageSplit />
         </div>
 
         <div className="w-full lg:w-1/2 p-6">
@@ -98,14 +99,7 @@ const ForgotPassword = () => {
           </button>
         </form>
 
-        <div className="mt-4 text-center">
-          <Link
-            to="/login"
-            className="text-[#b92a3b] hover:underline transition-colors"
-          >
-            Back to Login
-          </Link>
-        </div>
+       
       </div>
       </div>
       </div>

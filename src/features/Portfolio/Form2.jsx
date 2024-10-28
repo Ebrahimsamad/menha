@@ -5,13 +5,17 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-export default function Form2({ onSubmitSuccess,modeOfStudy,courseLanguage }) {
+export default function Form2({ onSubmitSuccess,modeOfStudy,courseLanguage,isForm1Submitted }) {
   const [loading, setLoading] = useState(false);
   const [, setSelectedLanguageData] = useState(null);
   const navigate = useNavigate();
   const editMode = localStorage.getItem("editMode");
   const idParam = localStorage.getItem("id");
-
+  useEffect(()=>{
+    if(!isForm1Submitted){
+      navigate("/portfolio/form1")
+    }
+  })
   console.log('editMode in form2:', editMode);
   console.log('id: in form2', idParam);
 
@@ -238,6 +242,8 @@ export default function Form2({ onSubmitSuccess,modeOfStudy,courseLanguage }) {
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
           >
+             <option value="">Select Beginning</option>
+
             <option value="Winter">Winter</option>
             <option value="Summer">Summer</option>
           </select>
@@ -260,6 +266,8 @@ export default function Form2({ onSubmitSuccess,modeOfStudy,courseLanguage }) {
             {...register("funding", { required: "Funding status is required" })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
           >
+            <option value="">Select Funding</option>
+
             <option value="Free">Free</option>
             <option value="Not-Free">Not-Free</option>
           </select>
@@ -284,6 +292,8 @@ export default function Form2({ onSubmitSuccess,modeOfStudy,courseLanguage }) {
             })}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-[#003a65] focus:ring-[#003a65] focus:border-[#003a65]"
           >
+            <option value="">Select study type</option>
+
             <option value="Full-Time">Full-Time</option>
             <option value="Part-Time">Part-Time</option>
           </select>

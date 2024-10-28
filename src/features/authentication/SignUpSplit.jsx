@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { VscDash } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 export default function SecondWelcome() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,9 +30,9 @@ export default function SecondWelcome() {
 
   return (
     <div className="flex justify-center items-center  shadow-lg h-full  bg-[#003a65] ">
-      <div className="flex flex-col justify-center items-start bg-[#003a65] text-white  w-full p-8">
+      <div className="flex flex-col justify-center items-center bg-[#003a65] text-white  w-full p-8">
         <img src="/logo.png" alt="Men7a Logo" className="w-28 h-12 mb-8" />
-        <div className="text-start space-y-4">
+        <div className="text-center space-y-4">
           <h2 className="text-2xl font-bold tracking-tight leading-snug">
             {
               slides[currentSlide].title.split(
@@ -43,7 +44,7 @@ export default function SecondWelcome() {
               {slides[currentSlide].highlight}
             </span>
           </h2>
-          <p className="text-sm font-light w-52">
+          <p className="text-sm font-light  text-center">
             {slides[currentSlide].description}
           </p>
         </div>
@@ -54,6 +55,14 @@ export default function SecondWelcome() {
           <span onClick={handleNextSlide} className="hover:text-[#e6a23c]">
             <VscDash />
           </span>
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-white ">
+            Already have an account?
+            <Link to="/login" className="text-[#e6a23c] ml-2 underline">
+              Login
+            </Link>
+          </p>
         </div>
       </div>
     </div>

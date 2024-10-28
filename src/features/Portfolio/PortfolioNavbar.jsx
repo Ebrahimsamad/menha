@@ -19,7 +19,7 @@ export default function PortfolioNavbar({
       <nav className="bg-white shadow-lg relative">
         
         <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center justify-between">
-          <div className="hidden lg:flex items-center w-full justify-between">
+          <div className="flex items-center w-full justify-between">
            
 
             <div className="flex-grow flex justify-around bg-gray-100 p-4 rounded-lg shadow-md">
@@ -44,7 +44,7 @@ export default function PortfolioNavbar({
                     <FaCheck className="text-[#003a65]" /> 
                   )}
                 </div>
-                <span>Personal Information</span>
+                <span>Personal data</span>
               </Link>
            </div>
            <div>
@@ -68,7 +68,7 @@ export default function PortfolioNavbar({
                     <FaCheck className="text-[#003a65]" /> 
                   )}
                 </div>
-                <span>Scholarship Informations</span>
+                <span>Scholarship data</span>
               </Link>
            </div>
 
@@ -76,7 +76,7 @@ export default function PortfolioNavbar({
             </div>
           </div>
 
-          <div className="lg:hidden flex items-center">
+          <div className="hidden  items-center">
             <button
               onClick={toggleMenu}
               className="text-[#003a65] focus:outline-none"

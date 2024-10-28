@@ -296,14 +296,7 @@ const Signup = () => {
           </button>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-[#003a65] ">
-            Already have an account?
-            <Link to="/login" className="text-red-600 ml-2 underline">
-              Login
-            </Link>
-          </p>
-        </div>
+        
       </div>
       </div>
 

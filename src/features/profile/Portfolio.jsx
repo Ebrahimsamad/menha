@@ -200,7 +200,18 @@ export default function Portfolio({ user }) {
               Create your portfolio, and enjoy a wide range of benefits with
               ease!
             </h2>
-            <PrimaryButton onClick={() => navigate("/portfolio/form1")}>
+            <PrimaryButton onClick={() => {navigate("/portfolio/form1")
+             localStorage.setItem("isForm1Submitted", JSON.stringify(false));
+        localStorage.setItem("isForm2Submitted", JSON.stringify(false));
+        localStorage.removeItem("form1Data");
+        localStorage.removeItem("form2Data");
+        localStorage.removeItem("graduationImage");
+        localStorage.removeItem("IDImage");
+        localStorage.removeItem("militaryStatusImage");
+        localStorage.removeItem("editMode");
+
+        
+            }}>
               Add Portfolio
             </PrimaryButton>
           </div>
