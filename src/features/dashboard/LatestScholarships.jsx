@@ -40,7 +40,7 @@ export default function LatestScholarships() {
           </RepeatParagraph>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:h-[80vh]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:h-[125vh]">
           {loading ? (
             <>
               <div className="md:col-span-2">
@@ -76,7 +76,7 @@ export default function LatestScholarships() {
                       <img
                         src={scholarships[0]?.universityId?.image}
                         alt={scholarships[0]?.title}
-                        className="w-full h-[30vh] md:h-[63vh] rounded-lg hover:scale-105 transition-transform duration-500"
+                        className="w-full h-[30vh] md:h-[96vh] rounded-lg hover:scale-105 transition-transform duration-500"
                       />
                       <h3
                         className="font-bold mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
@@ -84,9 +84,7 @@ export default function LatestScholarships() {
                       >
                         {scholarships[0]?.title}
                       </h3>
-                      <p className="mt-4" >
-                        {scholarships[0]?.description}
-                      </p>
+                      <p className="mt-4">{scholarships[0]?.description}</p>
                     </Link>
                   </>
                 ) : (
@@ -109,9 +107,7 @@ export default function LatestScholarships() {
                       >
                         {scholarship?.title}
                       </h3>
-                      <p className="mt-2" >
-                        {scholarship?.description}
-                      </p>
+                      <p className="mt-2">{scholarship?.description}</p>
                     </Link>
                   </div>
                 ))}
