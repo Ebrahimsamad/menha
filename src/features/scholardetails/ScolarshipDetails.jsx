@@ -6,7 +6,10 @@ import CostsFunding from "./CostsAndFunding";
 import AboutUniversity from "./AboutUnversity";
 import Navbar from "./ScolarshipsNavbar";
 import RepeatParagraph from "../../ui/RepeatParagrah";
-import { fetchScholarshipDetails, fetchScholarshipDetailsWithPercentage } from "../../services/ScolarshipDetails";
+import {
+  fetchScholarshipDetails,
+  fetchScholarshipDetailsWithPercentage,
+} from "../../services/ScolarshipDetails";
 import toast from "react-hot-toast";
 import BlueButton from "../../ui/BlueButton";
 import { toggle } from "../../services/SavedScholarship";
@@ -30,7 +33,9 @@ export default function ScolarshipDetails() {
     const getScholarshipDetails = async () => {
       setLoading(true);
       try {
-        const data = isAuthenticated? await fetchScholarshipDetailsWithPercentage(scholarshipId): await fetchScholarshipDetails(scholarshipId);
+        const data = isAuthenticated
+          ? await fetchScholarshipDetailsWithPercentage(scholarshipId)
+          : await fetchScholarshipDetails(scholarshipId);
         setScholarship(data.scholarship);
       } catch (error) {
         toast.error(`Error loading scholarship details: ${error.message}`);
@@ -182,14 +187,18 @@ export default function ScolarshipDetails() {
             </div>
           </div>
           <div className="p-4 bg-white shadow-md mb-5 ">
-          {scholarship.percentage&&<div className="text-[#003a65] font-semibold text-lg  text-center mb-2 me-2 md:me-0">
-            <span className="hidden md:inline-block me-1">
-            Matching - 
-            </span>
-            {scholarship.percentage}%
-            </div>}
-            
-            <BlueButton onClick={() => handleSaveScholarship(scholarship._id)}>
+            {scholarship.percentage && (
+              <div className="text-[#003a65] font-semibold text-lg  text-center mb-2 me-2 md:me-0">
+                <span className="hidden md:inline-block me-1">Matching -</span>
+                {scholarship.percentage}%
+              </div>
+            )}
+
+            <BlueButton
+              onClick={() => {
+                if (!saveLoadingId) handleSaveScholarship(scholarship._id);
+              }}
+            >
               <div className="flex items-center">
                 {saveLoadingId === scholarship._id ? (
                   <Spinner color="#a32233" />
@@ -233,37 +242,37 @@ export default function ScolarshipDetails() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Navbar scholarshipId={scholarshipId} />
-          <div className="mt-0">
-            <Routes>
-              <Route
-                path=""
-                element={
-                  <Navigate
-                    to={`/scolarshipdetails/${scholarshipId}/overview`}
-                    replace
-                  />
-                }
-              />
-              <Route
-                path="overview"
-                element={<Overview scholarship={scholarship} />}
-              />
-              <Route
-                path="course-details"
-                element={<CourseDetails scholarship={scholarship} />}
-              />
-              <Route
-                path="costs-funding"
-                element={<CostsFunding scholarship={scholarship} />}
-              />
-              <Route
-                path="about-university"
-                element={<AboutUniversity scholarship={scholarship} />}
-              />
-            </Routes>
+            <div className="mt-0">
+              <Routes>
+                <Route
+                  path=""
+                  element={
+                    <Navigate
+                      to={`/scolarshipdetails/${scholarshipId}/overview`}
+                      replace
+                    />
+                  }
+                />
+                <Route
+                  path="overview"
+                  element={<Overview scholarship={scholarship} />}
+                />
+                <Route
+                  path="course-details"
+                  element={<CourseDetails scholarship={scholarship} />}
+                />
+                <Route
+                  path="costs-funding"
+                  element={<CostsFunding scholarship={scholarship} />}
+                />
+                <Route
+                  path="about-university"
+                  element={<AboutUniversity scholarship={scholarship} />}
+                />
+              </Routes>
+            </div>
           </div>
-          </div>
-          <ContactScholarship scholarship={scholarship}/>
+          <ContactScholarship scholarship={scholarship} />
         </div>
       </div>
     </div>
